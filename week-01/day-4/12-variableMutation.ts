@@ -1,23 +1,5 @@
 'use strict';
 
-// Define basic info
-
-// Define several things as a variable, then print their values
-// Your name as a string
-// Your age as a number
-// Your height in meters as a number
-// Whether you are married or not as a boolean
-
-let myName: String = 'Daniel';
-let myAge: number = 33;
-let myHeight: number = 1.8;
-let amIMarried: boolean = false;
-
-console.log(myName);
-console.log(myAge);
-console.log(myHeight);
-console.log(amIMarried);
-
 // Variable mutation
 
 let a: number = 3;
@@ -97,16 +79,3 @@ if(j % 3 == 0 || j % 5 == 0){
     let check5: boolean = false;
     console.log(check5);
 };
-
-// Cuboid
-
-// Write a program that stores 3 sides of a cuboid as variables (floats)
-// The program should write the surface area and volume of the cuboid like:
-//
-// Surface Area: 600
-// Volume: 1000
-
-let sideLength: number = 10;
-
-console.log('Surface Area: ' + 6 * sideLength ** 2);
-console.log('Volume: ' + sideLength ** 3);
