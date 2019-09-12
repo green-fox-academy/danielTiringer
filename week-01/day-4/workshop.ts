@@ -83,18 +83,3 @@ let heightInM: number = 1.78;
 let BMI: number = (massInKg / heightInM**2);
 
 console.log(BMI);
-
-
-// Define basic info
-
-// Define several things as a variable, then print their values
-// Your name as a string
-// Your age as a number
-// Your height in meters as a number
-// Whether you are married or not as a boolean
-
-let myName: String = 'Daniel';
-let myAge: number = '33';
-let myHeight: number = 1.8;
-let amIMarried: boolean = false;
-
