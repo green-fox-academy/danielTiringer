@@ -50,3 +50,9 @@ const weeklyWorkHours: number = 52;
 
 console.log(dailyCodingTime*workDaysPerWeek/weeklyWorkHours*100)
 
+// Favorite number
+
+let favoriteNumber: number = 8;
+
+
+console.log(`My favorite number is: ${favoriteNumber}.`);
