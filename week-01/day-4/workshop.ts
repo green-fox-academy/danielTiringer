@@ -38,16 +38,15 @@ console.log(number1*number2);
 console.log(number1/number2);
 console.log(number1%number2);
 
+// Coding hours
 
+const dailyCodingTime: number = 6;
+const semesterLength = 17;
+const workDaysPerWeek = 5;
 
-// Create a program that prints a few operations on two numbers: 22 and 13
+console.log(dailyCodingTime*workDaysPerWeek*semesterLength);
 
-// Print the result of 13 added to 22
+const weeklyWorkHours: number = 52;
 
-// Print the result of 13 substracted from 22
+console.log(dailyCodingTime*workDaysPerWeek/weeklyWorkHours*100)
 
-// Print the result of 22 multiplied by 13
-
-// Print the result of 22 divided by 13 (as a decimal fraction)
-
-// Print the remainder of 22 divided by 13
