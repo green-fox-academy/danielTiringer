@@ -1,8 +1,10 @@
 'use strict';
 
 let lineCount: number = 4;
-let starString: string = '*';
+let star: string = '*';
+let space: string = ' ';
 let printString: string = '';
+let starString: string = '*';
 // Write a program that draws a
 // pyramid like this:
 //
@@ -15,9 +17,8 @@ let printString: string = '';
 for (let i = 1; i <= lineCount; i++){
     printString = '';
     for(let j = lineCount - i; j >= 1; j--){
-        printString += ' ';
+        printString += space;
     };
     console.log(printString+starString);
-    starString += '*';
-    starString += '*';
+    starString = starString + star + star;
 };
