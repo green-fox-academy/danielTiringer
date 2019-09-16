@@ -13,6 +13,7 @@
 
 let matrixSize = 4;
 let matrix:number[] = [];
+let fullSizeMatrix: number[][] = [];
 
 for (let i = 0; i < matrixSize; i++){
     for (let j = 0; j < matrixSize; j++){
@@ -22,6 +23,7 @@ for (let i = 0; i < matrixSize; i++){
             matrix.push(0);
         };
     };
-    console.log(matrix.join(' '));
+    fullSizeMatrix.push(matrix);
     matrix = [];
 };
+console.log(fullSizeMatrix.join('\n'));
