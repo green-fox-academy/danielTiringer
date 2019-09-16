@@ -3,13 +3,11 @@
 //  Returns the indices (indexes) of the numbers in the array of which the first number is a part of
 //  Or returns an empty list if the number is not part of any of the numbers in the array
 
-let array: number[] = [1, 11, 34, 52, 61];
-let str: string;
-
 let result: number[] = [];
 
 function subint(number, array) {
     result = [];
+    let str: string;
     let stringNumber: string = number.toString();
     for(let i = 0; i < array.length; i++){
         str = array[i].toString();
