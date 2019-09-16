@@ -6,6 +6,6 @@
 
 let numList:number[] = [1, 2, 3, 8, 5, 6];
 
-numList[2] = numList[2]+1;
+numList[2] += 1;
 
 console.log(numList[2]);
