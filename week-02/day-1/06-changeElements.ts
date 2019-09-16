@@ -6,8 +6,11 @@
 
 let numList:number[] = [1, 2, 3, 8, 5, 6];
 
-numList = numList.map(function(a) {
-    return a[3] = 4;
+let newList = numList.map(function replacement(a) {
+    if (a == 8){
+        a = 4;
+    };
+    return a;
 });
 
-console.log(numList[3]);
+console.log(newList[3]);
