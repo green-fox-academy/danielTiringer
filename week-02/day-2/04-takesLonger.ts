@@ -4,4 +4,8 @@
 
 let quote: string = `Hofstadter's Law: It you expect, even when you take into account Hofstadter's Law.`;
 
+let addition: string = "always takes longer than";
+
+quote = quote.slice(0,21) + ' ' + addition + ' ' + quote.slice(21);
+
 console.log(quote);
