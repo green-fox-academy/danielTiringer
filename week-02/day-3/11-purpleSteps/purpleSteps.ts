@@ -15,7 +15,8 @@ function purpleSquare (x, y) {
     ctx.strokeRect(x, x, y, y);
 }
 
+let size = 20;
 
-for(let i = 0; i < 20; i++){
-    purpleSquare(i*10 + 10, 10);
+for(let i = 0; i < 10; i++){
+    purpleSquare(i*size + size, size);
 }
