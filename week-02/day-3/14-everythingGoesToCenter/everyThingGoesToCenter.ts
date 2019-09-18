@@ -19,12 +19,12 @@ function line (x, y) {
 
 let size: number = 20;
 
-for(let i = 0; i <= canvas.width/size; (i++)){
-    for(let j = 0; j <= canvas.height/size; j++){
+for(let i = 0; i <= canvas.width; i+=20){
+    for(let j = 0; j <= canvas.height; j+=20){
         if(i == 0 || j == 0){
-            line(i*size,j*size);
-        } else if (i == canvas.width/size || j == canvas.height/size){
-            line(i*size,j*size);
+            line(i,j);
+        } else if (i == canvas.width || j == canvas.height){
+            line(i,j);
         }
     }
 }
