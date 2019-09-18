@@ -11,6 +11,9 @@ const ctx = canvas.getContext('2d');
 //  - The stars should have random positions on the canvas
 //  - The stars should have random color (some shade of grey)
 
+ctx.beginPath();
+ctx.fillRect(0,0,600,400);
+
 function star (x, y, color){
     ctx.beginPath();
     ctx.fillStyle = color;
