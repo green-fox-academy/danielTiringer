@@ -14,9 +14,9 @@ function purpleSquare (x, y) {
     ctx.fillRect(x-y, x-y, y, y);
     ctx.strokeRect(x-y, x-y, y, y);
 }
-
+let size = 20;
 let sum: number = 0;
-for(let i = 0; i < 11; i++){
-    sum += (i)*10;
-    purpleSquare(sum, i*10);
+for(let i = 0; i < 7; i++){
+    sum += i*size;
+    purpleSquare(sum, i*size);
 }
