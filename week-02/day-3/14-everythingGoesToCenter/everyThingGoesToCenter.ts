@@ -19,8 +19,8 @@ function line (x, y) {
 
 let size: number = 20;
 
-for(let i = 0; i <= canvas.width; i+=20){
-    for(let j = 0; j <= canvas.height; j+=20){
+for(let i = 0; i <= canvas.width; i+=size){
+    for(let j = 0; j <= canvas.height; j+=size){
         if(i == 0 || j == 0){
             line(i,j);
         } else if (i == canvas.width || j == canvas.height){
