@@ -31,9 +31,9 @@ function checkIngredients (array) {
 	let cooling: string;
 	for(let i: number = 0; i < ingredients.length; i++){
 		if(ingredients[i].needsCooling = true){
-			cooling = 'Yes'
+			cooling = 'Yes';
 		} else {
-			cooling = 'No'
+			cooling = 'No';
 		}
 		let object = {
 			'Ingredient': ingredients[i].name,
@@ -42,6 +42,5 @@ function checkIngredients (array) {
 		}
 		printArray.push(object);
 	}
-
 	console.table(printArray);
 }
