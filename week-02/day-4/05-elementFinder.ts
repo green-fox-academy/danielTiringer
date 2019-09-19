@@ -9,8 +9,9 @@ console.log(containsSeven(numbers));
 // Do this again with a different solution using different list functions!
 
 function containsSeven (array) {
-    let random = Math.floor(Math.random()*2);
+    let random = Math.floor(Math.random()*3);
     let result: string = "Noooooo"
+    console.log(random);
     if(random == 0){
         array.forEach(function check (element){
             if (element == 7){
@@ -22,6 +23,13 @@ function containsSeven (array) {
             result = "Hoorray"
         };
     };
+    if(random == 2){
+        if (array.some(function check (element) {
+            return element == 7;
+        }) > 0) {
+            result = "Hoorray";
+        };
+    }
     return result;
 };
 
