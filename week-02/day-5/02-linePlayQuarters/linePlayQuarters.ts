@@ -11,20 +11,17 @@ function line(x, y, a, b, color){
     ctx.stroke();
 }
 
-let quarters: number = 64;
+let start: number [] = []
+let lineNumber: number = 32;
+let multiplier: number = 8;
+let quarterHeight = canvas.height / multiplier;
+let quarterWidth = canvas.width / multiplier;
 
-for(let i = 0; i < canvas.height; i+=(canvas.height/quarters)){
-    line(i, 0, 0, canvas.height - i, "red")
-}
-
-for(let j = 0; j < canvas.height; j+=canvas.height/quarters){
-    line(canvas.height+200, j, canvas.height - j+200, canvas.height, "green")
-}
-
-for(let k = 0; k < canvas.height; k+=canvas.height/quarters){
-    line(200 + k, 0, canvas.height + 200, k, "blue")
-}
-
-for(let q = 0; q < canvas.height; q+=canvas.height/quarters){
-    line(0, q, q, canvas.height, "magenta")
+for(let j = 0; j < multiplier; j++){
+    for(let k = 0; k < multiplier; k++){
+        for(let i = 0; i < lineNumber; i++){
+            line(i*quarterWidth/lineNumber+j*quarterWidth, 0+k*quarterHeight, quarterWidth+j*quarterWidth, i*quarterHeight/lineNumber+k*quarterHeight, "blue")
+            line(0+j*quarterWidth, i*quarterHeight/lineNumber+k*quarterHeight, i*quarterWidth/lineNumber+j*quarterWidth, quarterHeight+k*quarterHeight, "magenta")
+        }
+    }
 }
