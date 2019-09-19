@@ -9,3 +9,7 @@ console.log(substrlist('ching', ['this', 'is', 'what', 'I\'m', 'searching', 'in'
 //  should print: `4`
 console.log(substrlist('not', ['this', 'is', 'what', 'I\'m', 'searching', 'in']));
 //  should print: `-1`
+
+function substrlist (string: string, array) {
+    console.log(array.findIndex(element => element.includes(string)));
+}
