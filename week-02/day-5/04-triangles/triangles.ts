@@ -12,7 +12,7 @@ function triangle(a, b){
     ctx.stroke();
 }
 
-let side: number = 15;
+let side: number = 25;
 let height: number = Math.sqrt((side**2-(side/2)**2)) // Math.sqrt(side^2-(side/2)^2)
 let startH: number = 50;
 let startV: number = 350;

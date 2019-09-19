@@ -8,13 +8,12 @@ const ctx = canvas.getContext('2d');
 // Draw four different size and color rectangles.
 // Avoid code duplication.
 
-function rectangles(x,y,w,h,color){
+function rectangles(x,y,color){
     ctx.beginPath();
     ctx.fillStyle= color;
-    ctx.fillRect(x,y,w,h);
+    ctx.fillRect(x,y,x,y);
 }
 
-rectangles(100, 100, 50, 180, "red");
-rectangles(95, 320, 80, 50, "#bbbbbb");
-rectangles(400, 250, 195, 35, "rgb(50, 80, 210)");
-rectangles(450, 50, 65, 190, "magenta");
+for(let i = 0; i < 4; i++) {
+    rectangles(Math.random() * canvas.width, Math.random() * canvas.height, `rgb(${Math.random()* 255}, ${Math.random()* 255}, ${Math.random()* 255}`);
+}
