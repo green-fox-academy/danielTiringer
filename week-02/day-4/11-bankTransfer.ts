@@ -43,6 +43,7 @@ let bankOperations = {
         for(let i = 0; i < array.length; i++){
             if (allAccounts.indexOf(target) == -1 || allAccounts.indexOf(origin) == -1){
                 console.log('404 - account not found');
+                break;
             } else {
                 if (array[i].accountNumber == origin){
                     array[i].balance = array[i].balance - amount;
@@ -64,5 +65,5 @@ let bankOperations = {
 };
 
 bankOperations.getNameAndBalance(11234543);
-bankOperations.transferAmount(accounts, 43546731, 23456311, 500.0);
+bankOperations.transferAmount(accounts, 43546731, 23453311, 500.0);
 bankOperations.readAccounts(accounts);
