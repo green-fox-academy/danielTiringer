@@ -1,6 +1,7 @@
 'use strict';
 
 const watchlist: string[] = [];
+let safeEntry: string[] = [];
 
 let securityAlcoholLoot: number = 0;
 
@@ -30,3 +31,25 @@ const queue: FestivalGoer[] = [
 // If alcohol is found confiscate it (set it to zero and add it to securityAlcholLoot) and let them enter the festival
 
 export = securityCheck;
+
+function securityCheck  (array) {
+    for (let i = 0; i < queue.length; i++){
+        if(array[i].guns > 0){
+            watchlist.push(array[i].name);
+            array[i].guns = 0;
+        } else if (array[i].guns == 0){
+            safeEntry.push(array[i].name);
+        };
+        if(array[i].alcohol > 0){
+            securityAlcoholLoot += array[i].alcohol;
+            array[i].alcohol = 0;
+        };
+    };
+    console.log(`The following can enter the festival: ${safeEntry.join(', ')}`)
+    console.log(`The following has been added to the watchlist: ${watchlist.join(', ')}`)
+    console.log(`Security collected ${securityAlcoholLoot} bottles of alcohol.`)
+}
+
+securityCheck(queue);
+
+
