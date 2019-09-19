@@ -35,21 +35,3 @@ let check = {
 
 check.allCandies(students);
 check.lessThan(students, 5);
-
-// howMany(array1, name1, array2, name2){
-//     let counter1: number = 0;
-//     let counter2: number = 0;
-//     for(let i = 0; i < Object.keys(array1).length; i++){
-//         counter1 += array1[Object.keys(array1)[i]];
-//     };
-//     for(let j = 0; j < Object.keys(array2).length; j++){
-//         counter2 += array2[Object.keys(array2)[j]];
-//     };
-//     if(counter1 > counter2){
-//         console.log(`${name1} buys more pieces.`);
-//     } else if (counter2 > counter1){
-//         console.log(`${name2} buys more pieces.`);
-//     } else if (counter1 == counter2){
-//         console.log(`${name1} and ${name2} are buying the same amount of pieces.`);
-//     }
-// },
