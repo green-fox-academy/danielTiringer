@@ -11,3 +11,10 @@ console.log(quoteSwap(words));
 // Expected output: "What I cannot create I do not understand."
 
 export = quoteSwap;
+
+function quoteSwap (array) {
+    let b: string = array[array.indexOf('cannot')];
+    array[array.indexOf('cannot')] = array[array.indexOf('do')];
+    array[array.indexOf('do')] = b;
+    return array.join(' ')
+}
