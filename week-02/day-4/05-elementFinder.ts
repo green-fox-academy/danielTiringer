@@ -8,4 +8,21 @@ console.log(containsSeven(numbers));
 // The output should be: "Noooooo"
 // Do this again with a different solution using different list functions!
 
+function containsSeven (array) {
+    let random = Math.floor(Math.random()*2);
+    let result: string = "Noooooo"
+    if(random == 0){
+        array.forEach(function check (element){
+            if (element == 7){
+                result = "Hoorray"
+            };
+        });
+    } else if (random == 1){
+        if (array.indexOf(7) != -1) {
+            result = "Hoorray"
+        };
+    };
+    return result;
+};
+
 export = containsSeven;
