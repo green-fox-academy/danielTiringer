@@ -19,7 +19,7 @@ function star (x, y, color){
     ctx.fillStyle = color;
     ctx.fillRect(x, y, 5, 5);
 };
-
+let color: number = Math.floor(Math.random()*255)
 for(let i = 0; i < 350; i++){
-    star(Math.random()*600, Math.random()*400, `rgb(${Math.random()* 255}, ${Math.random()* 255}, ${Math.random()* 255}`);
+    star(Math.random()*600, Math.random()*400, `rgb(${color}, ${color}, ${color})`);
 }
