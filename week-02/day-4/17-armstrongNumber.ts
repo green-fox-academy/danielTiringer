@@ -14,7 +14,7 @@ function armstrongCheck (input){
     let temp: string;
     for (let i = 0; i < input.length; i++){
         temp = input.charAt(i);
-        powered += Number(temp)**4;
+        powered += Number(temp)**input.length;
     }
     if(powered == input){
         console.log(`The entered number, ${input} is an Armstrong number!`);
