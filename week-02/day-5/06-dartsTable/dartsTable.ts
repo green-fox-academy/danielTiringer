@@ -37,13 +37,12 @@ function ring(start, outerRadius, innerRadius, fill){
     ctx.arc(canvas.width/2,canvas.height/2,innerRadius, end, start, true);
     ctx.closePath();
     ctx.fillStyle=fill;
-//    ctx.strokeStyle='black';
-//    ctx.lineWidth=1;
     ctx.fill();
-    ctx.stroke();
 };
 
 ring(0, 250, 200, 'black')
 ring(0, 20, 10, 'green');
+ring(0, 20, 19, 'black');
 ring(0, 10, 0, 'red');
+ring(0, 10, 9, 'black');
 
