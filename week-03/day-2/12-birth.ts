@@ -21,26 +21,30 @@ function mostBirthdates (filePath) {
         }
         
     }
-//     for(let i: number = 0; i < separatedArray.length; i++){
-//         if((i-1) % 3 == 0){
-//             console.log(separatedArray[i]);
-//             separatedArray.sort();
-//                 var max=0,result,freq = 0;
-//                 for(var i=0; i < arr.length; i++){
-//                     if(arr[i]===arr[i+1]){
-//                         freq++;
-//                     } else {
-//                         freq=0;
-//                     }
-//                     if(freq>max){
-//                         result = arr[i];
-//                         max = freq;
-//                     }
-//                 }
-//                 return result;
-//         }
-//     }
-// }
+    // Trimming down the original array to just the years
+    let yearArray: string[] = [];
+    for(let i: number = 0; i < separatedArray.length; i++){
+        if((i-1) % 3 == 0){
+            yearArray.push(separatedArray[i].slice(0,4));
+        }
+    }
+    // Finding the most often occuring year
+    let max: number = 0;
+    let result: string;
+    let freq: number = 0;
+    for(let i = 0; i < yearArray.length; i++){
+        if(yearArray[i] == yearArray[i+1]){
+            freq++;
+        } else {
+            freq = 0;
+        }
+        if(freq > max){
+            result = yearArray[i];
+            max = freq;
+        }
+    }
+    console.log(result);
+}
 
 
 mostBirthdates('12-births.csv');
