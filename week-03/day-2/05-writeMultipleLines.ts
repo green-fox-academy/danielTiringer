@@ -6,3 +6,14 @@
 // If the word is 'apple' and the number is 5, it should write 5 lines
 // into the file and each line should read 'apple'
 // The function should not raise any errors if it could not write the file.
+
+const fs = require('fs');
+
+function writeMultiples (path: string, quoteToWrite: string, times: number): any {
+    fs.writeFileSync(path, quoteToWrite);
+    for(let i: number = 0; i < times-1; i++){
+        fs.appendFileSync(path, '\n' + quoteToWrite);
+    }
+}
+
+writeMultiples('05-multi-write.txt', 'I love node.js!', 13);
