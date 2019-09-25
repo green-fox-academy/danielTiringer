@@ -11,6 +11,7 @@ function decryptFile (filePath: string): void {
         for (let j: number = 0; j < temporary.length; j++){
             fileWords.push(temporary[j]);
         }
+        fileWords.push('\n');
         temporary = [];
     }
     let decodedMessage: string[] = [];
