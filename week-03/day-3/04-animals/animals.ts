@@ -27,9 +27,13 @@ export class Animal {
         this._hunger += 1;
         this._thirst += 1;
     }
+    public get hunger (){
+        return this._hunger;
+    }
 }
 
-// let Fluffy = new Animal ();
+let Fluffy = new Animal ();
+console.log(Fluffy);
 
 // Fluffy.drink();
 // Fluffy.eat();
