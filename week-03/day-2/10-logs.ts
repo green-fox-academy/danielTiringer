@@ -23,10 +23,10 @@ function postToGetRatio(filePath: string): void{
     let fileLines: string[] = fs.readFileSync(filePath, 'utf-8').toString().split('\n');
     let getCounter: number = 0;
     let postCounter: number = 0;
-    for(let i: number = 0; i < fileLines.length; i++){
-        if(fileLines[i].slice(-6) == 'POST /'){
+    for(let line in fileLines){
+        if(line.slice(-6) == 'POST /'){
             postCounter++;
-        } else if(fileLines[i].slice(-5) == 'GET /'){
+        } else if(line.slice(-5) == 'GET /'){
             getCounter++;
         };
     };
