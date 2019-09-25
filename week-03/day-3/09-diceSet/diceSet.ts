@@ -39,20 +39,13 @@ class DiceSet {
   
   let diceSet = new DiceSet();
   console.log(diceSet.roll());
-  console.log(diceSet.getCurrent());
   
-  console.log("------------------");
-  
-  diceSet.reroll();
-  console.log(diceSet.getCurrent());
-  
-  console.log("------------------");
-  
-  console.log(diceSet.getCurrent(5));
-  diceSet.reroll();
-  console.log(diceSet.getCurrent());
-  
-  console.log("------------------");
-  
-  diceSet.reroll(4);
-  console.log(diceSet.getCurrent());
+  for(let i: number = 0; i < 6; i++){
+    for(let j: number = 0; j < 100; j++){
+      if(diceSet.getCurrent(i) != 6){
+        console.log("------------------");
+        diceSet.reroll(i);
+        console.log(diceSet.getCurrent());
+      }
+    } 
+  }
