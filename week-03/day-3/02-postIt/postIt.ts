@@ -9,9 +9,9 @@
 // a yellow with green text: "Superb!"
 
 class PostIt {
-    _backgroundColor: string;
-    _text: string;
-    _textColor: string;
+    private _backgroundColor: string;
+    private _text: string;
+    private _textColor: string;
 
     constructor (backgroundColor: string, text: string, textColor: string) {
         this._backgroundColor = backgroundColor;
