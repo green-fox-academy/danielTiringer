@@ -4,7 +4,6 @@ const fs = require('fs');
 
 function reverseLines (filePath: string): void {
     let fileLines: string[] = fs.readFileSync(filePath, 'utf-8').toString().split('\n');
-    let decryptedMessage: string[] = [];
     console.log(fileLines.reverse().join('\n'));
 };
 
