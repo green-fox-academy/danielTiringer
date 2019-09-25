@@ -1,4 +1,4 @@
-import { Pokemon } from './Pokemon'
+import { Pokemon } from './pokemon'
 
 let pokemonOfAsh: Pokemon[] = initializePokemon();
 
@@ -12,7 +12,7 @@ let wildPokemon: Pokemon = new Pokemon('Oddish', 'leaf', 'water');
 
 // Which pokemon should Ash use?
 
-console.log('I choose you, ');
+console.log(`I choose you, ${pokemonOfAsh.find(x => x.effectiveAgainst == wildPokemon.type).name}`);
 
 function initializePokemon(): Pokemon[] {
     return [
