@@ -30,7 +30,11 @@ export class Ship {
         }
     }
 
-    public headCount (): void {
+    public headCount (): number {
+        return this._crew.length + 1;
+    }
+
+    public headCountReport (): void {
         console.log('Admirrrrrral, the wretches on the ship are:');
         console.log(`The capitan had ${this._captain.rumConsumed} rums, ${this._captain.ifDead} dead and ${this._captain.ifPassedOut} passed out, and ${this._captain.hasParrot} a parrot. The headcount is ${this._crew.length + 1}!`);
     }
@@ -78,15 +82,15 @@ export class Ship {
         // console.log(defender);
 
         if (attacker >= defender){
-            this._crew.splice(0, this._crew.length*Math.floor(Math.random()*otherShip._crew.length + 1));
+            this._crew.splice(0, Math.floor(Math.random()*this._crew.length + 1));
             console.log('The attacking pirate ship won!');
             this.party();
-            this.headCount();
+            this.headCountReport();
         } else if (attacker < defender){
-            otherShip._crew.splice(0, this._crew.length*Math.floor(Math.random()*otherShip._crew.length + 1));
+            otherShip._crew.splice(0, Math.floor(Math.random()*otherShip._crew.length + 1));
             console.log('The defending pirate ship won!');
             otherShip.party();
-            otherShip.headCount();
+            otherShip.headCountReport();
         }
     }
 }
@@ -102,12 +106,12 @@ export class Ship {
 // rumVessel.changeCaptain('parrot');
 // rumVessel.changeCaptain('rum');
 
-// rumVessel.headCount();
+// rumVessel.headCountReport();
 
 // let blackPearl = new Ship;
 
 // blackPearl.fillShip();
 
-// blackPearl.headCount();
+// blackPearl.headCountReport();
 
 // rumVessel.battle(blackPearl);

@@ -15,12 +15,12 @@ rumVessel.changeCaptain('rum');
 rumVessel.changeCaptain('parrot');
 rumVessel.changeCaptain('rum');
 
-rumVessel.headCount();
+// rumVessel.headCount();
 
 let blackPearl = new Ship;
 
 blackPearl.fillShip();
 
-blackPearl.headCount();
+// blackPearl.headCount();
 
 rumVessel.battle(blackPearl);
