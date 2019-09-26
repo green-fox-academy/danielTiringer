@@ -1,8 +1,7 @@
 import { Thing } from './thing';
 import { Fleet } from './fleet';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
-let fleet = new Fleet();
+let myFleet = new Fleet();
 
 let getMilk = new Thing ('Get milk');
 let remove = new Thing ('Remove the obstacles');
@@ -11,10 +10,10 @@ let lunch = new Thing ('Eat lunch');
 standUp.complete();
 lunch.complete();
 
-fleet.add(getMilk);
-fleet.add(remove);
-fleet.add(standUp);
-fleet.add(lunch);
+myFleet.add(getMilk);
+myFleet.add(remove);
+myFleet.add(standUp);
+myFleet.add(lunch);
 
 // console.log(getMilk.getName());
 // console.log(fleet.getThings());
@@ -33,38 +32,35 @@ fleet.add(lunch);
 // 4. [x] Eat lunch
 
 // Hint: You have to create a `print()` method as well 
-console.log(Object.values(fleet.getThings()));
-console.log(Object.keys(fleet.getThings()));
-
-for(let i: number = 0; i < 4; i++){
-
-}
-
-
 
 class FleetofThings {
     private _counter: number = 1;
-    private _complete: boolean;
-    private fleet: any [];
-    
+    private _fleet: any [];
+    private _line: any [];
 
-    public main(fleet: Fleet) {
-        this.fleet = [];
-        for (let thing in fleet){
-            this.fleet.push(this._counter);
-            this.fleet.push(thing.valueOf[0]);
-            this.fleet.push('\n');
+    public main(fleet: Fleet): void {
+        this._fleet = [];
+        this._line = [];
+        for (let i: number = 0; i < fleet.getThings().length; i++){
+            this._line.push(`${this._counter}.`);
+            if (fleet.getThings()[i].getCompleted() == true) {
+                this._line.push('[X]');
+            } else {
+                this._line.push('[ ]');
+            }
+            this._line.push(fleet.getThings()[i].getName());
+            this._fleet.push(this._line.join(' '));
+            this._line = [];
             this._counter += 1;
         }
-        console.log(this.fleet);
     }
 
-    // public print() {
-    //     console.log(`${FleetofThings._counter}`)
-
-    //     
-    // }
+    public print(): void {
+        console.log(this._fleet.join('\n'));
+    }
 }
 
 let checkList = new FleetofThings ()
-checkList.main(fleet);
+checkList.main(myFleet);
+
+checkList.print();
