@@ -1,14 +1,42 @@
 export class Pirate {
-    private _name: string;
     private _rumConsumed: number;
     private _isPassedOut: boolean;
     private _isDead: boolean;
     private _hasParrot: boolean;
 
-    constructor(name) {
-        this._name = name;
+    constructor() {
         this._rumConsumed = 0;
         this._isDead = false;
+        this._isPassedOut = false;
+        this._hasParrot = false;
+    }
+
+    public get rumConsumed(): number {
+        return this._rumConsumed;
+    }
+
+    public get ifDead(): string {
+        if (this._isDead == true) {
+            return 'is';
+        } else {
+            return 'is not';
+        }
+    }
+
+    public get ifPassedOut(): string {
+        if (this._isPassedOut == true) {
+            return 'is';
+        } else {
+            return 'is not';
+        }
+    }
+
+    public get hasParrot(): string {
+        if (this._hasParrot == true) {
+            return 'does have';
+        } else {
+            return 'does not have';
+        }
     }
 
     public drinkSomeRum(): void {
@@ -37,21 +65,24 @@ export class Pirate {
 
     public die(): void {
         this._isDead = true;
+        this._isPassedOut = false;
     }
 
     public brawl (otherPirate: Pirate): void {
         let chance: number = Math.floor(Math.random()*3);
-        console.log(`${this._name} and ${otherPirate._name} started a brawl!`);
+        console.log(`Two pirates started a brawl!`);
         if (chance == 0){
             this._isPassedOut = true;
             otherPirate._isPassedOut = true;
             console.log('Both pirates were worn out in the fight and passed out.')
         } else if (chance == 1) {
             this._isDead = true;
-            console.log(`${this._name} won the fight!`);
+            this._isPassedOut = false;
+            console.log(`The first pirate won the fight!`);
         } else if (chance == 2) {
             otherPirate.die();
-            console.log(`${otherPirate._name} won the fight!`)
+            otherPirate._isPassedOut = false;
+            console.log(`The second pirate won the fight!`)
         }
     }
 
@@ -65,9 +96,9 @@ export class Pirate {
 /*
 The stuff below was used to test out the various functions written for the pirates.
 
-let scallyWag = new Pirate ('Scallywag');
-let scoundrel = new Pirate ('Scoundrel');
-let snytch = new Pirate ('Snytch');
+let scallyWag = new Pirate;
+let scoundrel = new Pirate;
+let snytch = new Pirate;
 
 scallyWag.drinkSomeRum();
 scallyWag.drinkSomeRum();
