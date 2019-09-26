@@ -19,4 +19,8 @@ export class Sharpie {
     public use(): void {
         this._inkAmount -= 1;
     }
+
+    public get inkAmount () {
+        return this._inkAmount;
+    }
 }
