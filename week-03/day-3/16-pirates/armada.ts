@@ -16,37 +16,33 @@ import { Ship } from './ship';
 // Have a war!
 
 class Armada {
+    private _name: string;
     private _ships: Ship [];
     private _numberOfPirates: number;
 
-    public fillArmada (): void {
+    public fillArmada (name: string): void {
+        this._name = name;
         let ship = new Ship;
         this._ships = [];
         for (let i: number = 0; i < (Math.floor(Math.random()*10)+5); i++){
             ship.fillShip()
             this._ships.push(ship);
         }
-        console.log(this._ships.length)
     };
     
     public armadaCount (): void {
+        this._numberOfPirates = 0;
         for (let i: number = 0; i < this._ships.length; i++){
-            // console.log(this._ships[i].headCount());
+            this._numberOfPirates +=  this._ships[i].headCount();
         }
-        console.log(`Admirrrrrral, our fleet of rum-drinkers is ${this._ships.length} strong! Affter arr bellies arr full of cabbage and rumm, these bassterds arr hungrrry for warrrrr!`);
+        console.log(`Admirrrrrral ${this._name}, our fleet of rum-drinkers is ${this._ships.length} ship and ${this._numberOfPirates} scoundrel strong! Affter arr bellies arr full of cabbage and rumm, these bassterds arr hungrrry for warrrrr!`);
     }
 }
 
-
-
-
-
-
-
 let jackSparrow = new Armada;
-jackSparrow.fillArmada();
-console.log(jackSparrow);
+jackSparrow.fillArmada('Jack Sparrow');
 jackSparrow.armadaCount();
 
 let blackBeard = new Armada;
-blackBeard.fillArmada;
+blackBeard.fillArmada('Blackbeard');
+blackBeard.armadaCount();
