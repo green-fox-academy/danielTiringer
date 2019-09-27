@@ -37,14 +37,14 @@ let alicesList = {
 // Create an application which solves the following problems.
 
 let check = {
-    pay(array, name){
+    pay(array: any, name: string): void {
         let cash: number = 0;
-        for(let i = 0; i < Object.keys(array).length; i++){
+        for(let i: number = 0; i < Object.keys(array).length; i++){
             cash += (price[Object.keys(array)[i]]*array[Object.keys(array)[i]]);
         };
         console.log(`${name}'s shopping list costs ${cash}.`);
     },
-    compare(array1, name1, array2, name2, article){
+    compare(array1: any, name1: string, array2: any, name2: string, article: string): void {
         if(array1.hasOwnProperty(article) == false){
             array1[article] = 0;
         };
@@ -61,13 +61,13 @@ let check = {
             console.log(`Nobody wants any ${article}.`);
         }
     },
-    howMany(array1, name1, array2, name2){
+    howMany(array1: any, name1: string, array2: any, name2: string): void {
         let counter1: number = 0;
         let counter2: number = 0;
-        for(let i = 0; i < Object.keys(array1).length; i++){
+        for(let i: number = 0; i < Object.keys(array1).length; i++){
             counter1 += array1[Object.keys(array1)[i]];
         };
-        for(let j = 0; j < Object.keys(array2).length; j++){
+        for(let j: number = 0; j < Object.keys(array2).length; j++){
             counter2 += array2[Object.keys(array2)[j]];
         };
         if(counter1 > counter2){
