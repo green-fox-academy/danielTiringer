@@ -9,3 +9,13 @@
 
 // JavaScript, TypeScript
 // There is no integer type in JavaScript. To remove the rightmost digit you must divide (/) the number by 10 and find a way to get the the whole number portion of that number.
+
+function sumOfDigits(number: number): number {
+    let sum: number = 0;
+    if (number > 1){
+        sum += number % 10 + sumOfDigits(Math.floor(number / 10));
+    }
+    return sum;
+}
+
+console.log(sumOfDigits(345678));
