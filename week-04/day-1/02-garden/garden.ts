@@ -57,8 +57,6 @@ class Garden {
     }
 }
 
-
-
 let purpleTree = new Tree ('purple');
 let orangeTree = new Tree ('orange');
 let yellowFlower = new Flower ('yellow');
