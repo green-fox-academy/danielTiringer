@@ -14,7 +14,7 @@ import { Aircraft } from './airCraft';
 
 export class F35 extends Aircraft {
     public constructor () {
-        super(10, 50);
+        super(12, 50);
     };
 
     public getType (): string {
@@ -26,14 +26,14 @@ export class F35 extends Aircraft {
     }
 }
 
-let iceMan = new F35 ();
-let coolerOne = new F35 ();
-let americanEagle = new F35
+// let iceMan = new F35 ();
+// let coolerOne = new F35 ();
+// let americanEagle = new F35
 
-iceMan.refill(50);
-iceMan.getStatus();
-coolerOne.getStatus();
-americanEagle.getStatus();
+// iceMan.refill(50);
+// iceMan.getStatus();
+// coolerOne.getStatus();
+// americanEagle.getStatus();
 
 // Methods
 // fight

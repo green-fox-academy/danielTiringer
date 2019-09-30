@@ -11,21 +11,89 @@
 // Base damage: 50
 // All aircrafts should be created with an empty ammo storage
 
-// Methods
-// fight
-// It should use all the ammo (set it to 0) and it should return the damage it deals
-// The damage dealt is calculated by multiplying the base damage by the ammunition
-// refill
-// It should take a number as parameter and subtract as much ammo as possible
-// It can't have more ammo than the number or the max ammo (can't get more ammo than what's coming from the parameter or the max ammo of the aircraft)
-// It should return the remaining ammo
-// Eg. Filling an empty F35 with 300 would completely fill the storage of the aircraft and would return the remaining 288
-// getType
-// It should return the type of the aircraft as a string
-// getStatus
-// It should return a string like: Type F35, Ammo: 10, Base Damage: 50, All Damage: 500
-// isPriority
-// It should return if the aircraft is priority in the ammo fill queue. It's true for F35 and false for F16
+import { Aircraft } from './airCraft';
+import { F16 } from './f16';
+import { F35 } from './f35';
+
+class Carrier {
+    private _storedAmmo: number;
+    private _healthPoints: number;
+    private _aircrafts: Aircraft [];
+
+    constructor (initialAmmo: number, healthPoints: number) {
+        this._storedAmmo = initialAmmo;
+        this._healthPoints = healthPoints;
+        this._aircrafts = [];
+    }
+
+    public addAircraft (aircraft: Aircraft): void {
+        this._aircrafts.push(aircraft);
+    }
+    
+    public fill (): void {
+        try {
+            if (this._storedAmmo == 0) {
+                throw 'error';
+            } else {
+                this._aircrafts.forEach(element => {
+                    if (this._storedAmmo > 0 && element.getPriority() == true) {
+                        this._storedAmmo = element.refill(this._storedAmmo);
+                    };
+                    if (this._storedAmmo > 0 && element.getPriority() == false) {
+                        this._storedAmmo = element.refill(this._storedAmmo);
+                    };
+                })
+            }
+        } catch (error) {
+            console.log('The carrier has no ammo, no filling is possible!');
+        } 
+    }
+
+    public getStatus (): void {
+        if (this._healthPoints <= 0){
+            console.log(`It's dead, Jim :(`);
+        } else {
+            console.log(`HP ${this._healthPoints}, Ammo Storage: ${this._storedAmmo}, Total Damage: ${this._aircrafts.reduce(function (totalDamage, element) {
+                return totalDamage += element.fight()
+            }, 0)}`);
+            this._aircrafts.forEach(element => element.getStatus());
+        }
+    }
+
+    public fightAnotherCarrier (anotherCarrier: Carrier): void {
+        anotherCarrier._healthPoints -= this._aircrafts.reduce(function (totalDamage, element) {
+            return totalDamage += element.fight()
+        }, 0)
+        this._aircrafts.forEach(element => element.useAmmo());
+        this.getStatus();
+    }
+}
+
+let missouri = new Carrier (2300, 5000);
+
+let iceMan = new F35 ();
+let coolerOne = new F35 ();
+let americanEagle = new F35
+let maverick = new F16 ();
+let goose = new F16 ();
+
+missouri.addAircraft(iceMan);
+missouri.addAircraft(coolerOne);
+missouri.addAircraft(americanEagle);
+missouri.addAircraft(maverick);
+missouri.addAircraft(goose);
+
+missouri.fill();
+
+missouri.getStatus();
+
+
+let konovalov = new Carrier (2600, 1600);
+
+missouri.fightAnotherCarrier(konovalov);
+
+konovalov.getStatus();
+
 // Carrier
 // Create a class that represents an aircraft-carrier
 

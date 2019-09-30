@@ -22,13 +22,18 @@ export class Aircraft {
     };
 
     public fight (): number {
+        console.log(this._baseDamage * this._ammo);
         return this._baseDamage * this._ammo;
+    }
+
+    public useAmmo (): void {
+        this._ammo = 0;
     }
 
     public refill (ammoLoaded: number): number {
         if (ammoLoaded + this._ammo > this._maxAmmo){
             this._ammo = this._maxAmmo;
-            return ammoLoaded - this._maxAmmo + this._ammo;
+            return ammoLoaded - this._maxAmmo;
         } else if (ammoLoaded + this._ammo < this._maxAmmo) {
             this._ammo += ammoLoaded;
             return 0;
@@ -40,7 +45,7 @@ export class Aircraft {
     }
 
     public getPriority (): boolean {
-        return;
+        return false;
     }
 
     public getStatus (): void {

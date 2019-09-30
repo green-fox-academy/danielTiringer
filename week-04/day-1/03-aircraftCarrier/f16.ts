@@ -26,12 +26,12 @@ export class F16 extends Aircraft {
     }
 }
 
-let maverick = new F16 ();
-let goose = new F16 ();
+// let maverick = new F16 ();
+// let goose = new F16 ();
 
-maverick.refill(50);
-maverick.getStatus();
-goose.getStatus();
+// maverick.refill(50);
+// maverick.getStatus();
+// goose.getStatus();
 
 // Methods
 // fight
