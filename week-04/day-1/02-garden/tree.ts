@@ -30,11 +30,11 @@ import { Plant } from './plant';
 
 export class Tree extends Plant {
     public constructor (color: string) {
-        super(color)
-        this._class = 'Tree';
-        this._waterAmount = 0;
-        this._thirstLevel = 10;
-        this._waterAbsorption = 0.4;
+        super(color, 0.4, 10)
+    }
+
+    public getType(): string {
+        return 'Tree';
     }
 }
 
