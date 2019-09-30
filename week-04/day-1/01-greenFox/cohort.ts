@@ -1,3 +1,4 @@
+'use strict'
 
 // Cohort
 // Create a Cohort class that has the following

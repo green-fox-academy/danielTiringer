@@ -1,3 +1,5 @@
+'use strict'
+
 export class Plant {
     protected _color: string;
     protected _waterAmount: number;

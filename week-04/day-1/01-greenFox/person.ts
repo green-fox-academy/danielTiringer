@@ -1,3 +1,5 @@
+'use strict'
+
 // Person
 // Create a Person class with the following fields:
 

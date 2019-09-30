@@ -1,3 +1,5 @@
+'use strict'
+
 // Aircraft Carrier
 // Aircrafts
 // Create a class that represents an aircraft

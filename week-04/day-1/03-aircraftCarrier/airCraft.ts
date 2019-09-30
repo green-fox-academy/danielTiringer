@@ -1,3 +1,5 @@
+'use strict'
+
 // Aircrafts
 // Create a class that represents an aircraft
 // There are 2 types of aircrafts: F16 and F35

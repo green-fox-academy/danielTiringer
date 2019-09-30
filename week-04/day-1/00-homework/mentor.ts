@@ -1,3 +1,5 @@
+'use strict'
+
 // Mentor
 // Create a Mentor class that has the same fields and methods as the Person class, and has the following additional
 

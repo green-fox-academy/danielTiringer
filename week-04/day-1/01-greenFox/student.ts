@@ -1,4 +1,4 @@
-
+'use strict'
 
 // Student
 // Create a Student class that has the same fields and methods as the Person class, and has the following additional

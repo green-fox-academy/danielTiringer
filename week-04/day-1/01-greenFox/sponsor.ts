@@ -1,3 +1,5 @@
+'use strict'
+
 // Sponsor
 // Create a Sponsor class that has the same fields and methods as the Person class, and has the following additional
 
