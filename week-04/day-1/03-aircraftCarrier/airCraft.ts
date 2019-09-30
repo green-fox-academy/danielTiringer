@@ -10,28 +10,44 @@
 // Base damage: 50
 // All aircrafts should be created with an empty ammo storage
 
-import { Aircraft } from './airCraft';
+export class Aircraft {
+    private _maxAmmo: number;
+    private _ammo: number;
+    private _baseDamage: number;
 
-export class F16 extends Aircraft {
-    public constructor () {
-        super(8, 30);
+    protected constructor (maxAmmo: number, baseDamage: number) {
+        this._ammo = 0;
+        this._baseDamage = baseDamage;
+        this._maxAmmo = maxAmmo;
+    };
+
+    public fight (): number {
+        return this._baseDamage * this._ammo;
+    }
+
+    public refill (ammoLoaded: number): number {
+        if (ammoLoaded + this._ammo > this._maxAmmo){
+            this._ammo = this._maxAmmo;
+            return ammoLoaded - this._maxAmmo + this._ammo;
+        } else if (ammoLoaded + this._ammo < this._maxAmmo) {
+            this._ammo += ammoLoaded;
+            return 0;
+        };
     };
 
     public getType (): string {
-        return 'F16';
+        return '';
     }
 
     public getPriority (): boolean {
-        return false;
+        return;
+    }
+
+    public getStatus (): void {
+        console.log(`Type ${this.getType()}, Ammo: ${this._ammo}, Base Damage: ${this._baseDamage}, All Damage: ${this._baseDamage * this._ammo}.`);
     }
 }
 
-let maverick = new F16 ();
-let goose = new F16 ();
-
-maverick.refill(50);
-maverick.getStatus();
-goose.getStatus();
 
 // Methods
 // fight
