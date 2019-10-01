@@ -1,3 +1,5 @@
+'use strict'
+
 // Printable interface
 // Create a new interface called Printable
 // it should have one method definition called printAllFields
@@ -9,3 +11,7 @@
 // for (let todo of todos) {
 //   todo.printAllFields());
 // }
+
+export interface Printable {
+    printAllFields(): void;
+}
