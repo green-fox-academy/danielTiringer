@@ -1,6 +1,6 @@
 'use strict'
 
-import { Printable } from './printableInterface';
+import { Printable } from './printable';
 
 class Domino implements Printable {
     values: number[];

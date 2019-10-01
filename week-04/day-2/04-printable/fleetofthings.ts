@@ -2,7 +2,7 @@
 
 import { Thing } from './thing';
 import { Fleet } from './fleet';
-import { Printable } from './printableInterface'
+import { Printable } from './printable'
 
 let myFleet = new Fleet();
 
