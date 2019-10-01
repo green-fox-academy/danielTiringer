@@ -23,51 +23,6 @@ export class StringedInstrument extends Instrument {
     }
 }
 
-export class ElectricGuitar extends StringedInstrument {
-    constructor(numberOfStrings? : number) {
-        super ()
-        this._numberOfStrings = (numberOfStrings ? numberOfStrings : 6)
-    }
-
-    public getType(): string {
-        return 'Electric Guitar'
-    }
-
-    protected sound(): string {
-        return 'Twang';
-    }
-}
-
-export class BassGuitar extends StringedInstrument {
-    constructor(numberOfStrings? : number) {
-        super ()
-        this._numberOfStrings = (numberOfStrings ? numberOfStrings : 4)
-    }
-
-    public getType(): string {
-        return 'Bass Guitar'
-    }
-
-    protected sound(): string {
-        return 'Duum-duum-duum';
-    }
-}
-
-export class Violin extends StringedInstrument {
-    constructor(numberOfStrings? : number) {
-        super ()
-        this._numberOfStrings = (numberOfStrings ? numberOfStrings : 4)
-    }
-
-    public getType(): string {
-        return 'Violin'
-    }
-
-    protected sound(): string {
-        return 'Screech';
-    }
-}
-
 // StingedInstrument has 3 descendants, namely:
 
 // Electric Guitar (6 strings, 'Twang')
