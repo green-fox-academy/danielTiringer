@@ -1,3 +1,5 @@
+'use strict'
+
 class Thing {
     private name: string;
     private completed: boolean;

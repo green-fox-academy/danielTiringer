@@ -1,3 +1,5 @@
+'use strict'
+
 import { Thing } from './thing';
 
 class Fleet {

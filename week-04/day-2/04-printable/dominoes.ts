@@ -1,3 +1,5 @@
+'use strict'
+
 import {Domino} from "./domino";
 
 function initializeDominoes(): Domino[] {
@@ -11,9 +13,6 @@ function initializeDominoes(): Domino[] {
     return dominoes;
 }
 
-function print(dominoes: Domino[]) {
-    dominoes.map(element => element.printAllFields());
-}
 
 let dominoes = initializeDominoes();
 /** You have the list of Dominoes */
@@ -21,6 +20,8 @@ let dominoes = initializeDominoes();
 /** eg: [2, 4], [4, 3], [3, 5] ... */
 
 // print(dominoes);
+
+dominoes.map(element => element.printAllFields());
 
 let orderedDominoes: number [][] = [];
 orderedDominoes.push(dominoes[0].values);
