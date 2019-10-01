@@ -10,10 +10,14 @@
 // Extend Bird from your abstract Animal class (zoo exercise)
 // implement your Flyable interface
 
-export interface Flyable {
-    land(): void;
+export abstract class Vehicle {
+    protected _type: string;
+    protected _fuelType: string;
+    protected _propulsion: string;
 
-    fly(): void;
-
-    takeOff(): void;
+    constructor (type: string, fuelType: string, propulsion: string) {
+        this._type = type;
+        this._fuelType = fuelType;
+        this._propulsion = propulsion;
+    }
 }
