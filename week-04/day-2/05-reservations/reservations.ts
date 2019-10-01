@@ -8,8 +8,38 @@
 //   getDowBooking(): string;
 //   getCodeBooking(): string;
 // }
-// The output will be sort of like this:-
 
+let daysOfTheWeek: string [] = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+
+class Reservation {
+    private _reservationNumber: number;
+    private _dayOfTheWeek: string;
+    
+    constructor() {
+        
+    }
+    
+    public getDowBooking(): string {
+        return daysOfTheWeek[Math.floor(Math.random()*7)];
+    }
+    public getCodeBooking(): string {
+        return Math.random().toString(36).replace('0.', '').toUpperCase().slice(0,8);
+    }
+    
+    public printReservationDetails(): void {
+        console.log(`Booking# ${this.getCodeBooking()} for ${this.getDowBooking()}`)
+    }
+}
+
+let randomReservation = new Reservation;
+
+randomReservation.printReservationDetails();
+randomReservation.printReservationDetails();
+randomReservation.printReservationDetails();
+randomReservation.printReservationDetails();
+randomReservation.printReservationDetails();
+
+// The output will be sort of like this:-
 // Booking# 1WBA3OMU for THU
 // Booking# 0V5OH7VS for WED
 // Booking# CV6QOAJO for MON
