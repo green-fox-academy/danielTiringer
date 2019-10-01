@@ -1,10 +1,9 @@
 'use strict'
 
 import { Animal } from './animal';
-import { EggLayer } from './animal'
 import { Flyable } from '../03-flyable/flyable';
 
-export class Bird extends Animal implements EggLayer, Flyable {
+export class Bird extends Animal implements Flyable {
     public constructor (name: string) {
         super(name);
     }

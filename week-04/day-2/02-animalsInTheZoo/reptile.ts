@@ -1,8 +1,8 @@
 'use strict'
 
-import { Animal, EggLayer } from './animal';
+import { Animal } from './animal';
 
-export class Reptile extends Animal implements EggLayer {
+export class Reptile extends Animal {
     public constructor (name: string) {
         super(name);
     }

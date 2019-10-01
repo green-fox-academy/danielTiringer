@@ -21,14 +21,6 @@ export abstract class Animal {
     }
 }
 
-export interface EggLayer {
-    
-}
-
-export interface LiveBreeder {
-    
-}
-
 // it has name, age field
 // it has getName() and breed() methods
 // Have we got all fields and methods we should? What about gender? Any other? Write down at least 3 fields and/or methods that should be included in Animal.

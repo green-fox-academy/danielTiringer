@@ -1,9 +1,9 @@
 'use strict'
 
 
-import { Animal, LiveBreeder } from './animal';
+import { Animal } from './animal';
 
-export class Mammal extends Animal implements LiveBreeder {
+export class Mammal extends Animal {
     public constructor (name: string) {
         super(name);
     }
