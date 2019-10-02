@@ -82,6 +82,3 @@ export class CowsAndBulls {
         return this.printResult(cow, bull);
     }
 }
-
-// let newGame = new CowsAndBulls();
-// newGame.guess(1234);
