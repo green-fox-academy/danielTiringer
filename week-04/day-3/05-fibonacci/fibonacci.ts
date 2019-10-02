@@ -12,4 +12,4 @@ export function fibonacci(number: number): number {
     return calculatedFibonacci;
 }
 
-console.log(fibonacci(15))
+console.log(fibonacci(5))
