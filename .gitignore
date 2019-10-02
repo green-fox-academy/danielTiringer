@@ -16,4 +16,7 @@
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
+# node packages shouldn't be uploaded to git
+node_modules
+
 # End of https://www.gitignore.io/api/linux

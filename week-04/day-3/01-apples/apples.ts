@@ -10,3 +10,7 @@
 // Change the expected value to make the test failing
 // Run the test
 // Fix the returned value to make the test succeeding again
+
+'use strict'
+
+import * as test from 'tape';
