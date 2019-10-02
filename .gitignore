@@ -18,5 +18,7 @@
 
 # node packages shouldn't be uploaded to git
 node_modules
+package.json
+package-lock.json
 
 # End of https://www.gitignore.io/api/linux
