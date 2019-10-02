@@ -14,3 +14,19 @@
 'use strict'
 
 import * as test from 'tape';
+
+import { Apple } from './apple'
+
+test('GetApple function of the Apple class', t => {
+    let applePass = new Apple;
+    const actualPass = applePass.getApple(); 
+    const expectedPass = 'Here\'s an apple!';
+    t.equal(actualPass, expectedPass);
+
+    let appleFail = new Apple;
+    const actualFail = appleFail.getApple()
+    const expectedFail = 'Here\'s two apples!'
+    t.equal(actualFail, expectedFail);
+
+    t.end();
+});
