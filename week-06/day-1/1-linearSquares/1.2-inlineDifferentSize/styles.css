@@ -1,0 +1,30 @@
+.container {
+	display: flex;
+	flex-flow: row;
+}
+
+.item {
+	width: 190px;
+	height: 190px;
+	display: flex;
+	flex-grow: 1;
+}
+
+.green {
+	background-color: #51d400;
+}
+
+.yellow {
+	background-color: #ffd62a;
+	flex-grow: 2;
+}
+
+.purple {
+	background-color: #b02aff;
+}
+
+.container::after {
+	display: block;
+	content: "";
+	clear: both;
+}
