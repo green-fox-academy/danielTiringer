@@ -1,0 +1,41 @@
+.body {
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	background-color: #fff;
+	height: 190px;
+	width: 760px;
+	padding: 52px;
+	display: flex;
+	flex-flow: row;
+	flex-direction: row-reverse;
+}
+
+.item {
+	width: 190px;
+	height: 190px;
+	display: flex;
+}
+
+.green {
+	background-color: #51d400;
+	flex-grow: 0;
+}
+
+.yellow {
+	background-color: #ffd62a;
+	flex-grow: 2;
+}
+
+.purple {
+	background-color: #b02aff;
+	flex-grow: 0;
+}
+
+.container::after {
+	display: block;
+	content: "";
+	clear: both;
+}
