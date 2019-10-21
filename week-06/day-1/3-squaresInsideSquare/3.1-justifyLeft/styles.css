@@ -1,0 +1,28 @@
+.body {
+	padding: 0;
+	margin: 0;
+}
+
+.container {
+	list-style-type: none;
+	background-color: #ffd62a;
+	height: 280px;
+	display: flex;
+	flex-direction: row;
+	align-content: flex-start;
+	align-items: center;
+	padding-left: 0;
+}
+
+.item {
+	background-color: #b02aff;
+	width: 108px;
+	height: 108px;
+	margin-right: 3px;
+}
+
+.container::after {
+	display: block;
+	content: "";
+	clear: both;
+}
