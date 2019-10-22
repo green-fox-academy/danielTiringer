@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 // Task one
 
@@ -14,4 +14,3 @@ newItemsList.forEach(element => {
 let unorderedList = document.querySelector('ul');
 unorderedList.setAttribute('class', 'lime')
 console.log(unorderedList);
-
