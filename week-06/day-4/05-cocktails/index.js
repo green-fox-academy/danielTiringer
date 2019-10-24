@@ -29,8 +29,7 @@ app.get('/', (req, res) => {
 	drink != undefined ?
 		res.render('home', {
 			cocktails: cocktails.filter(element => {
-				console.log(drink);
-				element.contains.includes(drink.toLowerCase())
+				return element.contains.includes(drink.toLowerCase())
 			}),
 			alcohols: alcoholList
 	}) :

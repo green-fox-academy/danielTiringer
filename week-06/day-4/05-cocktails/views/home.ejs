@@ -10,10 +10,9 @@
 	    <h1>Cocktails</h1>
 			<ul class='alcohol-list'>
 				<li><a href='/'>ALL</a></li>
-				<li><a href='/?drink=gin'>GIN</a></li>
-				<li><a href='/?drink=vodka'>VODKA</a></li>
-				<li><a href='/?drink=rum'>RUM</a></li>
-				<li><a href='/?drink=tequila'>TEQUILA</a></li>
+				<% for (let i = 0; i < alcohols.length; i++) { %>
+				<li><a href='/?drink=<%=alcohols[i]%>'><%=alcohols[i].toUpperCase()%></a></li>
+				<% } %>
 			</ul>
 			<div class='container'>
 				<div class='list-item'>
