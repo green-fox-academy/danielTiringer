@@ -41,6 +41,18 @@
         //   3: Create a timer that keeps calling the prime validatior function until it reaches the end of elements
         //    - the timer should fire every 100ms
         //    - the timer should stop when there are no more elements left to be colored
+				let div = document.querySelector('div');
+				let section = document.querySelector('section');
+				let divNumber = div.textContent;
+
+				while (divNumber < 100) {
+					let newDiv = document.createElement('div');
+					divNumber++;
+					newDiv.textContent = divNumber;
+					section.appendChild(newDiv);
+				}
+
+
       </script>
   </body>
 </html>
