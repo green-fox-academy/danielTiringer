@@ -63,13 +63,28 @@
 
 				let divValues = document.querySelectorAll('div');
 
-				divValues.forEach(element => {
-					if (isPrime(element.textContent)){
-						element.setAttribute('class', 'prime')
+// This part elegantly colors the divs but looping doesn't work with a timer.
+//				divValues.forEach(element => {
+//							if (isPrime(element.textContent)){
+//								element.setAttribute('class', 'prime')
+//							} else {
+//								element.setAttribute('class', 'not-prime')
+//							};
+//					});
+//				});
+
+				let counter = 0;
+				const coloringTimer = setInterval(function() {
+					if (counter >= divValues.length) {
+						clearTimeout(coloringTimer)
+					}
+					if (isPrime(divValues[counter].textContent)){
+						divValues[counter].setAttribute('class', 'prime')
 					} else {
-						element.setAttribute('class', 'not-prime')
-					};
-				});
+						divValues[counter].setAttribute('class', 'not-prime');
+					}
+					counter++;
+				}, 100);
 
       </script>
   </body>
