@@ -42,6 +42,19 @@ INNER JOIN Movie ON Movie.mID = Rating.mID
 INNER JOIN Reviewer ON Reviewer.rID = Rating.rID
 ORDER BY Reviewer.name, Movie.title, Rating.stars;
 
+# Q6:
+# (Does not filter for second review being better, otherwise finds duplicates)
+
+SELECT
+    Reviewer.name,
+    Movie.title
+FROM Rating
+    LEFT JOIN Movie ON Movie.mID = Rating.mID
+    LEFT JOIN Reviewer ON Reviewer.rID = Rating.rID
+    INNER JOIN Rating ON
+GROUP BY Reviewer.name
+HAVING COUNT (Reviewer.name AND Movie.title) >=2;
+
 # Extra exercises:
 
 https://lagunita.stanford.edu/courses/DB/SQL/SelfPaced/courseware/ch-sql/seq-exercise-sql_movie_query_extra/
