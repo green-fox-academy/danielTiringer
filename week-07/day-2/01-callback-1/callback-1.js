@@ -27,7 +27,11 @@ console.log(mapWith([1, 2, 3], addOne));
 
 // Create a callback function which removes every second character from a string
 
+const removeSecondLetter = (string) => {
+	return string.replace(/(.)./g, '$1');
+}
+
 const words = ['map', 'reduce', 'filter'];
 
-// console.log(mapWith(words, removeSecondLetter));
+console.log(mapWith(words, removeSecondLetter));
 // expected result: ['mp','rdc', 'fle']
