@@ -18,5 +18,6 @@
 
 # node packages shouldn't be uploaded to git
 node_modules
+*.swp
 
 # End of https://www.gitignore.io/api/linux
