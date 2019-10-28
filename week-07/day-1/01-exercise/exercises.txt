@@ -1,0 +1,65 @@
+# Solutions for the exercises
+
+https://lagunita.stanford.edu/courses/DB/SQL/SelfPaced/courseware/ch-sql/seq-exercise-sql_movie_query_core/
+
+# Q1:
+
+SELECT title FROM Movie
+WHERE director = 'Steven Spielberg'
+
+# Q2:
+
+SELECT DISTINCT Movie.year
+FROM Movie
+JOIN Rating
+WHERE Movie.mID = Rating.mID
+AND (Rating.stars = 4 OR Rating.stars = 5)
+ORDER BY Movie.year ASC;
+
+# Q3:
+
+SELECT title FROM Movie
+LEFT JOIN Rating
+ON Rating.mID = Movie.mID
+WHERE Rating.mID IS NULL;
+
+# Q4:
+
+SELECT name FROM Reviewer
+LEFT JOIN Rating
+ON Reviewer.rID = Rating.rID
+WHERE Rating.ratingDate IS NULL
+
+# Q5:
+
+SELECT
+Reviewer.name,
+Movie.title,
+Rating.stars,
+Rating.ratingDate
+FROM Rating
+INNER JOIN Movie ON Movie.mID = Rating.mID
+INNER JOIN Reviewer ON Reviewer.rID = Rating.rID
+ORDER BY Reviewer.name, Movie.title, Rating.stars;
+
+# Extra exercises:
+
+https://lagunita.stanford.edu/courses/DB/SQL/SelfPaced/courseware/ch-sql/seq-exercise-sql_movie_query_extra/
+
+# Q-extra-1:
+
+SELECT DISTINCT name FROM Reviewer
+LEFT JOIN Rating ON Rating.rID = Reviewer.rID
+LEFT JOIN Movie ON Movie.mID = Rating.mID
+WHERE Movie.title = 'Gone with the Wind';
+
+# Q-extra-2:
+
+SELECT
+    Reviewer.name,
+    Movie.title,
+    Rating.stars
+FROM Reviewer
+LEFT JOIN Rating ON Rating.rID = Reviewer.rID
+LEFT JOIN Movie ON Movie.mID = Rating.mID
+WHERE Reviewer.name = Movie.director;
