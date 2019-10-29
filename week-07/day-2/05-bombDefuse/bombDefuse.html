@@ -12,7 +12,29 @@
 </body>
   <script>
     // Create a timeout that will set the display to "Bomb exploded" in 10 seconds
+		let display = document.querySelector('.display');
+		// Commenting the solution below out to make room for the extra task
+		// let bombTimer = setInterval(function() {
+		//	display.textContent = 'Bomb exploded!';
+		// }, 10000);
     // If you click on the button set the display to "Bomb defused" and stop the timeout
+		let button = document.querySelector('button');
+
+		button.onclick = () => {
+			if (display.textContent != 'Bomb exploded!'){
+				display.textContent = 'Bomb defused!';
+				clearTimeout(bombTimer);
+			}
+		}
     // Extra: create an interval which will update the remaining seconds in the display
+		let timeLeft = 10;
+		let bombTimer = setInterval(function() {
+			display.textContent = timeLeft;
+			timeLeft -= 1;
+			if (timeLeft <= 0) {
+				clearInterval(bombTimer);
+				display.textContent = 'Bomb exploded!';
+			}
+		}, 1000);
   </script>
 </html>
