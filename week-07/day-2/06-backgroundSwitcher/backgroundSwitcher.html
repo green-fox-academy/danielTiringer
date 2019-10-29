@@ -28,6 +28,10 @@
       // WTF is a cachebuster?
       // http://www.adopsinsider.com/ad-ops-basics/what-is-a-cache-buster-and-how-does-it-work/
       // 4: Create a timer function that refreshes the background every 5 seconds
+			let imageRefresh = setInterval(function() {
+				body.style['background-image'] = 'url("https://loremflickr.com/g/1280/800/hungary/")';
+				window.location.reload(1);
+			}, 5000);
     </script>
   </body>
 </html>
