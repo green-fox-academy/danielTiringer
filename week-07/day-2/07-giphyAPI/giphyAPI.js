@@ -27,8 +27,3 @@ giphyRequest.send();
 
 // Display the list of the first 16 results's static thumbnail
 // If the user clicks on the thumbnail, display the animated GIF
-
-function changeImage () {
-	let source = document.getElementById('0').src;
-	console.log(source);
-}
