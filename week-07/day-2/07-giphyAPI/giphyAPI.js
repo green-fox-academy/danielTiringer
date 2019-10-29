@@ -16,6 +16,10 @@ giphyRequest.onload = function () {
 	for (let i = 0; i < 16; i++){
 		let newImage = document.createElement('img');
 		newImage.setAttribute('src', giphyData.data[i].images.fixed_height_small_still.url)
+		newImage.setAttribute('id', i);
+		newImage.onclick = () => {
+			newImage.src = giphyData.data[i].images.fixed_height_small.url
+		};
 		section.appendChild(newImage);
 	}
 }
@@ -24,7 +28,7 @@ giphyRequest.send();
 // Display the list of the first 16 results's static thumbnail
 // If the user clicks on the thumbnail, display the animated GIF
 
-let images = document.querySelectorAll('img');
-images.onclick = () => {
-	images.setAttribute('src','');
+function changeImage () {
+	let source = document.getElementById('0').src;
+	console.log(source);
 }
