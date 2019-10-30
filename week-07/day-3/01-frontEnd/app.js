@@ -3,6 +3,7 @@
 const express = require('express');
 const doubling = require('./doubling');
 const greeter = require('./greeter');
+const appenda = require('./appenda');
 const app = express();
 const PORT = 8080;
 
@@ -20,6 +21,9 @@ app.get('/doubling', doubling);
 
 // greeter endpoint
 app.get('/greeter', greeter);
+
+// appenda endpoint
+app.get('/appenda/:appendTo', appenda);
 
 // start express app on port 8080
 app.listen(PORT, () => {
