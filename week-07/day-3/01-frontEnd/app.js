@@ -5,11 +5,15 @@ const doubling = require('./doubling');
 const greeter = require('./greeter');
 const appenda = require('./appenda');
 const doUntil = require('./doUntil');
+const sith = require('./sith');
+const arrayHandler = require('./arrayHandler');
 const app = express();
+const bodyParser = require('body-parser');
 const PORT = 8080;
 
 app.use(express.static('assets'));
 app.use(express.json());
+app.use(bodyParser.json());
 const path = require('path');
 
 // home page
@@ -28,6 +32,12 @@ app.get('/appenda/:appendTo', appenda);
 
 // doUntil endpoint
 app.post('/dountil/:function', doUntil);
+
+// arrayHandler endpoint
+app.post('/arrays', arrayHandler);
+
+// sith endpoint
+app.post('/sith', sith);
 
 // start express app on port 8080
 app.listen(PORT, () => {
