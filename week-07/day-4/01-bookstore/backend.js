@@ -47,10 +47,10 @@ app.get('/', function(req, res) {
       return;
     }
 		// let queryRows = rows;
-    // res.send(queryRows);
-		res.render('home', {
-			rows: rows
-		})
+    res.send(rows);
+		// res.render('home', {
+		//	rows: rows
+		// })
   });
 });
 
