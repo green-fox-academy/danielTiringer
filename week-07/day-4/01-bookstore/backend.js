@@ -74,17 +74,21 @@ app.get('/books', function(req, res) {
     }
 
 		let queryResult = {}
-		console.log(Object.keys(req.query)[0]);
-		if (Object.keys(req.query)[0] == 'category') {
-				queryResult = rows.filter(item => item.cate_descrip.toLowerCase() == req.query.category.toLowerCase())
-		} else if (Object.keys(req.query)[0] == 'publisher') {
-				queryResult = rows.filter(item => item.pub_name.toLowerCase() == req.query.publisher.toLowerCase())
-		} else if (Object.keys(req.query)[0] == 'plt') {
-				queryResult = rows.filter(item => item.book_price < req.query.plt)
-		} else if (Object.keys(req.query)[0] == 'pgt') {
-				queryResult = rows.filter(item => item.book_price > req.query.pgt)
-		}
-
+		Object.keys(req.query).forEach(filter => {
+			console.log(filter);
+			if (filter == 'category') {
+					queryResult = rows.filter(item => item.cate_descrip.toLowerCase() == req.query.category.toLowerCase())
+			}
+			if (filter == 'publisher') {
+					queryResult = rows.filter(item => item.pub_name.toLowerCase() == req.query.publisher.toLowerCase())
+			}
+			if (filter == 'plt') {
+					queryResult = rows.filter(item => item.book_price < req.query.plt)
+			}
+			if (filter == 'pgt') {
+					queryResult = rows.filter(item => item.book_price > req.query.pgt)
+			}
+		})
 		res.send(queryResult);
 	})
 });
