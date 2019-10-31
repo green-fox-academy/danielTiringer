@@ -6,6 +6,7 @@ const env = require('dotenv').config();
 const app = express();
 const PORT = 3000;
 
+
 app.use(express.json());
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
@@ -31,27 +32,61 @@ conn.connect(function(err) {
 // Send in the MySQL query
 app.get('/', function(req, res) {
   conn.query('\
-		SELECT book_name,\
+		select book_name,\
 		aut_name,\
 		cate_descrip,\
 		pub_name,\
 		book_price\
-		FROM book_mast\
-		INNER JOIN author ON book_mast.aut_id  = author.aut_id\
-		INNER JOIN category on category.cate_id = book_mast.cate_id\
-		INNER JOIN publisher on publisher.pub_id = book_mast.pub_id\
+		from book_mast\
+		inner join author on book_mast.aut_id  = author.aut_id\
+		inner join category on category.cate_id = book_mast.cate_id\
+		inner join publisher on publisher.pub_id = book_mast.pub_id\
 		;', function(err, rows) {
     if (err) {
-      console.log(err.toString());
-      res.status(500).send('Database error');
+      console.log(err.tostring());
+      res.status(500).send('database error');
       return;
     }
-		// let queryRows = rows;
-    res.send(rows);
+		console.log(rows[0].cate_descrip.toLowerCase())
+		res.send(rows.filter(item => (item.cate_descrip.toLowerCase() == 'science')))
 		// res.render('home', {
 		//	rows: rows
 		// })
   });
+});
+
+app.get('/books', function(req, res) {
+	conn.query('\
+		select book_name,\
+		aut_name,\
+		cate_descrip,\
+		pub_name,\
+		book_price\
+		from book_mast\
+		inner join author on book_mast.aut_id  = author.aut_id\
+		inner join category on category.cate_id = book_mast.cate_id\
+		inner join publisher on publisher.pub_id = book_mast.pub_id\
+		;', function(err, rows) {
+    if (err) {
+      console.log(err.tostring());
+      res.status(500).send('database error');
+      return;
+    }
+
+		let queryResult = {}
+		console.log(Object.keys(req.query)[0]);
+		if (Object.keys(req.query)[0] == 'category') {
+				queryResult = rows.filter(item => item.cate_descrip.toLowerCase() == req.query.category.toLowerCase())
+		} else if (Object.keys(req.query)[0] == 'publisher') {
+				queryResult = rows.filter(item => item.pub_name.toLowerCase() == req.query.publisher.toLowerCase())
+		} else if (Object.keys(req.query)[0] == 'plt') {
+				queryResult = rows.filter(item => item.book_price < req.query.plt)
+		} else if (Object.keys(req.query)[0] == 'pgt') {
+				queryResult = rows.filter(item => item.book_price > req.query.pgt)
+		}
+
+		res.send(queryResult);
+	})
 });
 
 // start express app on port 3000
