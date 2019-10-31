@@ -8,7 +8,6 @@ const PORT = 3000;
 
 
 app.use(express.json());
-app.use(express.static('.'))
 // Set the view engine to EJS
 // app.set('view engine', 'ejs');
 
@@ -48,6 +47,8 @@ app.get('/', function(req, res) {
       res.status(500).send('database error');
       return;
     }
+		console.log('this runs');
+		res.setHeader('Access-Control-Allow-Origin', '*')
 		res.send(rows)
   });
 });
@@ -86,6 +87,7 @@ app.get('/books', function(req, res) {
 					queryResult = rows.filter(item => item.book_price > req.query.pgt)
 			}
 		})
+		res.setHeader('Access-Control-Allow-Origin', '*')
 		res.send(queryResult);
 	})
 });
