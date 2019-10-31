@@ -1,18 +1,23 @@
 'use strict';
 
 const mysql = require('mysql');
+const dotenv = require('dotenv').config();
 const express = require('express');
+const database = require('data');
 const app = express();
 const PORT = 3000;
 
 app.use(express.static('assets'));
-app.user(express.json());
+app.use(express.json());
+
+db.connect({
+})
 
 let conn = mysql.createConnection ({
-  host: 'localhost',
-  user: 'generic',
-  password: 'password',
-  database: 'data.sql',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: 'data',
 });
 
 conn.connect(function(err) {
