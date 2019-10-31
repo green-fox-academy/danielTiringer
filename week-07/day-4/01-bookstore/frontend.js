@@ -1,15 +1,14 @@
 'use strict';
 
-export function drawFrontend () {
-
 let queryRows = new XMLHttpRequest();
-
-queryRows.open('GET', "localhost:3000", true);
+console.log(queryRows);
+queryRows.open('GET', "/", true);
 let table = document.querySelector('table');
-
+console.log('Ez megtortent');
 queryRows.onload = function () {
-	let queryData = JSON.parse(queryData.responseText);
-
+	console.log(queryRows.responseText);
+	let queryData = JSON.parse(queryRows.responseText);
+	console.log(queryData);
 	queryData.forEach(row => {
 		let tableRow = document.createElement('tr');
 		let bookName = document.createElement('td');
@@ -31,5 +30,3 @@ queryRows.onload = function () {
 	})
 }
 queryRows.send();
-
-}

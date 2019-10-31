@@ -8,8 +8,9 @@ const PORT = 3000;
 
 
 app.use(express.json());
+app.use(express.static('.'))
 // Set the view engine to EJS
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
 
 // Inport the parameters of the MySQL database
 let conn = mysql.createConnection ({
@@ -47,11 +48,7 @@ app.get('/', function(req, res) {
       res.status(500).send('database error');
       return;
     }
-		console.log(rows[0].cate_descrip.toLowerCase())
-		res.send(rows.filter(item => (item.cate_descrip.toLowerCase() == 'science')))
-		// res.render('home', {
-		//	rows: rows
-		// })
+		res.send(rows)
   });
 });
 
