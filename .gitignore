@@ -6,6 +6,7 @@
 
 # temporary files which can be created if a process still has a handle open of a deleted file
 .fuse_hidden*
+*.swp
 
 # KDE directory preferences
 .directory
@@ -18,6 +19,6 @@
 
 # node packages shouldn't be uploaded to git
 node_modules
-*.swp
+.env
 
 # End of https://www.gitignore.io/api/linux
