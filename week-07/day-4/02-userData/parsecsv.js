@@ -13,6 +13,7 @@ let parsecsv = (csvData) => {
    	}
  		csvArray.push(record)
  	}
+	csvArray.pop();
 	return csvArray;
 }
 

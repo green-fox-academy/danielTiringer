@@ -5,9 +5,7 @@ const mysql = require('mysql');
 const env = require('dotenv').config();
 const readcsv = require('./readcsv');
 const parsecsv = require('./parsecsv');
-const createSqlTable = require('./createSqlTable');
-const removeSqlTable = require('./createSqlTable');
-const writeSqlTable = require('./writeSqlTable');
+const operateSqlTable = require('./operateSqlTable');
 const app = express();
 const PORT = 3000;
 
@@ -15,7 +13,7 @@ app.use(express.json());
 
 // Read the CSV file and turn it into an array
 let csvData = readcsv('users.csv', parsecsv);
-console.log(csvData[0]);
+// console.log(csvData[4]);
 
 // Import the parameters of the MySQL database
 let conn = mysql.createConnection ({
@@ -29,32 +27,17 @@ let conn = mysql.createConnection ({
 conn.connect(function(err) {
   if (err) {
 		console.error(err);
-    console.log('Error connecting to Db');
+    console.log('Error connecting to the database.');
     return;
   }
   console.log('Connection established');
 });
 
-// Orders to create the MySQL table
-/*
-let sqlRemoveTable = `DROP TABLE IF EXISTS user_data`;
+// Remove the MySQL table
+conn.query(operateSqlTable.removeSqlTable);
 
-let sqlCreateTable = `CREATE TABLE IF NOT EXISTS user_data (
-	id int(11) NOT NULL AUTO_INCREMENT,
-	prefix varchar(100),
-	first_name varchar(255) NOT NULL,
-	last_name varchar(255) NOT NULL,
-	address varchar(255),
-	height DECIMAL(4,1),
-	bitcoin_address varchar(255),
-	color_preference varchar(7),
-	PRIMARY KEY(id)
-)`;
-*/
+// Create the MySQL table
+conn.query(operateSqlTable.createSqlTable);
 
-
-
-
-
-
-
+// Write into MySQL table
+conn.query(operateSqlTable.writeSqlTable(csvData));
