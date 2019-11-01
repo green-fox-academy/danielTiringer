@@ -15,7 +15,6 @@ const createSqlTable = `CREATE TABLE IF NOT EXISTS user_data (
 
 const writeSqlTable = (csvData) => {
 	csvData.forEach(csvRow => {`INSERT INTO user_data (prefix, first_name, last_name, address, height, bitcoin_address, color_preference) VALUES (
-		${csvRow.id},
 		${csvRow.prefix},
 		${csvRow.first_name},
 		${csvRow.last_name},
