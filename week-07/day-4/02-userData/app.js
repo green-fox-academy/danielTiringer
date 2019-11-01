@@ -13,7 +13,6 @@ app.use(express.json());
 
 // Read the CSV file and turn it into an array
 let csvData = readcsv('users.csv', parsecsv);
-// console.log(csvData[4]);
 
 // Import the parameters of the MySQL database
 let conn = mysql.createConnection ({
