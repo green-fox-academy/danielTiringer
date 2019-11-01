@@ -14,6 +14,10 @@ app.use(express.json());
 // Read the CSV file and turn it into an array
 let csvData = readcsv('users.csv', parsecsv);
 
+for (let i = 0; i < 50; i++){
+//	console.log(csvData[i]);
+}
+
 // Import the parameters of the MySQL database
 let conn = mysql.createConnection ({
   host: process.env.DB_HOST,
@@ -24,19 +28,18 @@ let conn = mysql.createConnection ({
 
 // Connect the MySQL database
 conn.connect(function(err) {
-  if (err) {
-		console.error(err);
-    console.log('Error connecting to the database.');
-    return;
-  }
-  console.log('Connection established');
+  err ? console.log('Error connecting to the database.') : console.log('Connection established.');
 });
 
 // Remove the MySQL table
-conn.query(operateSqlTable.removeSqlTable);
+conn.query(operateSqlTable.removeSqlTable, function(err, res){
+	err ? console.log('Unable to remove the table.') : console.log('Table removed.');
+});
 
 // Create the MySQL table
-conn.query(operateSqlTable.createSqlTable);
+conn.query(operateSqlTable.createSqlTable, function(err, res) {
+	err ? console.log('Unable to create the new table.') : console.log('The table is ready.');
+});
 
 // Write into MySQL table
-conn.query(operateSqlTable.writeSqlTable(csvData));
+let writeData = operateSqlTable.writeSqlTable(conn, csvData);

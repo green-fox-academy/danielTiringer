@@ -13,16 +13,25 @@ const createSqlTable = `CREATE TABLE IF NOT EXISTS user_data (
 	color_preference VARCHAR(7)
 );`
 
-const writeSqlTable = (csvData) => {
-	csvData.forEach(csvRow => {`INSERT INTO user_data (prefix, first_name, last_name, address, height, bitcoin_address, color_preference) VALUES (
-		${csvRow.prefix},
-		${csvRow.first_name},
-		${csvRow.last_name},
-		${csvRow.address},
-		${csvRow.height},
-		${csvRow.bitcoin_address},
-		${csvRow.color_preference}
-	);`})
+// Setting default values (null or 0) to the articles that aren't designated NOT NULL, to ensure it doesn't affect writing into SQL
+// Using connection.escape on all variables to avoid an apostrophe interpreted as part of the SQL expression in a last name (or anyting else)
+
+const writeSqlTable = (connection, csvData) => {
+	csvData.forEach(csvRow => {
+		let sqlQuery = `INSERT INTO user_data (prefix, first_name, last_name, address, height, bitcoin_address, color_preference) VALUES (
+		${csvRow.prefix ? connection.escape(csvRow.prefix) : null},
+		${connection.escape(csvRow.first_name)},
+		${connection.escape(csvRow.last_name)},
+		${csvRow.address ? connection.escape(csvRow.address) : null},
+		${csvRow.height ? connection.escape(csvRow.height) : 0},
+		${csvRow.bitcoin_address ? connection.escape(csvRow.bitcoin_address) : null},
+		${csvRow.color_preference ? connection.escape(csvRow.color_preference) : null}
+		);`
+		connection.query(sqlQuery, function(err, res){
+			err ? console.error(err) : undefined;
+		});
+	});
+	console.log('The data has been written into the database.');
 };
 
 module.exports = { removeSqlTable, createSqlTable, writeSqlTable };
