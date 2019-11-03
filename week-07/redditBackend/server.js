@@ -29,9 +29,7 @@ app.get('/hello/', (req, res) => {
 });
 
 // Remove the MySQL tables
-// conn.query(createSqlTable.removeSqlTable, function(err, res){
-// 	err ? console.log('Unable to remove the table.') : console.log('Table removed.');
-// });
+let removeTable = createSqlTable.removeSqlTable(conn, posts);
 
 // Create the MySQL tables
 // conn.query(createSqlTable.createPostsSqlTable, function(err, res) {

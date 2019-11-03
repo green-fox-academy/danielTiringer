@@ -1,6 +1,11 @@
 'use strict';
 
-const removeSqlTable = `DROP TABLE IF EXISTS posts`;
+const removeSqlTable = (connection, tableName) => {
+	let sqlQuery = `DROP TABLE IF EXISTS ${tableName};`;
+	connection.query(sqlQuery, function(err, res){
+		err? console.error(err) : undefined;
+	});
+};
 
 const createPostsSqlTable = `CREATE TABLE IF NOT EXISTS posts (
 	post_id INTEGER PRIMARY KEY AUTO_INCREMENT,

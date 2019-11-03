@@ -15,7 +15,7 @@ const insertIntoPostsTable = (connection, postData) => {
 	console.log('The data has been written into the posts table.');
 };
 
-const insertIntousersTable = (connection, userData) => {
+const insertIntoUsersTable = (connection, userData) => {
 		let sqlQuery = `INSERT INTO users (username, fist_name, last_name, email, password) VALUES (
 		${connection.escape(userData.username)},
 		${userData.first_name ? connection.escape(userData.first_name) : null},
