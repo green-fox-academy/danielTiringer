@@ -34,4 +34,6 @@ const writeSqlTable = (connection, csvData) => {
 	console.log('The data has been written into the database.');
 };
 
-module.exports = { removeSqlTable, createSqlTable, writeSqlTable };
+const readSqlTable = `SELECT * FROM user_data;`;
+
+module.exports = { removeSqlTable, createSqlTable, writeSqlTable, readSqlTable };

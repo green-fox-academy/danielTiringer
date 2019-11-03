@@ -14,10 +14,6 @@ app.use(express.json());
 // Read the CSV file and turn it into an array
 let csvData = readcsv('users.csv', parsecsv);
 
-for (let i = 0; i < 50; i++){
-//	console.log(csvData[i]);
-}
-
 // Import the parameters of the MySQL database
 let conn = mysql.createConnection ({
   host: process.env.DB_HOST,
@@ -43,3 +39,14 @@ conn.query(operateSqlTable.createSqlTable, function(err, res) {
 
 // Write into MySQL table
 let writeData = operateSqlTable.writeSqlTable(conn, csvData);
+
+// Read back the data from MySQL
+let readData = [];
+conn.query(operateSqlTable.readSqlTable, function(err, readData){
+	err ? console.log('Unable to read the data from the table.') : console.log('Data read complete.');
+});
+
+// Compare the two sets of data to one another
+
+// Close the connection
+conn.end();
