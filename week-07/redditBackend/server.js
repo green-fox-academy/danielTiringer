@@ -4,6 +4,7 @@ const express = require('express');
 const mysql = require('mysql');
 const env = require('dotenv').config();
 const createSqlTable = require('./createSqlTable');
+const modifySqlTable = require('./modifySqlTable');
 const app = express();
 const PORT = 3000;
 
@@ -27,6 +28,11 @@ app.get('/hello/', (req, res) => {
 	res.send('Hello World!');
 });
 
+// Remove the MySQL tables
+// conn.query(createSqlTable.removeSqlTable, function(err, res){
+// 	err ? console.log('Unable to remove the table.') : console.log('Table removed.');
+// });
+
 // Create the MySQL tables
 // conn.query(createSqlTable.createPostsSqlTable, function(err, res) {
 // 	err ? console.log('Unable to create the new table.') : console.log('The table is ready.');
@@ -39,6 +45,44 @@ app.get('/hello/', (req, res) => {
 // conn.query(createSqlTable.createUsersSqlTable, function(err, res) {
 // 	err ? console.log('Unable to create the new table.') : console.log('The table is ready.');
 // });
+console.log(Math.floor(Date.now()/1000));
+app.get('/posts', (req, res) => {
+    conn.query(`SELECT\
+				posts.post_id,\
+				posts.title,\
+				posts.url,\
+				posts.timestamp,\
+				posts.score,\
+				users.username,\
+				votes.vote
+				FROM posts\
+				LEFT JOIN users on users.user_id = posts.owner\
+				LEFT JOIN votes on votes.user_id = posts.owner\
+				;`, function (err, rows) {
+        if (err) {
+					console.error(err);
+				} else {
+					console.log('Data received.');
+          res.set('Content-Type: application/json');
+					console.log(rows);
+          res.send(rows);
+        }
+	});
+});
+
+app.get('/posts/:username', (req, res) => {
+    conn.query(`SELECT * FROM posts\
+				WHERE owner = connection.escape(${req.params.username})\
+				;`, function (err, rows) {
+        if (err) {
+					console.error(err);
+				} else {
+					console.log('Data received.');
+          res.set('Content-Type: application/json');
+          res.send(rows);
+        }
+	});
+});
 
 // start express app on port 3000
 app.listen(PORT, () => {

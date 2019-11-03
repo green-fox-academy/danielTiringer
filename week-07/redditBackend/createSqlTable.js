@@ -1,15 +1,15 @@
 'use strict';
 
-// const removeSqlTable = `DROP TABLE IF EXISTS posts`;
+const removeSqlTable = `DROP TABLE IF EXISTS posts`;
 
 const createPostsSqlTable = `CREATE TABLE IF NOT EXISTS posts (
 	post_id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(100) NOT NULL,
 	url VARCHAR(255) NOT NULL,
 	timestamp VARCHAR(255) NOT NULL,
-	score INTEGER NOT NULL,
-	owner VARCHAR(255),
-	vote TINYINT(1)
+	score INTEGER,
+	owner INTEGER,
+	vote INTEGER(2)
 );`;
 
 const createUsersSqlTable = `CREATE TABLE IF NOT EXISTS users (
