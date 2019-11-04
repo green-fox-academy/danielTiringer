@@ -58,8 +58,8 @@ app.get('/hello/', (req, res) => {
 // 	modifySqlTable.insertIntoVotesTable(conn, vote);
 // });
 
-app.get('/posts/:username', (req, res) => {
-		console.log(req.params.username);
+app.get('/posts', (req, res) => {
+		console.log(req.query.username);
     conn.query(`SELECT\
 				posts.post_id,\
 				posts.title,\
@@ -71,13 +71,14 @@ app.get('/posts/:username', (req, res) => {
 				FROM posts\
 				LEFT JOIN users on users.user_id = posts.owner\
 				LEFT JOIN votes on votes.user_id = posts.owner\
-				WHERE username = connection.escape(${req.params.username})\
+				WHERE users.username = ${conn.escape(req.query.username)}\
 				;`, function (err, rows) {
         if (err) {
 					console.error(err);
 				} else {
 					console.log('Data received.');
           res.set('Content-Type: application/json');
+					console.log(rows);
           res.send(rows);
         }
 	});
