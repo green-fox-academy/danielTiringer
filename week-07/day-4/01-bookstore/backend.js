@@ -32,15 +32,15 @@ conn.connect(function(err) {
 // Send in the MySQL query
 app.get('/', function(req, res) {
   conn.query('\
-		select book_name,\
+		SELECT book_name,\
 		aut_name,\
 		cate_descrip,\
 		pub_name,\
 		book_price\
-		from book_mast\
-		inner join author on book_mast.aut_id  = author.aut_id\
-		inner join category on category.cate_id = book_mast.cate_id\
-		inner join publisher on publisher.pub_id = book_mast.pub_id\
+		FROM book_mast\
+		INNER JOIN author on book_mast.aut_id  = author.aut_id\
+		INNER JOIN category on category.cate_id = book_mast.cate_id\
+		INNER JOIN publisher on publisher.pub_id = book_mast.pub_id\
 		;', function(err, rows) {
     if (err) {
       console.log(err.tostring());
@@ -55,15 +55,15 @@ app.get('/', function(req, res) {
 
 app.get('/books', function(req, res) {
 	conn.query('\
-		select book_name,\
+		SELECT book_name,\
 		aut_name,\
 		cate_descrip,\
 		pub_name,\
 		book_price\
-		from book_mast\
-		inner join author on book_mast.aut_id  = author.aut_id\
-		inner join category on category.cate_id = book_mast.cate_id\
-		inner join publisher on publisher.pub_id = book_mast.pub_id\
+		FROM book_mast\
+		INNER JOIN author on book_mast.aut_id  = author.aut_id\
+		INNER JOIN category on category.cate_id = book_mast.cate_id\
+		INNER JOIN publisher on publisher.pub_id = book_mast.pub_id\
 		;', function(err, rows) {
     if (err) {
       console.log(err.tostring());
