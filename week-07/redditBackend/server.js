@@ -29,7 +29,7 @@ app.get('/hello/', (req, res) => {
 });
 
 // Remove the MySQL tables
-let removeTable = createSqlTable.removeSqlTable(conn, posts);
+// let removeTable = createSqlTable.removeSqlTable(conn, posts);
 
 // Create the MySQL tables
 // conn.query(createSqlTable.createPostsSqlTable, function(err, res) {
@@ -43,7 +43,6 @@ let removeTable = createSqlTable.removeSqlTable(conn, posts);
 // conn.query(createSqlTable.createUsersSqlTable, function(err, res) {
 // 	err ? console.log('Unable to create the new table.') : console.log('The table is ready.');
 // });
-console.log(Math.floor(Date.now()/1000));
 app.get('/posts', (req, res) => {
     conn.query(`SELECT\
 				posts.post_id,\

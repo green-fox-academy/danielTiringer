@@ -33,4 +33,4 @@ const createVotesSqlTable = `CREATE TABLE IF NOT EXISTS votes (
 	vote INTEGER(2) NOT NULL
 );`;
 
-module.exports = { createPostsSqlTable, createVotesSqlTable, createUsersSqlTable };
+module.exports = { removeSqlTable, createPostsSqlTable, createVotesSqlTable, createUsersSqlTable };
