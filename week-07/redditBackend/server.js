@@ -5,6 +5,7 @@ const mysql = require('mysql');
 const env = require('dotenv').config();
 const createSqlTable = require('./createSqlTable');
 const modifySqlTable = require('./modifySqlTable');
+const dataToUseForTesting = require('./dataToUseForTesting');
 const app = express();
 const PORT = 3000;
 
@@ -43,6 +44,20 @@ app.get('/hello/', (req, res) => {
 // conn.query(createSqlTable.createUsersSqlTable, function(err, res) {
 // 	err ? console.log('Unable to create the new table.') : console.log('The table is ready.');
 // });
+
+// Write dummy data into MySQL tables
+let writeUserData = dataToUseForTesting.usersDummyData.forEach(user => {
+	modifySqlTable.insertIntoUsersTable(conn, user)
+});
+
+// let writePostsData = dataToUseForTesting.postsDummyData.forEach(post => {
+// 	modifySqlTable.insertIntoPostsTable(conn, post);
+// });
+
+// let writeVotesData = dataToUseForTesting.votesDummyData.forEach(vote => {
+// 	modifySqlTable.insertIntoVotesTable(conn, vote);
+// });
+
 app.get('/posts', (req, res) => {
     conn.query(`SELECT\
 				posts.post_id,\

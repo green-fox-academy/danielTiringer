@@ -47,8 +47,8 @@ let votesDummyData = [
 	{
 		user_id: 1,
 		post_id: 2,
-		vote: -1
+		vote: 0
 	},
 ];
 
-modules.export = { usersDummyData, postsDummyData, votesDummyData }
+module.exports = { usersDummyData, postsDummyData, votesDummyData }

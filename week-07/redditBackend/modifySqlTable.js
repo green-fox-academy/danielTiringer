@@ -2,12 +2,12 @@
 
 const insertIntoPostsTable = (connection, postData) => {
 		let sqlQuery = `INSERT INTO posts (title, url, timestamp, score, owner, vote) VALUES (
-		${connection.escape(postData.title)},
-		${connection.escape(postData.url)},
-		${connection.escape(Math.floor(Date.now()/1000))},
-		${postData.score ? connection.escape(postData.score) : 0},
-		${postData.owner ? connection.escape(postData.owner) : null},
-		${postData.vote ? connection.escape(postData.vote) : null}
+		${connection.escape(postData.title)},\n
+		${connection.escape(postData.url)},\n
+		${connection.escape(Math.floor(Date.now()/1000))},\n
+		${postData.score ? connection.escape(postData.score) : 0},\n
+		${postData.owner ? connection.escape(postData.owner) : null},\n
+		${postData.vote ? connection.escape(postData.vote) : null}\n
 		);`
 		connection.query(sqlQuery, function(err, res){
 			err ? console.error(err) : undefined;
@@ -16,17 +16,16 @@ const insertIntoPostsTable = (connection, postData) => {
 };
 
 const insertIntoUsersTable = (connection, userData) => {
-		let sqlQuery = `INSERT INTO users (username, fist_name, last_name, email, password) VALUES (
-		${connection.escape(userData.username)},
-		${userData.first_name ? connection.escape(userData.first_name) : null},
-		${userData.last_name ? connection.escape(userData.last_name) : null},
-		${connection.escape(userData.email)},
-		${userData.password ? connection.escape(userData.password) : null},
+		let sqlQuery = `INSERT INTO users (username, first_name, last_name, email, password) VALUES (
+		${connection.escape(userData.username)},\n
+		${userData.first_name ? connection.escape(userData.first_name) : null},\n
+		${userData.last_name ? connection.escape(userData.last_name) : null},\n
+		${connection.escape(userData.email)},\n
+		${userData.password ? connection.escape(userData.password) : null}\n
 		);`
 		connection.query(sqlQuery, function(err, res){
-			err ? console.error(err) : undefined;
+			err ? console.error(err) : console.log('The data has been written into the users table.');
 		});
-	console.log('The data has been written into the users table.');
 };
 
 const insertIntoVotesTable = (connection, voteData) => {
@@ -36,9 +35,8 @@ const insertIntoVotesTable = (connection, voteData) => {
 		${connection.escape(voteData.vote)},
 		);`
 		connection.query(sqlQuery, function(err, res){
-			err ? console.error(err) : undefined;
+			err ? console.error(err) : console.log('The data has been written into the votes table.');
 		});
-	console.log('The data has been written into the votes table.');
 };
 
 module.exports = { insertIntoPostsTable, insertIntoUsersTable, insertIntoVotesTable };
