@@ -61,7 +61,6 @@ app.get('/hello/', (req, res) => {
 // });
 
 app.get('/posts', (req, res) => {
-		console.log(req.query.username);
     conn.query(`SELECT\
 				posts.post_id,\
 				posts.title,\
@@ -88,8 +87,8 @@ app.get('/posts', (req, res) => {
 
 app.post('/posts', (req, res) => {
 	let postObject = {
-		title: req.query.title,
-		url: req.query.url
+		title: req.body.title,
+		url: req.body.url
 	}
 	let writePostsData = modifySqlTable.insertIntoPostsTable(conn, postObject);
   conn.query(`SELECT\
@@ -154,7 +153,7 @@ app.put('/posts/:id/downvote', (req, res) => {
 		posts.timestamp,\
 		posts.score,\
 		users.username,\
-		votes.vote
+		votes.vote\
 		FROM posts\
 		LEFT JOIN users on users.user_id = posts.owner\
 		LEFT JOIN votes on votes.user_id = posts.owner\
