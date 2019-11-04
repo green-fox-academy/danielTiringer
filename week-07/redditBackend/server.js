@@ -46,9 +46,9 @@ app.get('/hello/', (req, res) => {
 // });
 
 // Write dummy data into MySQL tables
-let writeUserData = dataToUseForTesting.usersDummyData.forEach(user => {
-	modifySqlTable.insertIntoUsersTable(conn, user)
-});
+// let writeUserData = dataToUseForTesting.usersDummyData.forEach(user => {
+// 	modifySqlTable.insertIntoUsersTable(conn, user)
+// });
 
 // let writePostsData = dataToUseForTesting.postsDummyData.forEach(post => {
 // 	modifySqlTable.insertIntoPostsTable(conn, post);
@@ -58,7 +58,8 @@ let writeUserData = dataToUseForTesting.usersDummyData.forEach(user => {
 // 	modifySqlTable.insertIntoVotesTable(conn, vote);
 // });
 
-app.get('/posts', (req, res) => {
+app.get('/posts/:username', (req, res) => {
+		console.log(req.params.username);
     conn.query(`SELECT\
 				posts.post_id,\
 				posts.title,\
@@ -70,21 +71,7 @@ app.get('/posts', (req, res) => {
 				FROM posts\
 				LEFT JOIN users on users.user_id = posts.owner\
 				LEFT JOIN votes on votes.user_id = posts.owner\
-				;`, function (err, rows) {
-        if (err) {
-					console.error(err);
-				} else {
-					console.log('Data received.');
-          res.set('Content-Type: application/json');
-					console.log(rows);
-          res.send(rows);
-        }
-	});
-});
-
-app.get('/posts/:username', (req, res) => {
-    conn.query(`SELECT * FROM posts\
-				WHERE owner = connection.escape(${req.params.username})\
+				WHERE username = connection.escape(${req.params.username})\
 				;`, function (err, rows) {
         if (err) {
 					console.error(err);

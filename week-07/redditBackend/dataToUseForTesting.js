@@ -45,9 +45,9 @@ let postsDummyData = [
 
 let votesDummyData = [
 	{
-		user_id: 1,
-		post_id: 2,
-		vote: 0
+		user_id: '1',
+		post_id: '2',
+		vote: '0'
 	},
 ];
 
