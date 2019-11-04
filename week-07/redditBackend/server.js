@@ -3,6 +3,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const env = require('dotenv').config();
+const bodyParser = require('body-parser');
 const createSqlTable = require('./createSqlTable');
 const modifySqlTable = require('./modifySqlTable');
 const dataToUseForTesting = require('./dataToUseForTesting');
@@ -10,6 +11,7 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+app.use(bodyParser.json());
 
 // Import the parameters of the MySQL database
 let conn = mysql.createConnection ({
@@ -30,7 +32,7 @@ app.get('/hello/', (req, res) => {
 });
 
 // Remove the MySQL tables
-// let removeTable = createSqlTable.removeSqlTable(conn, posts);
+// let removeTable = createSqlTable.removeSqlTable(conn, 'votes');
 
 // Create the MySQL tables
 // conn.query(createSqlTable.createPostsSqlTable, function(err, res) {
@@ -85,37 +87,87 @@ app.get('/posts', (req, res) => {
 });
 
 app.post('/posts', (req, res) => {
-		console.log(req.query.title);
-		console.log(req.query.url);
-		let postObject = {
-			title: req.query.title,
-			url: req.query.url
-		}
-		let writePostsData = modifySqlTable.insertIntoPostsTable(conn, postObject);
-    conn.query(`SELECT\
-				posts.post_id,\
-				posts.title,\
-				posts.url,\
-				posts.timestamp,\
-				posts.score,\
-				users.username,\
-				votes.vote
-				FROM posts\
-				LEFT JOIN users on users.user_id = posts.owner\
-				LEFT JOIN votes on votes.user_id = posts.owner\
-				WHERE posts.post_id =\
-					(SELECT\
-						MAX(posts.post_id)\
-					FROM posts)\
-				;`, function (err, rows) {
-        if (err) {
-					console.error(err);
-				} else {
-					console.log('Data written into table.');
-          res.set('Content-Type: application/json');
-					console.log(rows);
-          res.send(rows);
-        }
+	let postObject = {
+		title: req.query.title,
+		url: req.query.url
+	}
+	let writePostsData = modifySqlTable.insertIntoPostsTable(conn, postObject);
+  conn.query(`SELECT\
+		posts.post_id,\
+		posts.title,\
+		posts.url,\
+		posts.timestamp,\
+		posts.score,\
+		users.username,\
+		votes.vote
+		FROM posts\
+		LEFT JOIN users on users.user_id = posts.owner\
+		LEFT JOIN votes on votes.user_id = posts.owner\
+		WHERE posts.post_id =\
+			(SELECT\
+				MAX(posts.post_id)\
+			FROM posts)\
+		;`, function (err, rows) {
+      if (err) {
+				console.error(err);
+			} else {
+				console.log('Data written into table.');
+        res.set('Content-Type: application/json');
+				console.log(rows);
+        res.send(rows);
+      }
+	});
+});
+
+app.put('/posts/:id/upvote', (req, res) => {
+	let executeVote = modifySqlTable.updateScore(conn, req.params.id, 'upvote');
+  conn.query(`SELECT\
+		posts.post_id,\
+		posts.title,\
+		posts.url,\
+		posts.timestamp,\
+		posts.score,\
+		users.username,\
+		votes.vote
+		FROM posts\
+		LEFT JOIN users on users.user_id = posts.owner\
+		LEFT JOIN votes on votes.user_id = posts.owner\
+		WHERE posts.post_id = ${req.params.id}\
+		;`, function (err, rows) {
+      if (err) {
+				console.error(err);
+			} else {
+				console.log('Data written into table.');
+        res.set('Content-Type: application/json');
+				console.log(rows);
+        res.send(rows);
+      }
+	});
+});
+
+app.put('/posts/:id/downvote', (req, res) => {
+	let executeVote = modifySqlTable.updateScore(conn, req.params.id, 'downvote');
+  conn.query(`SELECT\
+		posts.post_id,\
+		posts.title,\
+		posts.url,\
+		posts.timestamp,\
+		posts.score,\
+		users.username,\
+		votes.vote
+		FROM posts\
+		LEFT JOIN users on users.user_id = posts.owner\
+		LEFT JOIN votes on votes.user_id = posts.owner\
+		WHERE posts.post_id = ${req.params.id}\
+		;`, function (err, rows) {
+      if (err) {
+				console.error(err);
+			} else {
+				console.log('Data written into table.');
+        res.set('Content-Type: application/json');
+				console.log(rows);
+        res.send(rows);
+      }
 	});
 });
 

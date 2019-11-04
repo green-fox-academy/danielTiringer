@@ -38,4 +38,20 @@ const insertIntoVotesTable = (connection, voteData) => {
 		});
 };
 
-module.exports = { insertIntoPostsTable, insertIntoUsersTable, insertIntoVotesTable };
+const updateScore = (connection, postId, upOrDown) => {
+	let sqlQuery = '';
+	if (upOrDown === 'upvote') {
+		sqlQuery = `UPDATE posts\
+			SET score = score + 1\
+			WHERE post_id = ${postId};`
+	} else if (upOrDown === 'downvote') {
+		sqlQuery = `UPDATE posts\
+			SET score = score  - 1\
+			WHERE post_id = ${postId};`
+	}
+	connection.query(sqlQuery, function(err, res){
+		err ? console.error(err) : console.log('The score has been updated.');
+	});
+}
+
+module.exports = { insertIntoPostsTable, insertIntoUsersTable, insertIntoVotesTable, updateScore };
