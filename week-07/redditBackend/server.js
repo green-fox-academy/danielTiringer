@@ -84,6 +84,41 @@ app.get('/posts', (req, res) => {
 	});
 });
 
+app.post('/posts', (req, res) => {
+		console.log(req.query.title);
+		console.log(req.query.url);
+		let postObject = {
+			title: req.query.title,
+			url: req.query.url
+		}
+		let writePostsData = modifySqlTable.insertIntoPostsTable(conn, postObject);
+    conn.query(`SELECT\
+				posts.post_id,\
+				posts.title,\
+				posts.url,\
+				posts.timestamp,\
+				posts.score,\
+				users.username,\
+				votes.vote
+				FROM posts\
+				LEFT JOIN users on users.user_id = posts.owner\
+				LEFT JOIN votes on votes.user_id = posts.owner\
+				WHERE posts.post_id =\
+					(SELECT\
+						MAX(posts.post_id)\
+					FROM posts)\
+				;`, function (err, rows) {
+        if (err) {
+					console.error(err);
+				} else {
+					console.log('Data written into table.');
+          res.set('Content-Type: application/json');
+					console.log(rows);
+          res.send(rows);
+        }
+	});
+});
+
 // start express app on port 3000
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
