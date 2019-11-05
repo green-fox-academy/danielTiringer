@@ -11,23 +11,30 @@ let img = {
 
 navTag.addEventListener ('click', function (event) {
 	if (event.target.getAttribute('data-action') === 'move') {
-		if (event.target.getAttribute('data-direction') === 'right') {
+		switch (event.target.getAttribute('data-direction')) {
+			case 'right':
 				img.horizontalPosition += 10;
-		} else if (event.target.getAttribute('data-direction') === 'left') {
+				break;
+			case 'left':
 				img.horizontalPosition -= 10;
-		} else if (event.target.getAttribute('data-direction') === 'up') {
+				break;
+			case 'up':
 				img.verticalPosition -= 10;
-		} else if (event.target.getAttribute('data-direction') === 'down') {
+				break;
+			case 'down':
 				img.verticalPosition += 10;
-		}
+				break;
+		};
 		background.style.backgroundPosition = `${img.horizontalPosition}px ${img.verticalPosition}px`;
 	} else if (event.target.getAttribute('data-action') === 'zoom') {
-		if (event.target.getAttribute('data-direction') === 'in') {
-			img.aspectRatio += 20;
-		} else if (event.target.getAttribute('data-direction') === 'out') {
-			img.aspectRatio -= 20;
-		}
-		console.log(background.style)
+		switch (event.target.getAttribute('data-direction')) {
+			case 'in':
+				img.aspectRatio += 20;
+				break;
+			case  'out':
+				img.aspectRatio -= 20;
+				break;
+		};
 		background.style.backgroundSize = `${200 * (1 + img.aspectRatio / 100)}%`
 	};
 });
