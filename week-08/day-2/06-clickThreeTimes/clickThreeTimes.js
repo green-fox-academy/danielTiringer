@@ -11,7 +11,9 @@ window.onload = () => {
 		let clickCount = 0;
 		button.onclick = () => {
 			clickCount++;
-			clickCount >=3 ? paragraph.textContent = '5 seconds elapsed and clicked 3 times' : undefined;
+			if (clickCount >=3) {
+				paragraph.textContent = '5 seconds elapsed and clicked 3 times';
+			}
 		};
 	}, 5000);
 };

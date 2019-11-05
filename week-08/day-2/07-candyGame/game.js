@@ -23,12 +23,10 @@ candyButton.onclick = () => {
 };
 
 lollyButton.onclick = () => {
-	candyCounter.textContent >= 100 ?
-		(
-			(candyCounter.textContent = candyCounter.textContent - 100)
-			&& (lollyCounter.textContent = lollyCounter.textContent + lollypop)
-		)
-	: undefined;
+	if (candyCounter.textContent >= 100) {
+			candyCounter.textContent = candyCounter.textContent - 100;
+			lollyCounter.textContent = lollyCounter.textContent + lollypop;
+	};
 };
 
 machineButton.onclick = () => {

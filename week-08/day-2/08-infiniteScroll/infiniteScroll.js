@@ -18,7 +18,9 @@ const appendDivs = (times) => {
 	newDiv.style.backgroundColor = randomColor();
 	body.appendChild(newDiv);
 
-	times > 1 ? appendDivs(times - 1) : undefined;
+	if (times > 1) {
+		appendDivs(times - 1);
+	}
 };
 
 // To draw the initial divs
@@ -26,6 +28,8 @@ appendDivs(randomNumber);
 
 // Add more while scrolling
 window.addEventListener('scroll', function (event) {
-	document.body.scrollHeight - scrollThreshold < event.pageY ? appendDivs(10) : undefined;
+	if (document.body.scrollHeight - scrollThreshold < event.pageY) {
+		appendDivs(10);
+	}
 });
 
