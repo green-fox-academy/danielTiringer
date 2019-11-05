@@ -3,7 +3,9 @@
 const removeSqlTable = (connection, tableName) => {
 	let sqlQuery = `DROP TABLE IF EXISTS ${tableName};`;
 	connection.query(sqlQuery, function(err, res){
-		err? console.error(err) : undefined;
+		if (err) {
+		  console.error(err);
+		}
 	});
 };
 
