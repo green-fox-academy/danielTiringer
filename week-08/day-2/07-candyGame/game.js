@@ -34,3 +34,8 @@ lollyButton.onclick = () => {
 machineButton.onclick = () => {
 	candiesPerSecondCounter.textContent = candiesPerSecondCounter.textContent * 10
 };
+
+setInterval(() => {
+	candyCounter.textContent = parseInt(candyCounter.textContent) + Math.floor(lollyCounter.textContent.length / 20) * candiesPerSecondCounter.textContent;
+
+}, 1000);
