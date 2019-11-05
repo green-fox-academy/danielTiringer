@@ -2,7 +2,7 @@
 
 let body = document.querySelector('body');
 let randomNumber = Math.floor(Math.random() * 10) + 10;
-let scrollThreshold = 300;
+let scrollThreshold = 1000;
 
 function randomColor() {
   let hexLetters = '0123456789ABCDEF';
@@ -13,15 +13,19 @@ function randomColor() {
   return color;
 }
 
-const appendDiv = () => {
+const appendDivs = (times) => {
 	let newDiv = document.createElement('div');
 	newDiv.style.backgroundColor = randomColor();
 	body.appendChild(newDiv);
+
+	times > 1 ? appendDivs(times - 1) : undefined;
 };
 
-for (let i = 0; i < randomNumber; i++){
-	appendDiv();
-};
+// To draw the initial divs
+appendDivs(randomNumber);
 
-
+// Add more while scrolling
+window.addEventListener('scroll', function (event) {
+	document.body.scrollHeight - scrollThreshold < event.pageY ? appendDivs(10) : undefined;
+});
 
