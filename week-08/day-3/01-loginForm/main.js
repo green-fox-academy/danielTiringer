@@ -3,7 +3,8 @@
 let passwordField = document.querySelector('#password');
 
 passwordField.addEventListener('click', (event) => {
-	if (event.clientX > 575){
+	console.log(event);
+	if (event.clientX > 580) {
 		togglePassword();
 	}
 });
