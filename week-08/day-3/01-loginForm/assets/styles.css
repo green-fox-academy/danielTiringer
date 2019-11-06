@@ -16,6 +16,8 @@ h1 {
 	text-transform: uppercase;
 	font-weight: normal;
 	margin: 10px;
+	font-size: 22px;
+	padding-bottom: 20px;
 }
 
 label {
@@ -31,6 +33,21 @@ input {
 	margin: 10px;
 	border-radius: 3px;
 	border: solid 1px #e6e6e6;
+	opacity: 0.6;
+}
+
+input[type='password'] {
+	display: block;
+	background: url(./eye.png) no-repeat;
+	background-size: 7%;
+	background-position: right 10px center;
+}
+
+input[type='shownPassword'] {
+	display: block;
+	background: url(./eyeHidden.png) no-repeat;
+	background-size: 7%;
+	background-position: right 10px center;
 }
 
 span {

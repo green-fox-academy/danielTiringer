@@ -1,10 +1,13 @@
 'use strict';
 
-	let passwordField = document.querySelector('#password');
-	console.log(passwordField);
+let passwordField = document.querySelector('#password');
+
+passwordField.addEventListener('click', (event) => {
+	if (event.clientX > 575){
+		togglePassword();
+	}
+});
 
 function togglePassword() {
-	let passwordField = document.querySelector('#password');
-	console.log(passwordField);
-  passwordField.type === "password" ? passwordField.type = 'text' : passwordField.type = 'password;
+  passwordField.type === 'password' ? passwordField.type = 'shownPassword' : passwordField.type = 'password';
 }
