@@ -1,0 +1,17 @@
+body {
+	background: #ebebeb;
+}
+
+.container {
+	margin: 60px 25% 0 25%;
+	background: #ffffff;
+	padding: 60px;
+}
+
+section {
+	padding: 10px 0;
+}
+
+.block {
+	display: block;
+}

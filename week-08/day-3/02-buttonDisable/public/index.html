@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+	<link rel="stylesheet" type="text/css" href="./../assets/styles.css">
+  <title>Button Disable</title>
+</head>
+<body>
+
+  <div class='container'>
+		<form action='/submit' method='POST'>
+			<section>
+			<label class='block'>What is your favorite pet?</label>
+
+			<div class='block'>
+	    	<input type='radio' name='pet' value='dog'>
+    		<label for='dog'>Dog</label>
+			</div>
+
+			<div class='block'>
+	    	<input type='radio' name='pet' value='cat'>
+    		<label for='cat'>Cat</label>
+			</div>
+
+			<div class='block'>
+	    	<input type='radio' name='pet' value='goldfish'>
+    		<label for='goldfish'>Viktor the goldfish</label>
+			</div>
+			</section>
+
+			<section>
+			<label class='block'>Do you want to sign up for cat facts?</label>
+
+			<div class='block'>
+	    	<input type='radio' name='signup' value='yes'>
+    		<label for='yes'>Yes</label>
+			</div>
+
+			<div class='block'>
+	    	<input type='radio' name='signup' value='no'>
+    		<label for='no'>No</label>
+			</div>
+			</section>
+
+    	<button type='submit' id='cat-button'>I love cats</button>
+    	<button type='submit' id='sign-up'>Sign up</button>
+		</form>
+  </div>
+
+	<script src='./../main.js'></script>
+</body>
+</html>
