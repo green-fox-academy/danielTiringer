@@ -33,3 +33,7 @@ select {
 .hide {
 	display: none;
 }
+
+span {
+	color: rgb(129, 143, 209);
+}

@@ -47,5 +47,9 @@ genreSelector.addEventListener('change', (event) => {
 });
 
 movieSelector.addEventListener('change', (event) => {
-	selectedMovieDisplay.textContent = selectedMovieText.concat(movieSelector.options[movieSelector.selectedIndex].textContent);
+	let span = document.createElement('span');
+	span.textContent = movieSelector.options[movieSelector.selectedIndex].textContent
+	console.log(span);
+	selectedMovieDisplay.textContent = selectedMovieText;
+	selectedMovieDisplay.appendChild(span);
 });
