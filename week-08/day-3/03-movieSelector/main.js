@@ -16,6 +16,11 @@ let movies = [
 	{title: 'Wayne\'s World', genre: 'Comedy'}
 ];
 
+let selectedMovieText = 'The selected movie is: ';
+let selectedMovieDisplay = document.querySelector('#display');
+
+selectedMovieDisplay.textContent = selectedMovieText.concat('-');
+
 genres.forEach(genre => {
 	let option = document.createElement('option');
 	option.textContent = genre;
@@ -31,16 +36,16 @@ movies.forEach(movie => {
 	movieSelector.appendChild(option);
 });
 
-genreSelector.addEventListener('click', (event) => {
-	console.log(genreSelector.value);
-	movieSelector.childNodes.forEach(node => {
+genreSelector.addEventListener('change', (event) => {
+	Array.from(movieSelector.children).forEach(node => {
 		if (node.value === genreSelector.value) {
 			node.setAttribute('class', '');
 		} else if (node.value && genreSelector.value != node.value) {
 			node.setAttribute('class', 'hide');
-		}
+		};
 	});
-	console.log(movieSelector.childNodes[9].value);
 });
 
-
+movieSelector.addEventListener('change', (event) => {
+	selectedMovieDisplay.textContent = selectedMovieText.concat(movieSelector.options[movieSelector.selectedIndex].textContent);
+});
