@@ -1,0 +1,28 @@
+.container {
+	margin: 20px auto 0 auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: repeat(3, 200px);
+	background-color: #333333;
+	grid-gap: 15px;
+	grid-template-areas:
+		"section main main"
+		"section main main"
+		"section section section";
+}
+
+section {
+}
+
+.purple {
+	background-color: #b02aff;
+}
+
+.yellow {
+	grid-column: 2 / 4;
+	grid-row: 1 / 3;
+	background-color: #ffd62a;
+	border-color: #51d400;
+	border-width: 75px 130px;
+	border-style: solid;
+}
