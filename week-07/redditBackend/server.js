@@ -77,15 +77,8 @@ app.post('/posts', (req, res) => {
 
 });
 
-app.put('/posts/:id/upvote', (req, res) => {
-	let executeVote = modifySqlTable.updateScore(conn, req.params.id, 'upvote');
-
-	let queryModifier = ` WHERE posts.post_id = ${conn.escape(req.params.id)};`
-	let query = modifySqlTable.queryFromPostsTable(conn, res, queryModifier);
-});
-
-app.put('/posts/:id/downvote', (req, res) => {
-	let executeVote = modifySqlTable.updateScore(conn, req.params.id, 'downvote');
+app.put('/posts/:id/:vote', (req, res) => {
+	let executeVote = modifySqlTable.updateScore(conn, req.params.id, req.params.vote);
 
 	let queryModifier = ` WHERE posts.post_id = ${conn.escape(req.params.id)};`
 	let query = modifySqlTable.queryFromPostsTable(conn, res, queryModifier);
