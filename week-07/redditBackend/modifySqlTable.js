@@ -1,5 +1,20 @@
 'use strict';
 
+const queryFromPostsTable = (connection, response, queryModifier) => {
+	let sqlQuery = `SELECT posts.post_id, posts.title, posts.url, posts.timestamp, posts.score, users.username, votes.vote FROM posts
+		LEFT JOIN users on users.user_id = posts.owner
+		LEFT JOIN votes on votes.user_id = posts.owner`;
+
+	connection.query(sqlQuery.concat(queryModifier), function(err, rows){
+    if (err) {
+			console.error(err);
+		} else {
+  		response.set('Content-Type: application/json');
+      response.send(rows);
+    }
+	})
+}
+
 const insertIntoPostsTable = (connection, postData) => {
 		let sqlQuery = `INSERT INTO posts (title, url, timestamp, score, owner, vote) VALUES (
 		${connection.escape(postData.title)},\
@@ -8,7 +23,7 @@ const insertIntoPostsTable = (connection, postData) => {
 		${postData.score ? connection.escape(postData.score) : 0},\
 		${postData.owner ? connection.escape(postData.owner) : null},\
 		${postData.vote ? connection.escape(postData.vote) : null}\
-		);`
+		);`;
 		connection.query(sqlQuery, function(err, res){
 			err ? console.error(err) : console.log('The data has been written into the posts table.');
 		});
@@ -43,15 +58,15 @@ const updateScore = (connection, postId, upOrDown) => {
 	if (upOrDown === 'upvote') {
 		sqlQuery = `UPDATE posts\
 			SET score = score + 1\
-			WHERE post_id = ${postId};`
+			WHERE post_id = ${connection.escape(postId)};`
 	} else if (upOrDown === 'downvote') {
 		sqlQuery = `UPDATE posts\
 			SET score = score  - 1\
-			WHERE post_id = ${postId};`
+			WHERE post_id = ${connection.escape(postId)};`
 	}
 	connection.query(sqlQuery, function(err, res){
 		err ? console.error(err) : console.log('The score has been updated.');
 	});
 }
 
-module.exports = { insertIntoPostsTable, insertIntoUsersTable, insertIntoVotesTable, updateScore };
+module.exports = { queryFromPostsTable, insertIntoPostsTable, insertIntoUsersTable, insertIntoVotesTable, updateScore };
