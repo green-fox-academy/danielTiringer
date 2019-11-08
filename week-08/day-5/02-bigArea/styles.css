@@ -11,11 +11,9 @@
 		"section section section";
 }
 
-section {
-}
-
 .purple {
 	background-color: #b02aff;
+	grid-area: section;
 }
 
 .yellow {
@@ -25,4 +23,5 @@ section {
 	border-color: #51d400;
 	border-width: 75px 130px;
 	border-style: solid;
+	grid-area: main;
 }
