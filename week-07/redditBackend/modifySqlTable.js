@@ -54,16 +54,11 @@ const insertIntoVotesTable = (connection, voteData) => {
 };
 
 const updateScore = (connection, postId, upOrDown) => {
-	let sqlQuery = '';
-	if (upOrDown === 'upvote') {
-		sqlQuery = `UPDATE posts\
-			SET score = score + 1\
+	let updateNumber = 0;
+	upOrDown === 'upvote' ? updateNumber = 1 : updateNumber = -1;
+	let sqlQuery = `UPDATE posts\
+			SET score = score + ${updateNumber}\
 			WHERE post_id = ${connection.escape(postId)};`
-	} else if (upOrDown === 'downvote') {
-		sqlQuery = `UPDATE posts\
-			SET score = score  - 1\
-			WHERE post_id = ${connection.escape(postId)};`
-	}
 	connection.query(sqlQuery, function(err, res){
 		err ? console.error(err) : console.log('The score has been updated.');
 	});
