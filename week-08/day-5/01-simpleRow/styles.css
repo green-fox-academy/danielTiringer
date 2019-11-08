@@ -1,0 +1,22 @@
+.container {
+	margin: 20px auto 0 auto;
+	display: grid;
+	grid-template-columns: 1fr 3fr 1fr;
+	grid-template-rows: 270px;
+	background-color: #ebebeb;
+	border-top: solid 15px #b02aff;
+	border-left: solid 15px #b02aff;
+}
+
+section {
+	border-right: solid 15px #b02aff;
+	border-bottom: solid 15px #b02aff;
+}
+
+.main {
+	background-color: #51d400;
+}
+
+.side {
+	background-color: #ffd62a;
+}
