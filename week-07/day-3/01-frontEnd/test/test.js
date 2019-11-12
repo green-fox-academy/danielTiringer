@@ -90,6 +90,41 @@ test('Append-A function', function (t) {
     });
 });
 
+test('Do Until function', function (t) {
+  request(app)
+    .post('/dountil/sum')
+		.send( { } )
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .end(function (err, res) {
+			const expectedResult = { error: 'Please provide a number!' };
+      t.error(err, 'No error');
+      t.same(res.body, expectedResult, 'Adding no number results in an error message.');
+    });
+  request(app)
+    .post('/dountil/sum')
+		.send( { until: 5 } )
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end(function (err, res) {
+			const expectedResult = { result: 15 };
+      t.error(err, 'No error');
+      t.same(res.body, expectedResult, 'The sum function works.');
+    });
+  request(app)
+    .post('/dountil/factor')
+		.send( { until: 5 } )
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end(function (err, res) {
+			const expectedResult = { result: 120 };
+      t.error(err, 'No error');
+      t.same(res.body, expectedResult, 'The factor function works.');
+    	t.end();
+    });
+});
+
+
 test('Array Handler function', function (t) {
   request(app)
     .post('/arrays')

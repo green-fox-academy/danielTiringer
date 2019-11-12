@@ -5,21 +5,25 @@ const doUntil = (req, res) => {
 	if (isNaN(req.body.until)) {
 		doUntilOutput = {
 			'error': 'Please provide a number!',
-		}
+		};
+		res.status(400);
 	} else if (!isNaN(req.body.until) && req.params.function == 'sum') {
 		doUntilOutput = {
 			'result': addN(req.body.until)
-		}
+		};
+		res.status(200);
 	} else if (!isNaN(req.body.until) && req.params.function == 'factor') {
 		doUntilOutput = {
 			'result': factorio(req.body.until),
-		}
+		};
+		res.status(200);
 	} else {
 		doUntilOutput = {
-			'error': 'I don\'t know this action'
-		}
+			'error': `I don't know this action`
+		};
+		res.status(400);
 	}
-	res.send(doUntilOutput);
+	res.json(doUntilOutput);
 }
 
 function addN (n) {
