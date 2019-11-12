@@ -1,10 +1,8 @@
 'use strict';
 
 const appenda = (req, res) => {
-    let appendedResponse = {
-        "appended": `${req.params.appendTo}a`
-    }
-    res.send(appendedResponse);
+	res.status(200) &&
+ 	res.json( { appended: `${req.params.appendTo}a` } )
 }
 
 module.exports = appenda;
