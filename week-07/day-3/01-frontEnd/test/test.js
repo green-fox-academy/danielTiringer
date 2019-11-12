@@ -12,7 +12,7 @@ test('First test!', function (t) {
 test('Doubling function', function (t) {
   request(app)
     .get('/doubling')
-		.query({ input: 30 })
+		.query( { input: 30 } )
     .expect('Content-Type', /json/)
     .expect(200)
     .end(function (err, res) {
@@ -23,6 +23,18 @@ test('Doubling function', function (t) {
     });
 });
 
-
+test('Doubling function', function (t) {
+  request(app)
+    .get('/doubling')
+		.query( {} )
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end(function (err, res) {
+			let expectedResult = { error: 'Please provide an input!' };
+      t.error(err, 'No error');
+      t.same(res.body, expectedResult, 'Correct error message if no input provided.');
+      t.end();
+    });
+});
 
 
