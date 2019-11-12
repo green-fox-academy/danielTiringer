@@ -9,7 +9,6 @@ const sith = require('./sith');
 const arrayHandler = require('./arrayHandler');
 const app = express();
 const bodyParser = require('body-parser');
-const PORT = 8080;
 
 app.use(express.static('assets'));
 app.use(express.json());
@@ -18,7 +17,7 @@ const path = require('path');
 
 // home page
 app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, 'index.html'));
+	res.sendFile(path.join(__dirname, '../index.html'));
 });
 
 // doubling endpoint
@@ -39,7 +38,4 @@ app.post('/arrays', arrayHandler);
 // sith endpoint
 app.post('/sith', sith);
 
-// start express app on port 8080
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
-});
+module.exports = app;

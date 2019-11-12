@@ -4,7 +4,7 @@ const doubling = (req, res) => {
   let doublingOutput = {};
   if (!isNaN(req.query.input)) {
     doublingOutput = {
-      'received': req.query.input,
+      'received': parseInt(req.query.input),
       'result': req.query.input * 2
     };
   } else {
@@ -12,7 +12,8 @@ const doubling = (req, res) => {
       'error': 'Please provide an input!'
     };
   }
-  res.send(doublingOutput);
+	res.status(200);
+  res.json(doublingOutput);
 }
 
 module.exports = doubling;
