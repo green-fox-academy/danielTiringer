@@ -1,19 +1,40 @@
 body {
 	background-color: #3e94ec;
+	font-family: Arial, Helvetica, Sans-serif;
 }
 
 table {
+	border-collapse: collapse;
 	margin: 50px auto 0 auto;
-	border: 1px solid black;
+	width: 800px;
 }
 
 th {
 	background-color: #1b1e24;
+	border: 1px solid #9ea7af;
+	border-bottom: 5px;
+	border-radius: 10px 10px 0 0;
 	color: #d5dde5;
+	font-size: 30px;
+	height: 80px;
+	padding: 10px 0 10px 30px;
+	text-align: left;
+}
+
+tr {
+	background-color: #ebebeb;
+	color: #666a85;
+}
+
+tr:nth-child(odd) {
+	background-color: #ffffff;
 }
 
 td {
-	color: #666a85;
+	border: 1px solid #9ea7af;
+	font-size: 24px;
+	height: 60px;
+	padding: 10px 0 10px 30px;
 }
 
 .data-currency {
@@ -26,4 +47,20 @@ td {
 
 .data-currency:after {
 	content: '.00';
+}
+
+#top-left{
+	border-radius: 10px 0 0 0;
+}
+
+#top-right {
+	border-radius: 0 10px 0 0;
+}
+
+#bottom-left{
+	border-radius: 0 0 0 10px;
+}
+
+#bottom-right {
+	border-radius: 0 0 10px 0;
 }
