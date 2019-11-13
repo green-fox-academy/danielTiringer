@@ -1,0 +1,29 @@
+body {
+	background-color: #3e94ec;
+}
+
+table {
+	margin: 50px auto 0 auto;
+	border: 1px solid black;
+}
+
+th {
+	background-color: #1b1e24;
+	color: #d5dde5;
+}
+
+td {
+	color: #666a85;
+}
+
+.data-currency {
+
+}
+
+.data-currency:before {
+	content: '$';
+}
+
+.data-currency:after {
+	content: '.00';
+}
