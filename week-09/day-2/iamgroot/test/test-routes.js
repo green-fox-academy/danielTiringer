@@ -51,3 +51,22 @@ test('Yondu endpoint', (t) => {
       t.end();
     });
 });
+
+test('Rocket endpoint', (t) => {
+	request(app)
+		.get('/rocket')
+		.expect('Content-Type', /json/)
+		.expect(200)
+		.end(function (err, res) {
+			let expectedResponse = {
+  			"caliber25": 0,
+  			"caliber30": 0,
+  			"caliber50": 0,
+  			"shipstatus": "empty",
+  			"ready": false
+			}
+			t.error(err, 'No error');
+			t.same(res.body, expectedResponse, 'Correctly showing the ship\'s status')
+			t.end();
+		});
+});

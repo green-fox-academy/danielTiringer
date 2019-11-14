@@ -5,6 +5,17 @@ const app = express();
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
+const loadShip = require('./ship');
+
+let ship = {
+	"caliber25": 0,
+  "caliber30": 0,
+  "caliber50": 0,
+  "shipstatus": "empty",
+  "ready": false
+};
+
+
 app.get('/groot', (req, res) => {
 
 	let response = {};
@@ -38,5 +49,25 @@ app.get('/yondu', (req, res) => {
 
 });
 
+app.get('/rocket', (req, res) => {
+	res.status(200);
+	res.json(ship);
+});
+
+app.get('/rocket/fill', (req, res) => {
+	let statusReport = {};
+	let caliber = `caliber${req.query.caliber.substring(1)}`;
+	loadShip(caliber, req.query.amount, ship);
+
+	// console.log(ship);
+
+	statusReport.received = req.query.caliber;
+	statusReport.amount = req.query.amount;
+	statusReport.shipstatus = ship.shipstatus;
+	statusReport.ready = ship.ready;
+
+	res.status(200);
+	res.json(statusReport);
+});
 
 module.exports = app;
