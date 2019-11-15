@@ -12,7 +12,11 @@ const PORT = 3000;
 
 app.use(express.json());
 app.use(express.static(__dirname));
-app.use(bodyParser.json());
+app.use(bodyParser());
+app.use(function(req, res, next) {
+	req.header("Content-Type", "application/json");
+	next();
+});
 // app.use(bodyParser.urlencoded( { extended: false } ));
 
 // Import the parameters of the MySQL database
@@ -79,6 +83,7 @@ app.get('/posts', (req, res) => {
 });
 
 app.post('/posts', (req, res) => {
+	req.headers['content-type', 'application/json'];
 	console.log(req.body);
 	let postObject = {
 		title: req.body.title,
