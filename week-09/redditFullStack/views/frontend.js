@@ -15,10 +15,18 @@ const getPosts = () => {
 				generatePostBody(post);
 			});
     })
-//    .catch(err => console.log(`Error: ${err.message}`))
+    .catch(err => console.log(`Error: ${err.message}`))
 }
 
 getPosts();
+
+let goToNewPost = document.querySelector("#to-new-post");
+goToNewPost.addEventListener('click', (event) => {
+	window.location.assign('http://localhost:3000/newpost');
+});
+
+
+// Handling a new post
 
 const makeElementWithClass = (elementType, elementClass) => {
 	let newElement = document.createElement(elementType);
@@ -78,19 +86,26 @@ const generatePostBody = (post) => {
 
 	entirePost.appendChild(navigationArea);
 
+	let postSection = document.createElement('section');
+	postSection.setAttribute('class', 'post-section');
+
 	let postHeader = document.createElement('h2');
-	postHeader.textContent = post.title;
 	postHeader.setAttribute('class', 'post-header');
-	postHeader.setAttribute('href', post.url);
+
+	let postLink = document.createElement('a');
+	postLink.setAttribute('href', post.url);
+	postLink.textContent = post.title;
+
+	postHeader.appendChild(postLink);
 
 	let postAge = document.createElement('p');
 	postAge.setAttribute('class', 'post-age');
 	postAge.textContent = timeDifferenceCalculator(post.timestamp);
-	console.log(postAge.textContent);
 
+	postSection.appendChild(postHeader);
+	postSection.appendChild(postAge);
 
-	entirePost.appendChild(postHeader);
-	entirePost.appendChild(postAge);
+	entirePost.appendChild(postSection);
 
 	main.appendChild(entirePost);
 };

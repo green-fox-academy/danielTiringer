@@ -13,6 +13,7 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded( { extended: false } ));
 
 // Import the parameters of the MySQL database
 let conn = mysql.createConnection ({
@@ -67,23 +68,26 @@ app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/views/index.html');
 });
 
+app.get('/newpost', (req, res) => {
+	res.sendFile(__dirname + '/views/newpost.html');
+});
 
 app.get('/posts', (req, res) => {
 	let queryModifier = '';
 	req.query.username ? queryModifier = `WHERE users.username = ${conn.escape(req.query.username)}` : queryModifier = ';';
 	let query = modifySqlTable.queryFromPostsTable(conn, res, queryModifier);
-// 	res.sendFile(__dirname + '/views/index.html');
 });
 
 app.post('/posts', (req, res) => {
+	console.log(req.body);
 	let postObject = {
 		title: req.body.title,
 		url: req.body.url
 	};
 	let writePostsData = modifySqlTable.insertIntoPostsTable(conn, postObject);
 	let queryModifier =	` WHERE posts.post_id = (SELECT MAX(posts.post_id) FROM posts);`;
-	let query = modifySqlTable.queryFromPostsTable(conn, res, queryModifier);
 
+	res.redirect('http://localhost:3000');
 });
 
 app.put('/posts/:id/:vote', (req, res) => {
