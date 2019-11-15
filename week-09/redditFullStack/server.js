@@ -1,6 +1,6 @@
 'use strict';
 
-const server = require('./views/frontend');
+const server = require('./backend');
 const port = 3000;
 
 server.listen(port, () => {

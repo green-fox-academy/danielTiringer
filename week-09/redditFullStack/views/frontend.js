@@ -1,29 +1,24 @@
 'use strict';
 
-const express = require('express');
-const app = express();
-const bodyParser = require("body-parser");
-const fetch = require("node-fetch");
-app.use(bodyParser.json());
-
 // Getting the posts
-// const getPosts = () => {
-	fetch('http://secure-reddit.herokuapp.com/simple/posts',/* {
+const getPosts = () => {
+	fetch('http://localhost:3000/posts', {
     method:'GET',
     headers: {
       'Accept': 'application/json',
 		}
-	}*/	)
+	}	)
     .then(result => result.json())
     .then(result => {
-			result.posts.forEach(post => {
+			result.forEach(post => {
+				console.log(post);
 				generatePostBody(post);
 			});
     })
-    .catch(err => console.log(`Error: ${err.message}`))
-// }
+//    .catch(err => console.log(`Error: ${err.message}`))
+}
 
-// getPosts();
+getPosts();
 
 const makeElementWithClass = (elementType, elementClass) => {
 	let newElement = document.createElement(elementType);
@@ -31,9 +26,8 @@ const makeElementWithClass = (elementType, elementClass) => {
 	return newElement;
 };
 
-
 const timeDifferenceCalculator = (timestamp) => {
-	let timeDifference = Date.now() - timestamp;
+	let timeDifference = (Date.now() - timestamp) / 1000;
 
 	let returnText = '';
 	let plural = '';
@@ -42,17 +36,17 @@ const timeDifferenceCalculator = (timestamp) => {
 		if (timeDifference / 60 / 60 / 24 > 2) {
 			plural = 's';
 		};
-		returnText = `submitted ${timeDifference / 60 / 60 / 24} day${plural} ago`;
+		returnText = `submitted ${Math.floor(timeDifference / 60 / 60 / 24)} day${plural} ago`;
 	} else if (timeDifference / 60 / 60 >= 1) {
 		if (timeDifference / 60 / 60 > 2) {
 			plural = 's';
 		};
-		returnText = `submitted ${timeDifference / 60 / 60} hour${plural} ago`;
+		returnText = `submitted ${Math.floor(timeDifference / 60 / 60)} hour${plural} ago`;
 	} else if (timeDifference / 60 >= 1) {
 		if (timeDifference / 60 > 2) {
 			plural = 's';
 		};
-		returnText = `submitted ${timeDifference / 60} minute${plural} ago`;
+		returnText = `submitted ${Math.floor(timeDifference / 60)} minute${plural} ago`;
 	};
 	return returnText;
 }
@@ -63,7 +57,7 @@ const generatePostBody = (post) => {
 	let main = document.querySelector('main');
 
 	let entirePost = document.createElement('div');
-	post.setAttribute('class', 'post');
+	entirePost.setAttribute('class', 'post');
 
 	let navigationArea = document.createElement('nav');
 	navigationArea.setAttribute('class', 'voting');
@@ -98,7 +92,6 @@ const generatePostBody = (post) => {
 	entirePost.appendChild(postHeader);
 	entirePost.appendChild(postAge);
 
-	entirePost.appendChild(main);
+	main.appendChild(entirePost);
 };
 
-module.exports = app;
