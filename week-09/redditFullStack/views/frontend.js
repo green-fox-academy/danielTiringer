@@ -26,14 +26,6 @@ goToNewPost.addEventListener('click', (event) => {
 });
 
 
-// Handling a new post
-
-const makeElementWithClass = (elementType, elementClass) => {
-	let newElement = document.createElement(elementType);
-	newElement.setAttribute('class', elementClass);
-	return newElement;
-};
-
 const timeDifferenceCalculator = (timestamp) => {
 	let timeDifference = (Date.now() - timestamp) / 1000;
 
@@ -55,10 +47,18 @@ const timeDifferenceCalculator = (timestamp) => {
 			plural = 's';
 		};
 		returnText = `submitted ${Math.floor(timeDifference / 60)} minute${plural} ago`;
+	} else if (timeDifference / 60 < 1) {
+		returnText = 'submitted just now';
 	};
 	return returnText;
 }
 
+
+const makeElementWithClass = (elementType, elementClass) => {
+	let newElement = document.createElement(elementType);
+	newElement.setAttribute('class', elementClass);
+	return newElement;
+};
 
 
 const generatePostBody = (post) => {
@@ -78,7 +78,8 @@ const generatePostBody = (post) => {
 
 	let postScore = document.createElement('div');
 	postScore.setAttribute('class', 'post-score');
-	postScore.textcontent = post.score;
+	postScore.textContent = post.score;
+	console.log(post.score)
 
 	navigationArea.appendChild(upArrow);
 	navigationArea.appendChild(postScore);
