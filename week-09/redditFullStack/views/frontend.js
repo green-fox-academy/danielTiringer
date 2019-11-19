@@ -11,7 +11,6 @@ const getPosts = () => {
     .then(result => result.json())
     .then(result => {
 			result.forEach(post => {
-				console.log(post);
 				generatePostBody(post);
 			});
     })
@@ -23,11 +22,6 @@ getPosts();
 let goToNewPost = document.querySelector("#to-new-post");
 goToNewPost.addEventListener('click', (event) => {
 	window.location.assign('http://localhost:3000/newpost');
-});
-
-let goToEditPost = document.querySelector("#edit-post");
-goToNewPost.addEventListener('click', (event) => {
-	window.location.assign(`http://localhost:3000/editpost?id=${postId}`);
 });
 
 const timeDifferenceCalculator = (timestamp) => {
@@ -106,8 +100,14 @@ const generatePostBody = (post) => {
 	postAge.setAttribute('class', 'post-age');
 	postAge.textContent = timeDifferenceCalculator(post.timestamp);
 
+	let editPost = document.createElement('a');
+	editPost.setAttribute('class', 'edit-post');
+	editPost.setAttribute('href', `/editpost?id=${post.post_id}`);
+	editPost.textContent = 'edit post';
+
 	postSection.appendChild(postHeader);
 	postSection.appendChild(postAge);
+	postSection.appendChild(editPost);
 
 	entirePost.appendChild(postSection);
 

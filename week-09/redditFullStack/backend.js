@@ -101,12 +101,13 @@ app.post('/posts', (req, res) => {
 
 app.put('/posts', (req, res) => {
 	req.headers['content-type', 'application/json'];
-	console.log(req.body);
+	console.log(req);
 	let putObject = {
 		postId: req.params.id,
 		title: req.body.title,
 		url: req.body.url
 	};
+	console.log(putObject);
 	let updatePostData = modifySqlTable.updatePost(conn, putObject);
 	let queryModifier =	` WHERE posts.post_id = ${req.query.id} FROM posts);`;
 
