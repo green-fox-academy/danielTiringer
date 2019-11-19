@@ -79,7 +79,6 @@ const generatePostBody = (post) => {
 	let postScore = document.createElement('div');
 	postScore.setAttribute('class', 'post-score');
 	postScore.textContent = post.score;
-	console.log(post.score)
 
 	navigationArea.appendChild(upArrow);
 	navigationArea.appendChild(postScore);
