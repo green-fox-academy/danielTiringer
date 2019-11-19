@@ -27,19 +27,19 @@ let usersDummyData = [
 let postsDummyData = [
 	{
 		title: 'Dear Javascript',
-		url: 'www.google.com',
+		url: 'https://www.google.com',
 	},
 	{
 		title: 'I love SQL',
-		url: 'www.mysql.com',
+		url: 'https://www.mysql.com',
 	},
 	{
 		title: 'Why is linux the best OS?',
-		url: 'www.debianproject.com',
+		url: 'https://www.debianproject.com',
 	},
 	{
 		title: 'The benefits of drinking tea',
-		url: 'www.twinings.com',
+		url: 'https://www.twinings.com',
 	}
 ];
 
