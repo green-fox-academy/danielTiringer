@@ -12,12 +12,12 @@ const PORT = 3000;
 
 app.use(express.json());
 app.use(express.static(__dirname));
-app.use(bodyParser());
+// app.use(bodyParser());
 app.use(function(req, res, next) {
 	req.header("Content-Type", "application/json");
 	next();
 });
-// app.use(bodyParser.urlencoded( { extended: false } ));
+app.use(bodyParser.urlencoded( { extended: false } ));
 
 // Import the parameters of the MySQL database
 let conn = mysql.createConnection ({
