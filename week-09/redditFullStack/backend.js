@@ -88,7 +88,6 @@ app.get('/posts', (req, res) => {
 
 app.post('/posts', (req, res) => {
 	req.headers['content-type', 'application/json'];
-	console.log(req.body);
 	let postObject = {
 		title: req.body.title,
 		url: req.body.url
@@ -101,15 +100,13 @@ app.post('/posts', (req, res) => {
 
 app.put('/posts', (req, res) => {
 	req.headers['content-type', 'application/json'];
-	console.log(req);
 	let putObject = {
-		postId: req.params.id,
+		postId: req.body.post-id,
 		title: req.body.title,
 		url: req.body.url
 	};
 	console.log(putObject);
 	let updatePostData = modifySqlTable.updatePost(conn, putObject);
-	let queryModifier =	` WHERE posts.post_id = ${req.query.id} FROM posts);`;
 
 	res.redirect('http://localhost:3000');
 });
