@@ -76,6 +76,10 @@ app.get('/newpost', (req, res) => {
 	res.sendFile(__dirname + '/views/newpost.html');
 });
 
+app.get('/editpost', (req, res) => {
+	res.sendFile(__dirname + '/views/editpost.html');
+});
+
 app.get('/posts', (req, res) => {
 	let queryModifier = '';
 	req.query.username ? queryModifier = `WHERE users.username = ${conn.escape(req.query.username)}` : queryModifier = ';';
@@ -91,6 +95,20 @@ app.post('/posts', (req, res) => {
 	};
 	let writePostsData = modifySqlTable.insertIntoPostsTable(conn, postObject);
 	let queryModifier =	` WHERE posts.post_id = (SELECT MAX(posts.post_id) FROM posts);`;
+
+	res.redirect('http://localhost:3000');
+});
+
+app.put('/posts', (req, res) => {
+	req.headers['content-type', 'application/json'];
+	console.log(req.body);
+	let putObject = {
+		postId: req.params.id,
+		title: req.body.title,
+		url: req.body.url
+	};
+	let updatePostData = modifySqlTable.updatePost(conn, putObject);
+	let queryModifier =	` WHERE posts.post_id = ${req.query.id} FROM posts);`;
 
 	res.redirect('http://localhost:3000');
 });

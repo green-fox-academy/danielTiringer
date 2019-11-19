@@ -25,6 +25,10 @@ goToNewPost.addEventListener('click', (event) => {
 	window.location.assign('http://localhost:3000/newpost');
 });
 
+let goToEditPost = document.querySelector("#edit-post");
+goToNewPost.addEventListener('click', (event) => {
+	window.location.assign(`http://localhost:3000/editpost?id=${postId}`);
+});
 
 const timeDifferenceCalculator = (timestamp) => {
 	let timeDifference = (Date.now() - timestamp) / 1000;
