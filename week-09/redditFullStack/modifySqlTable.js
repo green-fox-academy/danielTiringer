@@ -10,6 +10,7 @@ const queryFromPostsTable = (connection, response, queryModifier) => {
 			console.error(err);
 		} else {
   		response.set('Content-Type: application/json');
+			response.status(200);
       response.send(rows);
     }
 	})

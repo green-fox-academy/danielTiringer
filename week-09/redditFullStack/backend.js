@@ -106,18 +106,21 @@ app.post('/posts/:id', (req, res) => {
 		url: req.body.url
 	};
 	let updatePostData = modifySqlTable.updatePost(conn, putObject);
-	res.status(200);
+	let queryModifier = ` WHERE posts.post_id = ${conn.escape(req.params.id)};`
+	let query = modifySqlTable.queryFromPostsTable(conn, res, queryModifier);
 	res.redirect('http://localhost:3000');
 });
 
 app.delete('/posts/:id', (req, res) => {
 	req.headers['content-type', 'application/json'];
 	let removePostData = modifySqlTable.removePost(conn, req.params.id);
+	let queryModifier = ` WHERE posts.post_id = ${conn.escape(req.params.id)};`
+	let query = modifySqlTable.queryFromPostsTable(conn, res, queryModifier);
 });
 
 app.put('/posts/:id/:vote', (req, res) => {
 	let executeVote = modifySqlTable.updateScore(conn, req.params.id, req.params.vote);
-
+	console.log('vote registered');
 	let queryModifier = ` WHERE posts.post_id = ${conn.escape(req.params.id)};`
 	let query = modifySqlTable.queryFromPostsTable(conn, res, queryModifier);
 });

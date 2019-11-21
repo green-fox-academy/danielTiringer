@@ -31,8 +31,14 @@ main.addEventListener('click', function (event) {
 	if (event.target.getAttribute('class').includes('arrow')) {
 		if (event.target.getAttribute('class').includes('up')){
 			console.log('up arrow');
+			fetch(`http://localhost:3000/posts/${postId}/upvote`, {
+				method: 'put'
+			});
 		} else if (event.target.getAttribute('class').includes('down')) {
 			console.log('down arrow');
+			fetch(`http://localhost:3000/posts/${postId}/downvote`, {
+				method: 'put'
+			});
 		}
 	} else if (event.target.getAttribute('class') === 'remove-post') {
 		let postToRemove = document.querySelector(`#post-${event.target.getAttribute('id')}`);
