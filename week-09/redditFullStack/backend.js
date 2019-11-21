@@ -88,27 +88,32 @@ app.get('/posts', (req, res) => {
 
 app.post('/posts', (req, res) => {
 	req.headers['content-type', 'application/json'];
-	let postObject = {
-		title: req.body.title,
-		url: req.body.url
-	};
-	let writePostsData = modifySqlTable.insertIntoPostsTable(conn, postObject);
-	let queryModifier =	` WHERE posts.post_id = (SELECT MAX(posts.post_id) FROM posts);`;
-
+	if (req.body.post_id) {
+		let putObject = {
+			postId: req.body.post_id,
+			title: req.body.title,
+			url: req.body.url
+		};
+		let updatePostData = modifySqlTable.updatePost(conn, putObject);
+	} else {
+		req.headers['content-type', 'application/json'];
+		let postObject = {
+			title: req.body.title,
+			url: req.body.url
+		};
+		let writePostsData = modifySqlTable.insertIntoPostsTable(conn, postObject);
+	}
 	res.redirect('http://localhost:3000');
 });
 
-app.put('/posts', (req, res) => {
+app.delete('/posts', (req, res) => {
+	console.log('it deletes');
+	console.log(req);
 	req.headers['content-type', 'application/json'];
-	let putObject = {
-		postId: req.body.post-id,
-		title: req.body.title,
-		url: req.body.url
-	};
 	console.log(putObject);
-	let updatePostData = modifySqlTable.updatePost(conn, putObject);
+	let removePostData = modifySqlTable.removePost(conn, req.params.id);
 
-	res.redirect('http://localhost:3000');
+	//res.redirect('http://localhost:3000');
 });
 
 app.put('/posts/:id/:vote', (req, res) => {

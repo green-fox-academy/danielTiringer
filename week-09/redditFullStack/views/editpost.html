@@ -14,9 +14,10 @@
 		<h2 class='post-to'>edit post</h2>
 	</header>
 	<div class="container">
-		<form class="new-post-form"  action="/posts" method="PUT">
+		<form class="new-post-form" method="POST" action="/posts">
+			<input type="hidden" name="_METHOD" value="PUT"></input>
 
-			<input type="hidden" id="post-id" name="post-id"></input>
+			<input type="hidden" id="post-id" name="post_id"></input>
 
 		  <label for="title">title</label>
    		<textarea type="text" id="title" name="title" required></textarea>
