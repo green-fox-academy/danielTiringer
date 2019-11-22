@@ -18,28 +18,45 @@ const getPosts = () => {
     })
     .catch(err => console.log(`Error: ${err.message}`))
 }
-
 getPosts();
 
+// Jumping to page where a new post can be entered
 let goToNewPost = document.querySelector("#to-new-post");
 goToNewPost.addEventListener('click', (event) => {
 	window.location.assign('http://localhost:3000/newpost');
 });
 
+// Handling up and downvotes, and post removal
 main.addEventListener('click', function (event) {
 	let postId = event.target.getAttribute('id');
+
 	if (event.target.getAttribute('class').includes('arrow')) {
-		if (event.target.getAttribute('class').includes('up')){
-			console.log('up arrow');
-			fetch(`http://localhost:3000/posts/${postId}/upvote`, {
-				method: 'put'
-			});
-		} else if (event.target.getAttribute('class').includes('down')) {
-			console.log('down arrow');
-			fetch(`http://localhost:3000/posts/${postId}/downvote`, {
-				method: 'put'
-			});
+		// Setting a few variables to make event handling compact
+		let postScore = document.querySelector(`[class='post-score'][id='${postId}']`)
+		let voteModifier = '';
+		let scoreModifier = 0;
+		let vote = (upOrDown) => {
+			if (upOrDown === 'up') {
+				(voteModifier = 'upvote') && (scoreModifier = 1)
+			} else if (upOwDown === 'down') {
+				(voteModifier = 'downvote') && (scoreModifier = -1)
+			}
 		}
+
+		// Vote event handling statements
+		!event.target.getAttribute('class').includes('voted') ?
+			(event.target.getAttribute('class').includes('up') ? vote('up') : vote('down'))
+			&& event.target.setAttribute('class', `${event.target.getAttribute('class')} voted`)
+		:
+			(event.target.getAttribute('class').includes('up') ? vote('down'): vote('up'))
+			&& event.target.setAttribute('class', `${event.target.getAttribute('class').slice(0, -6)}`);
+
+		postScore.textContent = parseInt(postScore.textContent) + scoreModifier;
+		fetch(`http://localhost:3000/posts/${postId}/${voteModifier}`, {
+			method: 'put'
+		});
+
+	// Post removal handling
 	} else if (event.target.getAttribute('class') === 'remove-post') {
 		let postToRemove = document.querySelector(`#post-${event.target.getAttribute('id')}`);
 		postToRemove.setAttribute('class', 'post-hidden');
@@ -48,13 +65,6 @@ main.addEventListener('click', function (event) {
 		})
 	}
 });
-
-
-
-
-
-
-
 
 const timeDifferenceCalculator = (timestamp) => {
 	let timeDifference = (Date.now() - timestamp) / 1000;
@@ -110,6 +120,7 @@ const generatePostBody = (post) => {
 
 	let postScore = document.createElement('div');
 	postScore.setAttribute('class', 'post-score');
+	postScore.setAttribute('id', post.post_id);
 	postScore.textContent = post.score;
 
 	navigationArea.appendChild(upArrow);
