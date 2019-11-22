@@ -36,22 +36,33 @@ main.addEventListener('click', function (event) {
 		let voteModifier = '';
 		let scoreModifier = 0;
 		let vote = (upOrDown) => {
-			if (upOrDown === 'up') {
+			upOrDown === 'up' ?
 				(voteModifier = 'upvote') && (scoreModifier = 1)
-			} else if (upOwDown === 'down') {
+			:
 				(voteModifier = 'downvote') && (scoreModifier = -1)
-			}
 		}
 
+		console.log(event.target.getAttribute('class').includes('up'));
 		// Vote event handling statements
-		!event.target.getAttribute('class').includes('voted') ?
-			(event.target.getAttribute('class').includes('up') ? vote('up') : vote('down'))
-			&& event.target.setAttribute('class', `${event.target.getAttribute('class')} voted`)
-		:
-			(event.target.getAttribute('class').includes('up') ? vote('down'): vote('up'))
-			&& event.target.setAttribute('class', `${event.target.getAttribute('class').slice(0, -6)}`);
+
+		if (!event.target.getAttribute('class').includes('voted')) {
+			if (event.target.getAttribute('class').includes('up')) {
+				vote('up')
+			} else {
+				vote('down')
+			}
+			(event.target.setAttribute('class', `${event.target.getAttribute('class')} voted`))
+		} else {
+			if (event.target.getAttribute('class').includes('up')) {
+				vote('down')
+			} else {
+				vote('up')
+			}
+			event.target.setAttribute('class', `${event.target.getAttribute('class').slice(0, -6)}`);
+		}
 
 		postScore.textContent = parseInt(postScore.textContent) + scoreModifier;
+		console.log(voteModifier);
 		fetch(`http://localhost:3000/posts/${postId}/${voteModifier}`, {
 			method: 'put'
 		});
