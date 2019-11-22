@@ -4,15 +4,17 @@ const express = require('express');
 const mysql = require('mysql');
 const env = require('dotenv').config();
 const bodyParser = require('body-parser');
-const createSqlTable = require('./createSqlTable');
-const modifySqlTable = require('./modifySqlTable');
-const dataToUseForTesting = require('./dataToUseForTesting');
+const queryFromPostsTable = require('./assets/sqlQueries/queryFromPostsTable');
+const insertIntoPostsTable = require('./assets/sqlQueries/insertIntoPostsTable');
+const updateScore = require('./assets/sqlQueries/updateScore');
+const updatePost = require('./assets/sqlQueries/updatePost');
+const removePost = require('./assets/sqlQueries/removePost');
+const resetSqlTables = require('./assets/sqlQueries/resetSqlTables');
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
 app.use(express.static(__dirname));
-// app.use(bodyParser());
 app.use(function(req, res, next) {
 	req.header("Content-Type", "application/json");
 	next();
@@ -32,41 +34,13 @@ conn.connect(function(err) {
   err ? console.log('Error connecting to the database.') : console.log('Connection established.');
 });
 
+// Uncomment if you want to reset the SQL tables and populate them with dummy data
+// let resetTables = resetSqlTables();
+
 // Render a Hello world for verification
 app.get('/hello/', (req, res) => {
 	res.send('Hello World!');
 });
-
-// Remove the MySQL tables
-// let removeVotesTable = createSqlTable.removeSqlTable(conn, 'votes');
-// let removeUsersTable = createSqlTable.removeSqlTable(conn, 'users');
-// let removePostsTable = createSqlTable.removeSqlTable(conn, 'posts');
-
-// Create the MySQL tables
-// conn.query(createSqlTable.createPostsSqlTable, function(err, res) {
-// 	err ? console.log('Unable to create the new table.') : console.log('The table is ready.');
-// });
-
-// conn.query(createSqlTable.createVotesSqlTable, function(err, res) {
-// 	err ? console.log('Unable to create the new table.') : console.log('The table is ready.');
-// });
-
-// conn.query(createSqlTable.createUsersSqlTable, function(err, res) {
-// 	err ? console.log('Unable to create the new table.') : console.log('The table is ready.');
-// });
-
-// Write dummy data into MySQL tables
-// let writeUserData = dataToUseForTesting.usersDummyData.forEach(user => {
-// 	modifySqlTable.insertIntoUsersTable(conn, user)
-// });
-
-// let writePostsData = dataToUseForTesting.postsDummyData.forEach(post => {
-// 	modifySqlTable.insertIntoPostsTable(conn, post);
-// });
-
-// let writeVotesData = dataToUseForTesting.votesDummyData.forEach(vote => {
-// 	modifySqlTable.insertIntoVotesTable(conn, vote);
-// });
 
 app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/views/index.html');
@@ -83,7 +57,7 @@ app.get('/editpost', (req, res) => {
 app.get('/posts', (req, res) => {
 	let queryModifier = '';
 	req.query.username ? queryModifier = `WHERE users.username = ${conn.escape(req.query.username)}` : queryModifier = ';';
-	let query = modifySqlTable.queryFromPostsTable(conn, res, queryModifier);
+	let query = queryFromPostsTable(conn, res, queryModifier);
 	res.status(200);
 });
 
@@ -93,7 +67,7 @@ app.post('/posts', (req, res) => {
 		title: req.body.title,
 		url: req.body.url
 	};
-	let writePostsData = modifySqlTable.insertIntoPostsTable(conn, postObject);
+	let writePostsData = insertIntoPostsTable(conn, postObject);
 	res.status(200);
 	res.redirect('http://localhost:3000');
 });
@@ -105,24 +79,23 @@ app.post('/posts/:id', (req, res) => {
 		title: req.body.title,
 		url: req.body.url
 	};
-	let updatePostData = modifySqlTable.updatePost(conn, putObject);
+	let updatePostData = updatePost(conn, putObject);
 	let queryModifier = ` WHERE posts.post_id = ${conn.escape(req.params.id)};`
-	let query = modifySqlTable.queryFromPostsTable(conn, res, queryModifier);
+	let query = queryFromPostsTable(conn, res, queryModifier);
 	res.redirect('http://localhost:3000');
 });
 
 app.delete('/posts/:id', (req, res) => {
 	req.headers['content-type', 'application/json'];
-	let removePostData = modifySqlTable.removePost(conn, req.params.id);
+	let removePostData = removePost(conn, req.params.id);
 	let queryModifier = ` WHERE posts.post_id = ${conn.escape(req.params.id)};`
-	let query = modifySqlTable.queryFromPostsTable(conn, res, queryModifier);
+	let query = queryFromPostsTable(conn, res, queryModifier);
 });
 
 app.put('/posts/:id/:vote', (req, res) => {
-	let executeVote = modifySqlTable.updateScore(conn, req.params.id, req.params.vote);
-	console.log('vote registered');
+	let executeVote = updateScore(conn, req.params.id, req.params.vote);
 	let queryModifier = ` WHERE posts.post_id = ${conn.escape(req.params.id)};`
-	let query = modifySqlTable.queryFromPostsTable(conn, res, queryModifier);
+	let query = queryFromPostsTable(conn, res, queryModifier);
 });
 
 module.exports = app;
