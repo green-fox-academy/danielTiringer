@@ -9,14 +9,21 @@ const trackLengthDisplay = document.querySelector('#total-length');
 const progressBar = document.querySelector('#progress');
 const volume = document.querySelector('#volume-bar');
 
-playPauseButton.addEventListener('click', (event) => {
-	togglePlayPause();
+const keyboardEvents = document.addEventListener('keydown', (event) => {
+	switch (event.code) {
+		case 'Space':
+			togglePlayPause();
+			break;
+		case 'Escape':
+			toggleMute();
+			break;
+		default:
+			break;
+	}
 });
 
-const keyboardEvents = document.addEventListener('keydown', (event) => {
-	if (event.code === 'Space') {
-		togglePlayPause();
-	}
+playPauseButton.addEventListener('click', (event) => {
+	togglePlayPause();
 });
 
 currentTrack.addEventListener('loadstart', (event) => {
