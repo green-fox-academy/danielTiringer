@@ -3,7 +3,9 @@
 const jsmediatags = require("jsmediatags");
 const fs = require('fs');
 
-fs.readdir('./assets/music', (err, files) => {
+let pathToMusicDirectory = './assets/music';
+
+fs.readdir(pathToMusicDirectory, (err, files) => {
 	if(err) {
 		console.log(err);
 	} else {
