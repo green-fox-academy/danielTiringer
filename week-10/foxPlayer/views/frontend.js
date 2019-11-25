@@ -8,8 +8,6 @@ const trackLengthDisplay = document.querySelector('#total-length');
 const progressBar = document.querySelector('#progress');
 const volume = document.querySelector('#volume-bar');
 
-console.log(currentTrack.volume);
-
 playPauseButton.addEventListener('click', (event) => {
 	togglePlayPause();
 });
@@ -18,7 +16,6 @@ const keyboardEvents = document.addEventListener('keydown', (event) => {
 	if (event.code === 'Space') {
 		togglePlayPause();
 	}
-	console.log(event.code);
 });
 
 currentTrack.addEventListener('loadstart', (event) => {
@@ -27,8 +24,6 @@ currentTrack.addEventListener('loadstart', (event) => {
 
 currentTrack.addEventListener('play', (event) => {
 	console.log(event);
-	console.log(event.target.currentTime);
-	console.log(event.target.muted);
 });
 
 currentTrack.addEventListener('ended', (event) => {
@@ -45,10 +40,11 @@ currentTrack.ontimeupdate = function () {
 	progressBar.value = Math.floor(currentTrack.currentTime);
 };
 
+progressBar.addEventListener('click', (event) => {
+	currentTrack.currentTime = event.target.value;
+});
+
 const setVolume = () => {
-	console.log(volume);
-	console.log(`The track's volume is ${currentTrack.volume}`);
-	console.log(`The volume's value is ${volume.value}`);
 	currentTrack.volume = volume.value;
 };
 
