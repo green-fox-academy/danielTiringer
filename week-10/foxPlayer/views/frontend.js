@@ -1,57 +1,77 @@
 'use strict';
 
-let track01 = document.querySelector('#track-01');
+let currentTrack = document.querySelector('#track-01');
 
 const playPauseButton = document.querySelector('.play-pause');
 const trackElapsedTimeDisplay = document.querySelector('#elapsed-time');
 const trackLengthDisplay = document.querySelector('#total-length');
+const progressBar = document.querySelector('#progress');
+const volume = document.querySelector('#volume-bar');
+
+console.log(currentTrack.volume);
 
 playPauseButton.addEventListener('click', (event) => {
-	console.log('You clicked on the pause/play button');
-	console.log(event);
 	togglePlayPause();
 });
 
-track01.addEventListener('loadstart', (event) => {
+const keyboardEvents = document.addEventListener('keydown', (event) => {
+	if (event.code === 'Space') {
+		togglePlayPause();
+	}
+	console.log(event.code);
+});
+
+currentTrack.addEventListener('loadstart', (event) => {
 	console.log(event);
 });
 
-track01.addEventListener('play', (event) => {
+currentTrack.addEventListener('play', (event) => {
 	console.log(event);
 	console.log(event.target.currentTime);
+	console.log(event.target.muted);
 });
 
-track01.addEventListener('ended', (event) => {
+currentTrack.addEventListener('ended', (event) => {
 	console.log(event);
 });
 
-track01.addEventListener('progress', (event) => {
-	console.log(event);
-	console.log(event.target.duration);
-	console.log(durationConverter(event.target.duration));
+currentTrack.addEventListener('progress', (event) => {
 	trackLengthDisplay.textContent = durationConverter(event.target.duration);
+	progressBar.max = Math.floor(event.target.duration);
 });
 
-track01.ontimeupdate = function () {
-	console.log(track01.currentTime);
-	trackElapsedTimeDisplay.textContent = durationConverter(track01.currentTime);
-}
+currentTrack.ontimeupdate = function () {
+	trackElapsedTimeDisplay.textContent = durationConverter(currentTrack.currentTime);
+	progressBar.value = Math.floor(currentTrack.currentTime);
+};
+
+const setVolume = () => {
+	console.log(volume);
+	console.log(`The track's volume is ${currentTrack.volume}`);
+	console.log(`The volume's value is ${volume.value}`);
+	currentTrack.volume = volume.value;
+};
+
+const toggleMute = () => {
+	currentTrack.muted = !currentTrack.muted;
+};
+
+const togglePlayPause = () => {
+	if (playPauseButton.getAttribute('id') == 'play') {
+	// if (currentTrack.paused || currentTrack.ended) {
+		playPauseButton.setAttribute('id', 'pause');
+		currentTrack.play();
+	} else {
+		playPauseButton.setAttribute('id', 'play');
+		currentTrack.pause();
+	}
+};
 
 const durationConverter = (duration) => {
 	let hours = Math.floor(duration / 3600);
 	let minutes = Math.floor(duration / 60);
 	let seconds = Math.round(duration % 60);
+	seconds / 10 < 1 ? seconds = '0' + seconds : seconds;
 
 	return hours > 0 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`
 };
-
-const togglePlayPause = () => {
-	if (playPauseButton.getAttribute('id') == 'play') {
-	//if (audio.paused || audio.ended) {
-		playPauseButton.setAttribute('id', 'pause');
-		//audio.play();
-	} else {
-		playPauseButton.setAttribute('id', 'play');
-		// audio.pause();
-	}
-}
