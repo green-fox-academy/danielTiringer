@@ -14,6 +14,7 @@
 }
 
 .logo {
+	background: url("./images/foxplayer.png") center left no-repeat;
 	border: 1px solid green;
 	grid-column: 1 / span 4;
 	grid-row: 1 / span 2;
@@ -39,6 +40,79 @@
 
 .controls {
 	border: 1px solid orange;
+	display: flex;
+	flex-direction: row;
 	grid-column: 1 / span 14;
 	grid-row: 8 / span 1;
+	margin: auto 0;
+}
+
+.icons {
+	display: flex;
+	flex-direction: row;
+}
+
+.control-button {
+	background-size: cover;
+	height: 15px;
+	margin: 0 10px;
+	position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+	width: 15px;
+}
+
+#rewind {
+	background: url("./icons/rewind.svg") center center no-repeat;
+}
+
+#play {
+	background: url("./icons/play.svg") center center no-repeat;
+}
+
+#pause {
+	background: url("./icons/pause.svg") center center no-repeat;
+}
+
+#forward {
+	background: url("./icons/forward.svg") center center no-repeat;
+}
+
+.time-area {
+	display: flex;
+	flex-direction: row;
+}
+
+.time {
+	border: 1px solid black;
+	height: 20px;
+	margin: auto 5px;
+	width: 40px;
+}
+
+#seek-bar {
+	border:1px solid #aaa;
+	color:#fff;
+	width:250px;
+	height:20px;
+}
+
+#progress {
+	background-color:#ff0000; // red
+	display:inline-block;
+	height:20px;
+	width: 250px;
+}
+
+#shuffle {
+	background: url("./icons/shuffle.svg") center center no-repeat;
+}
+
+.volume-area {
+	display: flex;
+	flex-direction: row;
+}
+
+#volume {
+	background: url("./icons/volume.svg") center center no-repeat;
 }
