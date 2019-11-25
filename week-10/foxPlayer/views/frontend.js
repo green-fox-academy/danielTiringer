@@ -1,6 +1,7 @@
 'use strict';
 
 let currentTrack = document.querySelector('#track-01');
+console.log(currentTrack);
 
 const playPauseButton = document.querySelector('.play-pause');
 const trackElapsedTimeDisplay = document.querySelector('#elapsed-time');
@@ -30,12 +31,14 @@ currentTrack.addEventListener('ended', (event) => {
 	console.log(event);
 });
 
+
 currentTrack.addEventListener('progress', (event) => {
-	trackLengthDisplay.textContent = durationConverter(event.target.duration);
+	console.log(event);
+	trackLengthDisplay.textContent = durationConverter(currentTrack.duration);
 	progressBar.max = Math.floor(event.target.duration);
 });
 
-currentTrack.ontimeupdate = function () {
+currentTrack.ontimeupdate = () => {
 	trackElapsedTimeDisplay.textContent = durationConverter(currentTrack.currentTime);
 	progressBar.value = Math.floor(currentTrack.currentTime);
 };
@@ -71,3 +74,4 @@ const durationConverter = (duration) => {
 
 	return hours > 0 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`
 };
+
