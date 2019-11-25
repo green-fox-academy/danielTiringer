@@ -1,12 +1,28 @@
 'use strict';
 
-var jsmediatags = require("jsmediatags");
+const jsmediatags = require("jsmediatags");
+const fs = require('fs');
 
-jsmediatags.read("./assets/music/Purple_Drift.mp3", {
-  onSuccess: function(tag) {
-    console.log(tag);
-  },
-  onError: function(error) {
-    console.log(':(', error.type, error.info);
-  }
+fs.readdir('./assets/music', (err, files) => {
+	if(err) {
+		console.log(err);
+	} else {
+		console.log(files);
+		files.forEach(file => {
+			readTagData(file);
+		});
+	}
 });
+
+const readTagData = (track) => {
+	jsmediatags.read(`./assets/music/${track}`, {
+		onSuccess: (tag) => {
+			console.log(tag.tags.title);
+			console.log(tag.tags.artist);
+			console.log(tag.tags.album);
+		},
+		onError: (error) => {
+			console.log('Unable to read the media tags of the selected file.', error.type, error.info);
+		}
+	});
+};
