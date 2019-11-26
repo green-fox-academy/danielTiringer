@@ -94,9 +94,10 @@ li:nth-child(odd) {
 	width: 15px;
 }
 
-.control-button {
+.control-button:hover {
 	cursor: pointer;
 }
+
 
 .time-area {
 	display: flex;
