@@ -62,6 +62,10 @@
 	width: 15px;
 }
 
+.control-button {
+	cursor: pointer;
+}
+
 #rewind {
 	background: url("./icons/rewind.svg") center center no-repeat;
 }
@@ -99,6 +103,7 @@
 
 #progress {
 	background-color:#ff0000; // red
+	cursor: pointer;
 	display:inline-block;
 	height:20px;
 	width: 250px;
@@ -115,4 +120,8 @@
 
 #volume {
 	background: url("./icons/volume.svg") center center no-repeat;
+}
+
+#volume-bar {
+	cursor: pointer;
 }
