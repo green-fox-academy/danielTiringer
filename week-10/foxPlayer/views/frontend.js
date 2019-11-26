@@ -9,8 +9,9 @@ const trackLengthDisplay = document.querySelector('#total-length');
 const progressBar = document.querySelector('#progress');
 const volume = document.querySelector('#volume-bar');
 
+let globalVolume = currentTrack.volume;
+
 const keyboardEvents = document.addEventListener('keydown', (event) => {
-	console.log(event.code);
 	switch (event.code) {
 		case 'Space':
 			togglePlayPause();
@@ -29,6 +30,13 @@ const keyboardEvents = document.addEventListener('keydown', (event) => {
 			break;
 		case 'KeyP':
 			jumpTrack(-1);
+			break;
+		case 'ArrowUp':
+			setVolume(0.1);
+			break;
+		case 'ArrowDown':
+			setVolume(-0.1);
+			break;
 		default:
 			break;
 	}
@@ -72,12 +80,25 @@ const jumpTrack = (direction) => {
 	direction === 1 ? console.log('Jumping to the next track') : console.log('Jumping to the previous track');
 };
 
-const setVolume = () => {
-	currentTrack.volume = volume.value;
+const setVolume = (amount) => {
+	if (!amount) {
+		currentTrack.volume = volume.value;
+		globalVolume = currentTrack.volume;
+	} else if ((amount > 0 && (globalVolume + amount) <= 1) || (amount < 0 && (globalVolume + amount) >= 0)) {
+		currentTrack.volume += amount;
+		globalVolume += amount;
+		volume.value = globalVolume;
+	}
 };
 
 const toggleMute = () => {
-	currentTrack.muted = !currentTrack.muted;
+	if (currentTrack.muted) {
+		currentTrack.muted = false;
+		volume.value = globalVolume;
+	} else {
+		currentTrack.muted = true;
+		volume.value = 0;
+	}
 };
 
 const togglePlayPause = () => {
