@@ -2,8 +2,10 @@
 
 const express = require('express');
 const mysql = require('mysql');
-const jsmediatags = require("jsmediatags");
+const jsmediatags = require('jsmediatags');
 const fs = require('fs');
+const resetSqlTables = require('./modules/resetSqlTables');
+
 const app = express();
 const PORT = 3000;
 
@@ -26,6 +28,9 @@ let conn = mysql.createConnection ({
 conn.connect(function(err) {
   err ? console.log('Error connecting to the database.') : console.log('Connection established.');
 });
+
+// Uncomment if you want to drop and recreate all MySQL tables
+const reset = resetSqlTables(conn);
 
 // Verifying server functionality
 app.get('/hello/', (req, res) => {
