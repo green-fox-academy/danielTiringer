@@ -7,6 +7,7 @@ const fs = require('fs');
 const resetSqlTables = require('./modules/resetSqlTables');
 const readFromSqlTable = require('./modules/readFromSqlTable');
 const addToSqlTable = require('./modules/addToSqlTable');
+const deleteFromSqlTable = require('./modules/deleteFromSqlTable');
 const app = express();
 const PORT = 3000;
 
@@ -52,9 +53,20 @@ app.post('/playlists', (req, res) => {
 		playListName: req.body.title,
 		system_list: 0
 	};
-	addToSqlTable(conn,res, 'playlists', playListObject);
+	addToSqlTable(conn, res, 'playlists', playListObject);
 });
 
+app.delete('/playlists/:id', (req, res) => {
+	if (req.params.id > 0 && req.params.id % 1 == 0 ) {
+		deleteFromSqlTable(conn, 'playlists', req.params.id);
+		res.status(200);
+		res.send();
+	} else {
+		console.log('Invalid ID.');
+		res.status(400);
+		res.send();
+	}
+});
 
 let pathToMusicDirectory = './assets/music';
 
@@ -62,7 +74,6 @@ fs.readdir(pathToMusicDirectory, (err, files) => {
 	if(err) {
 		console.log(err);
 	} else {
-		// console.log(files);
 		files.forEach(file => {
 			readTagData(file);
 		});
