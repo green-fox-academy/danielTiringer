@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-// const mysql = require('mysql');
+const mysql = require('mysql');
 const jsmediatags = require("jsmediatags");
 const fs = require('fs');
 const app = express();
@@ -12,6 +12,19 @@ app.use(express.static(__dirname));
 app.use(function(req, res, next) {
 	req.header("Content-Type", "application/json");
 	next();
+});
+
+// The parameters of the MySQL database
+let conn = mysql.createConnection ({
+  host: 'localhost',
+  user: 'generic',
+  password: 'password',
+  database: 'foxplayer',
+});
+
+// Connect the MySQL database
+conn.connect(function(err) {
+  err ? console.log('Error connecting to the database.') : console.log('Connection established.');
 });
 
 // Verifying server functionality
