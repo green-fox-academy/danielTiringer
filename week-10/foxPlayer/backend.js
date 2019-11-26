@@ -5,7 +5,8 @@ const mysql = require('mysql');
 const jsmediatags = require('jsmediatags');
 const fs = require('fs');
 const resetSqlTables = require('./modules/resetSqlTables');
-
+const readFromSqlTable = require('./modules/readFromSqlTable');
+const addToSqlTable = require('./modules/addToSqlTable');
 const app = express();
 const PORT = 3000;
 
@@ -43,6 +44,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/playlists', (req, res) => {
+	readFromSqlTable(conn, 'playlists');
 });
 
 
@@ -53,7 +55,7 @@ fs.readdir(pathToMusicDirectory, (err, files) => {
 	if(err) {
 		console.log(err);
 	} else {
-		console.log(files);
+		// console.log(files);
 		files.forEach(file => {
 			readTagData(file);
 		});
@@ -63,9 +65,9 @@ fs.readdir(pathToMusicDirectory, (err, files) => {
 const readTagData = (track) => {
 	jsmediatags.read(`./assets/music/${track}`, {
 		onSuccess: (tag) => {
-			console.log(tag.tags.title);
-			console.log(tag.tags.artist);
-			console.log(tag.tags.album);
+			// console.log(tag.tags.title);
+			// console.log(tag.tags.artist);
+			// console.log(tag.tags.album);
 		},
 		onError: (error) => {
 			console.log('Unable to read the media tags of the selected file.', error.type, error.info);
