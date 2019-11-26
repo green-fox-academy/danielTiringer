@@ -31,7 +31,7 @@ conn.connect(function(err) {
 });
 
 // Uncomment if you want to drop and recreate all MySQL tables
-const reset = resetSqlTables(conn);
+// const reset = resetSqlTables(conn);
 
 // Verifying server functionality
 app.get('/hello/', (req, res) => {
@@ -44,9 +44,16 @@ app.get('/', (req, res) => {
 });
 
 app.get('/playlists', (req, res) => {
-	readFromSqlTable(conn, 'playlists');
+	readFromSqlTable(conn, res, 'playlists');
 });
 
+app.post('/playlists', (req, res) => {
+	let playListObject = {
+		playListName: req.body.title,
+		system_list: 0
+	};
+	addToSqlTable(conn,res, 'playlists', playListObject);
+});
 
 
 let pathToMusicDirectory = './assets/music';

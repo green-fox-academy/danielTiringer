@@ -1,6 +1,6 @@
 'use strict';
 
-const readFromSqlTable = (connection, tableName, queryModifier) => {
+const readFromSqlTable = (connection, response, tableName) => {
 	let sqlQuery = '';
 	switch (tableName) {
 		case 'playlists':

@@ -1,6 +1,6 @@
 'use strict';
 
-const addToSqlTable = (connection, tableName, dataObject) => {
+const addToSqlTable = (connection, response, tableName, dataObject) => {
 	let sqlQuery = '';
 	switch (tableName) {
 		case 'playlists':
@@ -26,8 +26,15 @@ const addToSqlTable = (connection, tableName, dataObject) => {
 		default:
 			break;
 	};
-	connection.query(sqlQuery, function(err, res){
-		err ? console.error(err) : console.log('The data has been written into the posts table.');
+	connection.query(sqlQuery, function(err, rows){
+		if (err) {
+			console.error(err)
+		} else {
+			console.log('The data has been written into the posts table.');
+			response.set('Content-Type: application/json');
+			response.status(200);
+			response.send(rows);
+		}
 	});
 };
 
