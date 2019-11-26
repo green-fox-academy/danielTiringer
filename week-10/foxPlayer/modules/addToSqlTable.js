@@ -28,12 +28,13 @@ const addToSqlTable = (connection, response, tableName, dataObject) => {
 	};
 	connection.query(sqlQuery, function(err, rows){
 		if (err) {
-			console.error(err)
+			response.status(500);
+			response.send( { error: 'Error inserting into database' } );
 		} else {
 			console.log('The data has been written into the posts table.');
 			response.set('Content-Type: application/json');
 			response.status(200);
-			response.send(rows);
+			response.send( { id: rows.insertId } );
 		}
 	});
 };

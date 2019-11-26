@@ -18,6 +18,8 @@ app.use(function(req, res, next) {
 	next();
 });
 
+let pathToMusicDirectory = './assets/music';
+
 // The parameters of the MySQL database
 let conn = mysql.createConnection ({
   host: 'localhost',
@@ -34,11 +36,6 @@ conn.connect(function(err) {
 // Uncomment if you want to drop and recreate all MySQL tables
 // const reset = resetSqlTables(conn);
 
-// Verifying server functionality
-app.get('/hello/', (req, res) => {
-	res.send('Hello World!');
-});
-
 // Load main page
 app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/views/index.html');
@@ -49,48 +46,93 @@ app.get('/playlists', (req, res) => {
 });
 
 app.post('/playlists', (req, res) => {
-	let playListObject = {
-		playListName: req.body.title,
-		system_list: 0
-	};
-	addToSqlTable(conn, res, 'playlists', playListObject);
+	if (req.body.title) {
+		let playListObject = {
+			playListName: req.body.title,
+			system_list: 0
+		};
+		addToSqlTable(conn, res, 'playlists', playListObject);
+	} else {
+		res.status(400);
+		res.send( { error: 'No playlist name provided.' } );
+	}
 });
 
 app.delete('/playlists/:id', (req, res) => {
 	if (req.params.id > 0 && req.params.id % 1 == 0 ) {
-		deleteFromSqlTable(conn, 'playlists', req.params.id);
-		res.status(200);
-		res.send();
+		deleteFromSqlTable(conn, res, 'playlists', req.params.id);
 	} else {
-		console.log('Invalid ID.');
 		res.status(400);
-		res.send();
+		res.send( { error: 'Invalid ID.' } );
 	}
 });
 
-let pathToMusicDirectory = './assets/music';
-
-fs.readdir(pathToMusicDirectory, (err, files) => {
-	if(err) {
-		console.log(err);
+app.get('/playlist-tracks/', (req, res) => {
+	if (!req.params.id) {
+		console.log('Returning all tracks.');
+		getAllTracks(pathToMusicDirectory);
 	} else {
-		files.forEach(file => {
-			readTagData(file);
-		});
+		console.log(`Returning tracks for playlist ${req.params.id}.`);
 	}
 });
 
-const readTagData = (track) => {
-	jsmediatags.read(`./assets/music/${track}`, {
-		onSuccess: (tag) => {
-			// console.log(tag.tags.title);
-			// console.log(tag.tags.artist);
-			// console.log(tag.tags.album);
-		},
-		onError: (error) => {
-			console.log('Unable to read the media tags of the selected file.', error.type, error.info);
+app.post('/playlist-tracks/:id', (req, res) => {
+	let playListObject = {
+		playlist_id: req.params.id,
+		song_id: req.body.songId
+	};
+	addToSqlTable(conn, res, 'playlist-songs', playListObject);
+});
+
+
+async function getAllTracks (filepath) {
+	let trackList = [];
+
+	await readDirectory(filepath, trackList);
+
+	console.log(trackList);
+}
+
+const readDirectory = (filepath, array) => {
+	fs.readdir(filepath, (err, files) => {
+		if (err) {
+			console.log(err)
+		} else {
+			// console.log(files);
+			files.forEach(file => {
+				array.push(file);
+				console.log(file);
+			});
 		}
 	});
 };
+
+const readTagData = (filePath, fileName, array, track) => {
+	return new Promise((resolve, reject) => {
+		new jsmediatags.Reader(`${filePath}/${fileName}`)
+			.read({
+				onSuccess: (tag) => {
+					console.log('readtagdata kozben');
+					resolve(tag);
+				},
+				onError: (error) => {
+					console.log('Unable to read the media tags of the selected file.', error.type, error.info);
+					reject(error);
+				}
+		});
+	})
+		.then(tagInfo => {
+			// handle the onSuccess return
+			track.url = `${filePath}/{fileName}`;
+			track.title = tagInfo.tags.title;
+			track.artist = tagInfo.tags.artist;
+			track.album = tagInfo.tags.album;
+		})
+		.then(array.push(track))
+		.catch(error => {
+			// handle errors
+		});
+};
+
 
 module.exports = app;
