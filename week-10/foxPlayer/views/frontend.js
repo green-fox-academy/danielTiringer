@@ -10,6 +10,7 @@ const progressBar = document.querySelector('#progress');
 const volume = document.querySelector('#volume-bar');
 
 const keyboardEvents = document.addEventListener('keydown', (event) => {
+	console.log(event.code);
 	switch (event.code) {
 		case 'Space':
 			togglePlayPause();
@@ -17,13 +18,20 @@ const keyboardEvents = document.addEventListener('keydown', (event) => {
 		case 'Escape':
 			toggleMute();
 			break;
+		case 'ArrowRight':
+			seekTrack(5);
+			break;
+		case 'ArrowLeft':
+			seekTrack(-5);
+			break;
+		case 'KeyN':
+			jumpTrack(1);
+			break;
+		case 'KeyP':
+			jumpTrack(-1);
 		default:
 			break;
 	}
-});
-
-playPauseButton.addEventListener('click', (event) => {
-	togglePlayPause();
 });
 
 currentTrack.addEventListener('loadstart', (event) => {
@@ -53,6 +61,16 @@ currentTrack.ontimeupdate = () => {
 progressBar.addEventListener('click', (event) => {
 	currentTrack.currentTime = event.target.value;
 });
+
+
+const seekTrack = (time) => {
+	currentTrack.currentTime += time;
+	progressBar.value += time;
+};
+
+const jumpTrack = (direction) => {
+	direction === 1 ? console.log('Jumping to the next track') : console.log('Jumping to the previous track');
+};
 
 const setVolume = () => {
 	currentTrack.volume = volume.value;

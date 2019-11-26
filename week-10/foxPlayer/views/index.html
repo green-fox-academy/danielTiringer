@@ -25,9 +25,9 @@
 		</aside>
 		<nav class="controls">
 			<div class="icons">
-				<nav class="control-button" id="rewind"></nav>
-				<nav class="control-button play-pause" id="play"></nav>
-				<nav class="control-button" id="forward"></nav>
+				<nav class="control-button" id="rewind" onclick="jumpTrack(-1)"></nav>
+				<nav class="control-button play-pause" id="play" onclick="togglePlayPause()"></nav>
+				<nav class="control-button" id="forward" onclick="jumpTrack(1)"></nav>
 			</div>
 			<div class="time-area">
 				<a class="time" id="elapsed-time">0:00</a>
