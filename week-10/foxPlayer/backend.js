@@ -1,7 +1,33 @@
 'use strict';
 
+const express = require('express');
+// const mysql = require('mysql');
 const jsmediatags = require("jsmediatags");
 const fs = require('fs');
+const app = express();
+const PORT = 3000;
+
+app.use(express.json());
+app.use(express.static(__dirname));
+app.use(function(req, res, next) {
+	req.header("Content-Type", "application/json");
+	next();
+});
+
+// Verifying server functionality
+app.get('/hello/', (req, res) => {
+	res.send('Hello World!');
+});
+
+// Load main page
+app.get('/', (req, res) => {
+	res.sendFile(__dirname + '/views/index.html');
+});
+
+app.get('/playlists', (req, res) => {
+});
+
+
 
 let pathToMusicDirectory = './assets/music';
 
@@ -28,3 +54,5 @@ const readTagData = (track) => {
 		}
 	});
 };
+
+module.exports = app;
