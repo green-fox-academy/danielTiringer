@@ -12,33 +12,37 @@ const playlists = document.querySelector('#playlists');
 let globalVolume = currentTrack.volume;
 
 const keyboardEvents = document.addEventListener('keydown', (event) => {
-	switch (event.code) {
-		case 'Space':
-			togglePlayPause();
-			break;
-		case 'Escape':
-			toggleMute();
-			break;
-		case 'ArrowRight':
-			seekTrack(5);
-			break;
-		case 'ArrowLeft':
-			seekTrack(-5);
-			break;
-		case 'KeyN':
-			jumpTrack(1);
-			break;
-		case 'KeyP':
-			jumpTrack(-1);
-			break;
-		case 'ArrowUp':
-			setVolume(0.1);
-			break;
-		case 'ArrowDown':
-			setVolume(-0.1);
-			break;
-		default:
-			break;
+	if (event.target.nodeName != 'INPUT') {
+		switch (event.key) {
+			case ' ':
+				togglePlayPause();
+				break;
+			case 'Escape':
+				toggleMute();
+				break;
+			case 'ArrowRight':
+				seekTrack(5);
+				break;
+			case 'ArrowLeft':
+				seekTrack(-5);
+				break;
+			case 'n':
+			case 'N':
+				jumpTrack(1);
+				break;
+			case 'p':
+			case 'P':
+				jumpTrack(-1);
+				break;
+			case 'ArrowUp':
+				setVolume(0.1);
+				break;
+			case 'ArrowDown':
+				setVolume(-0.1);
+				break;
+			default:
+				break;
+		}
 	}
 });
 
@@ -195,7 +199,7 @@ async function addPlaylist () {
 	})
 		.then(response => response.json())
 		.then(data => {
-				generatePlayList( { playlist_id: data, title: newPlaylistName  } );
+				generatePlaylist( { playlist_id: data, title: newPlaylistName  } );
 			})
 
 	newPlaylistField.value = '';
