@@ -1,13 +1,13 @@
 'use strict';
 
 let currentTrack = document.querySelector('#track-01');
-console.log(currentTrack);
 
 const playPauseButton = document.querySelector('.play-pause');
 const trackElapsedTimeDisplay = document.querySelector('#elapsed-time');
 const trackLengthDisplay = document.querySelector('#total-length');
 const progressBar = document.querySelector('#progress');
 const volume = document.querySelector('#volume-bar');
+const playlists = document.querySelector('#playlists');
 
 let globalVolume = currentTrack.volume;
 
@@ -41,6 +41,25 @@ const keyboardEvents = document.addEventListener('keydown', (event) => {
 			break;
 	}
 });
+
+const getPlaylists = () => {
+	console.log('Starting the function.');
+	fetch('http://localhost:3000/playlists', {
+		method:'GET',
+		headers: {
+			'Accept': 'application/json',
+		}
+	})
+		.then(result => result.json())
+		.then(result => {
+			result.forEach(playlist => {
+				generatePlaylist(playlist);
+			});
+    })
+    .catch(err => console.log(`Error: ${err.message}`))
+};
+
+getPlaylists();
 
 currentTrack.addEventListener('loadstart', (event) => {
 	console.log(event);
@@ -119,5 +138,13 @@ const durationConverter = (duration) => {
 	seconds / 10 < 1 ? seconds = '0' + seconds : seconds;
 
 	return hours > 0 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`
+};
+
+const generatePlaylist = (playlist) => {
+	let listItem = document.createElement('li');
+	listItem.setAttribute('onclick', `loadPlaylist(${playlist.playlist_id})`);
+	listItem.textContent = playlist.title;
+
+	playlists.appendChild(listItem);
 };
 
