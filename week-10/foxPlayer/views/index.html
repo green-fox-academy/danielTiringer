@@ -19,13 +19,23 @@
 				<h3 id="current-artist-and-title"></h3>
 				<h4 id="current-album"></h4>
 			</div>
-			<nav class="control-button" id="add-to-playlist" onclick=""></nav>
+			<nav class="control-button" id="add-item" onclick=""></nav>
 			<nav class="control-button" id="add-to-favorites" onclick=""></nav>
 		</header>
 		<main class="playlist-area">
-			<h2>Playlists</h2>
+			<div id="playlist-header">
+				<h2>Playlists</h2>
+				<nav class="control-button" id="add-item" onclick="toggleAddFavorites()"></nav>
+			</div>
+			<div class="hidden" id="add-favorites-area">
+				<label id="favorites-label" for="text">Name of new playlist:</label>
+				<input type="text" id="add-favorites" name="text" required>
+				<nav class="control-button" id="add-item" onclick="addPlaylist()"></nav>
+			</div>
 			<ul id="playlists">
-				<li onclick="loadPlaylist(0)">All tracks</li>
+				<li>
+					<p onclick="loadPlaylist(0)">All tracks</p>
+				</li>
 			</ul>
 		</main>
 		<aside class="tracks">

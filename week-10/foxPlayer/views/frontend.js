@@ -43,7 +43,6 @@ const keyboardEvents = document.addEventListener('keydown', (event) => {
 });
 
 const getPlaylists = () => {
-	console.log('Starting the function.');
 	fetch('http://localhost:3000/playlists', {
 		method:'GET',
 		headers: {
@@ -89,6 +88,15 @@ progressBar.addEventListener('click', (event) => {
 	currentTrack.currentTime = event.target.value;
 });
 
+const toggleAddFavorites = () => {
+	let favoritesArea = document.querySelector('#add-favorites-area');
+
+	if (favoritesArea.getAttribute('class') == 'hidden') {
+		favoritesArea.setAttribute('class', '');
+	} else {
+		favoritesArea.setAttribute('class', 'hidden');
+	}
+};
 
 const seekTrack = (time) => {
 	currentTrack.currentTime += time;
@@ -142,9 +150,54 @@ const durationConverter = (duration) => {
 
 const generatePlaylist = (playlist) => {
 	let listItem = document.createElement('li');
-	listItem.setAttribute('onclick', `loadPlaylist(${playlist.playlist_id})`);
-	listItem.textContent = playlist.title;
+	listItem.setAttribute('id', `playlist-${playlist.playlist_id}`);
+
+	let paragraph = document.createElement('p');
+	paragraph.setAttribute('onclick', `loadPlaylist(${playlist.playlist_id})`);
+	paragraph.textContent = playlist.title;
+
+	listItem.appendChild(paragraph);
+
+	let deleteButton = document.createElement('nav');
+	deleteButton.setAttribute('class', 'control-button');
+	deleteButton.setAttribute('id', 'remove');
+	deleteButton.setAttribute('onclick', `removePlaylist(${playlist.playlist_id})`);
+
+	listItem.appendChild(deleteButton);
 
 	playlists.appendChild(listItem);
 };
 
+async function removePlaylist (playlistId) {
+	let playlistToRemove = document.querySelector(`#playlist-${playlistId}`);
+	playlists.removeChild(playlistToRemove);
+
+	let remove = await fetch(`http://localhost:3000/playlists/${playlistId}`, {
+		method: 'delete',
+		headers: {
+      'Content-Type': 'application/json'
+    }
+	})
+		.then(remove => remove.json())
+		.then(data => console.log(data))
+};
+
+async function addPlaylist () {
+	let newPlaylistField = document.querySelector('#add-favorites');
+	let newPlaylistName = newPlaylistField.value;
+
+	let response = await fetch('http://localhost:3000/playlists', {
+		method: 'post',
+		headers: {
+      'Content-Type': 'application/json'
+    },
+		body: JSON.stringify( { 'title': newPlaylistName } )
+	})
+		.then(response => response.json())
+		.then(data => {
+				generatePlayList( { playlist_id: data, title: newPlaylistName  } );
+			})
+
+	newPlaylistField.value = '';
+	toggleAddFavorites();
+}

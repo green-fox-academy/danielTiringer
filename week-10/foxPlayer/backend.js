@@ -4,6 +4,7 @@ const express = require('express');
 const mysql = require('mysql');
 const jsmediatags = require('jsmediatags');
 const fs = require('fs');
+const bodyParser = require('body-parser');
 const resetSqlTables = require('./modules/resetSqlTables');
 const readFromSqlTable = require('./modules/readFromSqlTable');
 const addToSqlTable = require('./modules/addToSqlTable');
@@ -17,6 +18,7 @@ app.use(function(req, res, next) {
 	req.header("Content-Type", "application/json");
 	next();
 });
+app.use(bodyParser.urlencoded( { extended: false } ));
 
 let pathToMusicDirectory = './assets/music';
 
@@ -46,6 +48,7 @@ app.get('/playlists', (req, res) => {
 });
 
 app.post('/playlists', (req, res) => {
+	console.log(req.body);
 	if (req.body.title) {
 		let playListObject = {
 			playListName: req.body.title,
@@ -63,7 +66,7 @@ app.delete('/playlists/:id', (req, res) => {
 		let deleteObject = {
 			playlistId: req.params.id
 		};
-		deleteFromSqlTable(conn, res, 'playlists', req.params.id);
+		deleteFromSqlTable(conn, res, 'playlists', deleteObject);
 	} else {
 		res.status(400);
 		res.send( { error: 'Invalid ID.' } );

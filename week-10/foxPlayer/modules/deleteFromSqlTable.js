@@ -2,7 +2,7 @@
 
 const deleteFromSqlTable = (connection, response, tableName, deleteObject) => {
 	let sqlQuery = '';
-	let removedId = '';
+	let removedId = 0;
 	switch (tableName) {
 		case 'playlists':
 			sqlQuery = `DELETE FROM playlists WHERE playlist_id = ${connection.escape(deleteObject.playlistId)} AND system_list != 1;`;
