@@ -9,16 +9,8 @@ const addToSqlTable = (connection, response, tableName, dataObject) => {
 				${connection.escape(dataObject.system_list)}
 			);`;
 			break;
-		case 'songs':
-			sqlQuery = `INSERT INTO songs (artist, title, duration, path) VALUES (
-				${connection.escape(dataObject.artist)},
-				${connection.escape(dataObject.title)},
-				${connection.escape(dataObject.duration)},
-				${connection.escape(dataObject.path)}
-			);`;
-			break;
-		case 'playlist-songs':
-			sqlQuery = `INSERT INTO playlist-songs (playlist_id, song_id) VALUES (
+		case 'tracks':
+			sqlQuery = `INSERT INTO tracks (playlist_id, song_id) VALUES (
 				${connection.escape(dataObject.playlist_id)},
 				${connection.escape(dataObject.song_id)}
 			);`;
