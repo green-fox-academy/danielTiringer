@@ -60,6 +60,9 @@ app.post('/playlists', (req, res) => {
 
 app.delete('/playlists/:id', (req, res) => {
 	if (req.params.id > 0 && req.params.id % 1 == 0 ) {
+		let deleteObject = {
+			playlistId: req.params.id
+		};
 		deleteFromSqlTable(conn, res, 'playlists', req.params.id);
 	} else {
 		res.status(400);
@@ -84,6 +87,18 @@ app.post('/playlist-tracks/:id', (req, res) => {
 	addToSqlTable(conn, res, 'playlist-songs', playListObject);
 });
 
+app.delete('/playlist-tracks/:playlist_id/:track_id', (req, res) => {
+	if ((req.params.playlist_id > 0 && req.params.playlist_id % 1 == 0) && (req.params.track_id > 0 && req.params.track_id % 1 == 0)) {
+		let deleteObject = {
+			playlistId: req.params.playlist_id,
+			trackId: req.params.track_id
+		};
+		deleteFromSqlTable(conn, res, 'tracks', deleteObject);
+	} else {
+		res.status(400);
+		res.send( { error: 'Invalid ID.' } );
+	};
+});
 
 async function getAllTracks (filepath) {
 	let trackList = [];
