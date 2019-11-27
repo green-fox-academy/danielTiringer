@@ -8,8 +8,25 @@ const trackLengthDisplay = document.querySelector('#total-length');
 const progressBar = document.querySelector('#progress');
 const volume = document.querySelector('#volume-bar');
 const playlists = document.querySelector('#playlists');
+const trackList = document.getElementById('track-list');
 
 let globalVolume = currentTrack.volume;
+
+const mouseEvent = document.addEventListener('wheel', (event) => {
+	console.log(event);
+	// Extra statements are needed to ensure scrolling fields are not triggering this.
+	switch(event.deltaY) {
+		case 53:
+			setVolume(-0.1);
+			console.log('down');
+			break;
+		case -53:
+			setVolume(0.1);
+			break;
+		default:
+			break;
+	}
+});
 
 const keyboardEvents = document.addEventListener('keydown', (event) => {
 	if (event.target.nodeName == 'INPUT' && event.key == 'Enter') {
@@ -174,6 +191,35 @@ const generatePlaylist = (playlist) => {
 	playlists.appendChild(listItem);
 };
 
+const generateSong = (song) => {
+	let listItem = document.createElement('li');
+	listItem.className = 'list-item';
+	listItem.id = `song.id`;
+
+	let audioItem = document.createElement('audio');
+	audioItem.id = `song.id`;
+
+	let sourceItem = document.createElement('source');
+	sourceItem.src = 'song.path';
+	sourceItem.type = 'audio/mp3';
+
+	let paragraphItem = document.createElement('p');
+	paragraphItem.textContent = `song.title`;
+
+	let timeItem = document.createElement('a');
+	timeItem.className = 'time'
+	timeItem.textContent = `durationConverter(song.duration)`;
+
+	audioItem.appendChild(sourceItem);
+
+	listItem.appendChild(audioItem);
+
+	trackList.appendChild(listItem);
+};
+
+let song = ''
+// generateSong(song);
+
 async function removePlaylist (playlistId) {
 	let playlistToRemove = document.querySelector(`#playlist-${playlistId}`);
 	playlists.removeChild(playlistToRemove);
@@ -184,8 +230,6 @@ async function removePlaylist (playlistId) {
       'Content-Type': 'application/json'
     }
 	})
-		.then(remove => remove.json())
-		.then(data => console.log(data))
 };
 
 async function addPlaylist () {

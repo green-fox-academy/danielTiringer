@@ -86,6 +86,10 @@ li > #remove {
 	grid-row: 2 / span 6;
 }
 
+.list-item {
+	height: 20px;
+}
+
 .controls {
 	border: 1px solid orange;
 	display: flex;
