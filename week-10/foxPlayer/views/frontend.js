@@ -12,7 +12,9 @@ const playlists = document.querySelector('#playlists');
 let globalVolume = currentTrack.volume;
 
 const keyboardEvents = document.addEventListener('keydown', (event) => {
-	if (event.target.nodeName != 'INPUT') {
+	if (event.target.nodeName == 'INPUT' && event.key == 'Enter') {
+		addPlaylist();
+	} else if (event.target.nodeName != 'INPUT') {
 		switch (event.key) {
 			case ' ':
 				togglePlayPause();
@@ -199,7 +201,7 @@ async function addPlaylist () {
 	})
 		.then(response => response.json())
 		.then(data => {
-				generatePlaylist( { playlist_id: data, title: newPlaylistName  } );
+				generatePlaylist( { playlist_id: data.id, title: newPlaylistName  } );
 			})
 
 	newPlaylistField.value = '';
