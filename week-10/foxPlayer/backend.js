@@ -2,7 +2,7 @@
 
 const express = require('express');
 const mysql = require('mysql');
-const jsmediatags = require('jsmediatags');
+const mm = require('musicmetadata');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const resetSqlTables = require('./modules/resetSqlTables');
@@ -21,6 +21,7 @@ app.use(function(req, res, next) {
 app.use(bodyParser.urlencoded( { extended: false } ));
 
 let pathToMusicDirectory = './assets/music';
+let musicLibrary = [];
 
 // The parameters of the MySQL database
 let conn = mysql.createConnection ({
@@ -48,7 +49,6 @@ app.get('/playlists', (req, res) => {
 });
 
 app.post('/playlists', (req, res) => {
-	console.log(req.body);
 	if (req.body.title) {
 		let playListObject = {
 			playListName: req.body.title,
@@ -111,46 +111,44 @@ async function getAllTracks (filepath) {
 	console.log(trackList);
 }
 
-const readDirectory = (filepath, array) => {
-	fs.readdir(filepath, (err, files) => {
+async function readDirectory (filePath) {
+	let response = await fs.readdir(filePath, (err, files) => {
 		if (err) {
 			console.log(err)
 		} else {
 			// console.log(files);
 			files.forEach(file => {
-				array.push(file);
-				console.log(file);
+				let newPromise = readTagData(filePath, file)
+					.then((result) => {
+						let object = {
+							'title': result.title,
+							'artist': result.artist,
+							'album': result.album,
+							'duration': result.duration
+						}
+						musicLibrary.push(object);
+					})
 			});
 		}
-	});
-};
-
-const readTagData = (filePath, fileName, array, track) => {
-	return new Promise((resolve, reject) => {
-		new jsmediatags.Reader(`${filePath}/${fileName}`)
-			.read({
-				onSuccess: (tag) => {
-					console.log('readtagdata kozben');
-					resolve(tag);
-				},
-				onError: (error) => {
-					console.log('Unable to read the media tags of the selected file.', error.type, error.info);
-					reject(error);
-				}
-		});
 	})
-		.then(tagInfo => {
-			// handle the onSuccess return
-			track.url = `${filePath}/{fileName}`;
-			track.title = tagInfo.tags.title;
-			track.artist = tagInfo.tags.artist;
-			track.album = tagInfo.tags.album;
-		})
-		.then(array.push(track))
-		.catch(error => {
-			// handle errors
+};
+readDirectory(pathToMusicDirectory);
+
+let promise1 = readTagData(pathToMusicDirectory, 'Ars_Sonor_-_02_-_Never_Give_Up.mp3')
+	// .then(result => console.log(result))
+
+function readTagData (filePath, fileName) {
+	return new Promise((resolve, reject) => {
+		let readStream = fs.createReadStream(`${filePath}/${fileName}`);
+		let parser = mm(readStream, { duration: true }, function (err, metadata) {
+			if (err) throw err;
+			resolve(metadata);
 		});
+		// readStream.close();
+	})
 };
 
+//create a new parser from a node ReadStream
 
+//listen for the metadata event
 module.exports = app;
