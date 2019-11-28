@@ -13,18 +13,19 @@ const trackList = document.getElementById('track-list');
 let globalVolume = currentTrack.volume;
 
 const mouseEvent = document.addEventListener('wheel', (event) => {
-	console.log(event);
+	const mainCheck = (element) => element.nodeName === 'MAIN';
+	if (!event.path.some(tag => tag.nodeName === 'MAIN')) {
 	// Extra statements are needed to ensure scrolling fields are not triggering this.
-	switch(event.deltaY) {
-		case 53:
-			setVolume(-0.1);
-			console.log('down');
-			break;
-		case -53:
-			setVolume(0.1);
-			break;
-		default:
-			break;
+		switch(event.deltaY) {
+			case 53:
+				setVolume(-0.1);
+				break;
+			case -53:
+				setVolume(0.1);
+				break;
+			default:
+				break;
+		}
 	}
 });
 
