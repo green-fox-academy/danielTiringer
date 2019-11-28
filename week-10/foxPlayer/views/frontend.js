@@ -13,9 +13,7 @@ const trackList = document.getElementById('track-list');
 let globalVolume = currentTrack.volume;
 
 const mouseEvent = document.addEventListener('wheel', (event) => {
-	const mainCheck = (element) => element.nodeName === 'MAIN';
 	if (!event.path.some(tag => tag.nodeName === 'MAIN')) {
-	// Extra statements are needed to ensure scrolling fields are not triggering this.
 		switch(event.deltaY) {
 			case 53:
 				setVolume(-0.1);
@@ -182,12 +180,14 @@ const generatePlaylist = (playlist) => {
 
 	listItem.appendChild(paragraph);
 
-	let deleteButton = document.createElement('nav');
-	deleteButton.setAttribute('class', 'control-button');
-	deleteButton.setAttribute('id', 'remove');
-	deleteButton.setAttribute('onclick', `removePlaylist(${playlist.playlist_id})`);
+	if (playlist.system_list == 0) {
+		let deleteButton = document.createElement('nav');
+		deleteButton.setAttribute('class', 'control-button');
+		deleteButton.setAttribute('id', 'remove');
+		deleteButton.setAttribute('onclick', `removePlaylist(${playlist.playlist_id})`);
 
-	listItem.appendChild(deleteButton);
+		listItem.appendChild(deleteButton);
+	}
 
 	playlists.appendChild(listItem);
 };
