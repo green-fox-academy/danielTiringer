@@ -21,7 +21,6 @@ app.use(function(req, res, next) {
 app.use(bodyParser.urlencoded( { extended: false } ));
 
 let pathToMusicDirectory = './assets/music';
-let musicLibrary = [];
 
 // The parameters of the MySQL database
 let conn = mysql.createConnection ({
@@ -75,8 +74,8 @@ app.delete('/playlists/:id', (req, res) => {
 
 app.get('/playlist-tracks/', (req, res) => {
 	if (!req.params.id) {
-		console.log('Returning all tracks.');
-		getAllTracks(pathToMusicDirectory);
+		createJSON()
+			.then(result => res.send(result))
 	} else {
 		console.log(`Returning tracks for playlist ${req.params.id}.`);
 	}
@@ -103,39 +102,31 @@ app.delete('/playlist-tracks/:playlist_id/:track_id', (req, res) => {
 	};
 });
 
-async function getAllTracks (filepath) {
-	let trackList = [];
-
-	await readDirectory(filepath, trackList);
-
-	console.log(trackList);
+function createJSON () {
+	let musicLibrary = []
+	readDirectory(pathToMusicDirectory).forEach(fileName => {
+		musicLibrary.push(
+			new Promise (async function (resolve, reject) {
+				let tagData = await readTagData(pathToMusicDirectory, fileName)
+				let result = {
+					id: tagData.id,
+					title: tagData.title,
+					artist: tagData.artist[0],
+					duration: tagData.duration,
+					path: `${pathToMusicDirectory}/${fileName}`
+				};
+				resolve(result);
+			})
+		)
+	})
+	return Promise.all(musicLibrary)
 }
 
-async function readDirectory (filePath) {
-	let response = await fs.readdir(filePath, (err, files) => {
-		if (err) {
-			console.log(err)
-		} else {
-			// console.log(files);
-			files.forEach(file => {
-				let newPromise = readTagData(filePath, file)
-					.then((result) => {
-						let object = {
-							'title': result.title,
-							'artist': result.artist,
-							'album': result.album,
-							'duration': result.duration
-						}
-						musicLibrary.push(object);
-					})
-			});
-		}
-	})
-};
-readDirectory(pathToMusicDirectory);
 
-let promise1 = readTagData(pathToMusicDirectory, 'Ars_Sonor_-_02_-_Never_Give_Up.mp3')
-	// .then(result => console.log(result))
+function readDirectory (filePath) {
+	let response = fs.readdirSync(filePath);
+	return response;
+};
 
 function readTagData (filePath, fileName) {
 	return new Promise((resolve, reject) => {
@@ -144,11 +135,7 @@ function readTagData (filePath, fileName) {
 			if (err) throw err;
 			resolve(metadata);
 		});
-		// readStream.close();
 	})
 };
 
-//create a new parser from a node ReadStream
-
-//listen for the metadata event
 module.exports = app;
