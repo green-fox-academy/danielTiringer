@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="./../assets/styles.css">
+  <title>Fox Player</title>
+</head>
+<body>
+	<div class="container">
+		<div class="logo-area">
+			<nav id="fox-image"></nav>
+			<h1 class="notification"></h1>
+		</div>
+		<header class="header">
+			<img id="current-artwork">
+			<div id="current-information">
+				<h3 id="current-artist-and-title"></h3>
+				<h4 id="current-album"></h4>
+			</div>
+			<nav class="control-button" id="add-item" onclick=""></nav>
+			<nav class="control-button" id="add-to-favorites" onclick=""></nav>
+		</header>
+		<main class="playlist-area">
+			<div id="playlist-header">
+				<h2>Playlists</h2>
+				<nav class="control-button" id="add-item" onclick="toggleAddFavorites()"></nav>
+			</div>
+			<div class="hidden" id="add-favorites-area">
+				<label id="favorites-label" for="text">Name of new playlist:</label>
+				<input type="text" id="add-favorites" name="text" required>
+				<nav class="control-button" id="add-item" onclick="addPlaylist()"></nav>
+			</div>
+			<ul id="playlists">
+				<li>
+					<p onclick="loadPlaylist(0)">All tracks</p>
+				</li>
+			</ul>
+		</main>
+		<aside class="tracks">
+			<ol id="track-list">
+			</ol>
+		</aside>
+		<nav class="controls">
+			<audio id="audio" src="./../assets/music/Organoid_-_09_-_Purple_Drift.mp3" type="audio/mp3">
+			</audio>
+			<div class="icons">
+				<nav class="control-button" id="rewind" onclick="jumpTrack(-1)"></nav>
+				<nav class="control-button play-pause" id="play" onclick="togglePlayPause()"></nav>
+				<nav class="control-button" id="forward" onclick="jumpTrack(1)"></nav>
+			</div>
+			<div class="time-area">
+				<a class="time" id="elapsed-time">0:00</a>
+				<input min="0" max="1" step="1" type="range" id="progress">
+				<a class="time" id="total-length"></a>
+			</div>
+			<div class="icons">
+				<nav class="control-button" id="shuffle"></nav>
+			</div>
+			<div class="volume-area">
+				<nav class="control-button" id="volume" onclick="toggleMute()"></nav>
+				<input id="volume-bar" min="0" max="1" step="0.1" value="1" type="range" onchange="setVolume()" />
+				<a id="volume-bar"></a>
+			</div>
+		</nav>
+	</div>
+	<script src="./views/frontend.js"></script>
+</body>
+</html>
