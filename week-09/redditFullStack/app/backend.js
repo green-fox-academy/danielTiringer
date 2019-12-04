@@ -8,7 +8,6 @@ const createSqlTable = require('./createSqlTable');
 const modifySqlTable = require('./modifySqlTable');
 const dataToUseForTesting = require('./dataToUseForTesting');
 const app = express();
-const PORT = 3000;
 
 app.use(express.json());
 app.use(express.static(__dirname));
@@ -21,15 +20,20 @@ app.use(function(req, res, next) {
 
 // Import the parameters of the MySQL database
 let conn = mysql.createConnection ({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
+	host: 'db',
+	port: '3306',
+	user: 'generic',
+	password: 'password',
+	database: 'reddit'
+	//host: 'localhost',
+	//user: 'generic',
+	//password: 'password',
+	//database: 'reddit'
 });
 
 // Connect the MySQL database
 conn.connect(function(err) {
-  err ? console.log('Error connecting to the database.') : console.log('Connection established.');
+	err ? console.log('Error connecting to the database.') : console.log('Connection established.');
 });
 
 // Render a Hello world for verification

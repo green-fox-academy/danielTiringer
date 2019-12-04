@@ -1,0 +1,28 @@
+version: '3'
+services:
+  mysql:
+    build: ./db
+    container_name: mysql
+    environment:
+      DATABASE_HOST: db
+      MYSQL_DATABASE: reddit
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: generic
+      MYSQL_PASSWORD: password
+    ports:
+      - '3307:3306'
+  app:
+    container_name: node
+    network_mode: "host"
+    build: ./app
+    depends_on:
+      - mysql
+    environment:
+      DATABASE_HOST: db
+      MYSQL_DATABASE: reddit
+      MYSQL_PORT: 3306
+      MYSQL_USER: generic
+      MYSQL_PASSWORD: password
+    ports:
+      - '3000:3000'
+    restart: on-failure
