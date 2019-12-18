@@ -1,0 +1,25 @@
+{
+  "name": "danieltiringer",
+  "version": "1.0.0",
+  "description": "[This is Daniel's Git-It program repo](https://github.com/danielTiringer/hello-world)<br/> [This is Daniel's day-3 practice](https://github.com/danielTiringer/git-lesson-repository)<br/> [My Linux blog!](https://danieltiringer.github.io)<br/> [The Linux blog's repo](https://github.com/danielTiringer/danielTiringer.github.io)<br/>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/green-fox-academy/danielTiringer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/green-fox-academy/danielTiringer/issues"
+  },
+  "homepage": "https://github.com/green-fox-academy/danielTiringer#readme",
+  "dependencies": {
+    "@types/node": "^12.12.20",
+    "express": "^4.17.1",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.3"
+  }
+}
