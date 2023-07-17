@@ -14,6 +14,6 @@
     "express": "^4.17.1",
     "jsmediatags": "^3.9.3",
     "musicmetadata": "^2.0.5",
-    "mysql": "^2.17.1"
+    "mysql": "^2.18.0"
   }
 }
